@@ -1,0 +1,79 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:focusableInTouchMode="true"
+    android:orientation="vertical"
+    android:paddingLeft="30dp"
+    android:paddingRight="30dp">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="60dp"
+        android:layout_marginRight="60dp"
+        android:adjustViewBounds="true"
+        android:cropToPadding="true"
+        android:src="@drawable/armchair" />
+
+    <TextView
+        style="@style/viewParent"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:text="WELCOME BACK"
+        android:textColor="@color/blackTextColor"
+        android:textSize="@dimen/headerTextSize"
+        android:textStyle="bold" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputEmail"
+        style="@style/parent.TextLayout"
+        android:layout_marginTop="@dimen/signup_text_margin_top">
+
+        <EditText
+            android:id="@+id/editTextEmail"
+            style="@style/modifiedEditText"
+            android:hint="Username"
+            android:inputType="textEmailAddress"
+            android:maxLines="1" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputPassword"
+        style="@style/parent.TextLayout"
+        android:layout_marginTop="@dimen/signup_text_margin_top">
+
+        <EditText
+            android:id="@+id/editTextPassword"
+            style="@style/modifiedEditText"
+            android:hint="Password"
+            android:inputType="textPassword"
+            android:maxLines="1" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_login"
+        android:layout_width="285dp"
+        android:layout_height="50dp"
+        android:background="@color/blackTextColor"
+        android:text="LOGIN"
+        android:layout_marginTop="40dp"
+        android:layout_marginLeft="34dp"
+        android:layout_marginRight="60dp"
+        android:adjustViewBounds="true"
+        android:cropToPadding="true"
+        android:textColor="#ffffff" />
+
+
+    <TextView
+        android:id="@+id/tv_sign_up_now"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Don't Have an Account?\nSign Up Now."
+        android:textAlignment="center"
+        android:layout_marginTop="30dp"
+        android:textColor="@color/blackTextColor"
+        android:textSize="12sp"
+        android:textStyle="bold" />
+
+
+</LinearLayout>
