@@ -9,12 +9,11 @@
 
     <ImageView
         android:id="@+id/img_product_detail"
-        android:layout_width="370dp"
+        android:layout_width="match_parent"
         android:layout_height="290dp"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="4dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.487"
-
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:srcCompat="@tools:sample/avatars" />

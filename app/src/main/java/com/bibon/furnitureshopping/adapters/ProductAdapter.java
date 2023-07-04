@@ -1,6 +1,7 @@
 package com.bibon.furnitureshopping.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bibon.furnitureshopping.R;
+import com.bibon.furnitureshopping.activities.LandingActivity;
+import com.bibon.furnitureshopping.models.Cart;
+import com.bibon.furnitureshopping.models.CartList;
 import com.bibon.furnitureshopping.models.Product;
 import com.squareup.picasso.Picasso;
 
@@ -18,6 +22,7 @@ public class ProductAdapter extends BaseAdapter {
     private Context context;
     private int layout;
     private List<Product> productList;
+    private CartList cartList;
 
     public ProductAdapter(Context context, int layout, List<Product> productList) {
         this.context = context;
@@ -68,7 +73,12 @@ public class ProductAdapter extends BaseAdapter {
         holder.imgAddToCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                System.out.println(product.getProductName() + " " + product.getPrice());
+//                if (cartList == null) {
+//                    cartList = new CartList();
+//                }
+//                Cart cart = new Cart(product.getProductName(), product.getPrice(), product.getQuantity(), product.getImg());
+//                cartList.getCartList().add(cart);
+
             }
         });
 

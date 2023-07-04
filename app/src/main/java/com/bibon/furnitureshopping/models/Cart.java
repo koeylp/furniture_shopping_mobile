@@ -6,6 +6,9 @@ public class Cart {
     private int cartQuantity;
     private String img;
 
+    public Cart() {
+    }
+
     public Cart(String productName, double price, int cartQuantity, String img) {
         this.productName = productName;
         this.price = price;
