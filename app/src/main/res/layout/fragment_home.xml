@@ -5,9 +5,17 @@
     android:layout_height="match_parent"
     tools:context=".fragments.HomeFragment">
 
-
-    <ListView
-        android:id="@+id/listview_product"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_category"
+        android:paddingHorizontal="10dp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="wrap_content" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_product"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="130dp" />
+
+
 </FrameLayout>

@@ -1,26 +1,18 @@
 package com.bibon.furnitureshopping.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.Menu;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bibon.furnitureshopping.R;
-import com.bibon.furnitureshopping.adapters.ProductAdapter;
 import com.bibon.furnitureshopping.models.Product;
 import com.bibon.furnitureshopping.repositories.ProductRepository;
 import com.bibon.furnitureshopping.services.ProductService;
 import com.squareup.picasso.Picasso;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class ProductDetailActivity extends AppCompatActivity {
 
