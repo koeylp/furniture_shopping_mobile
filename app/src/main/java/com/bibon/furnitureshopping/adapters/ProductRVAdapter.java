@@ -82,6 +82,13 @@ public class ProductRVAdapter extends RecyclerView.Adapter<ProductRVAdapter.Prod
                 Toast.makeText(v.getContext(), "Added " + currentItem.getProductName() + " to cart", Toast.LENGTH_SHORT).show();
             }
         });
+
+        holder.constraintLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
     }
 
     @Override

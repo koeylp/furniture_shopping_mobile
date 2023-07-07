@@ -9,6 +9,7 @@ import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
 
 import com.bibon.furnitureshopping.R;
@@ -30,8 +31,9 @@ public class ProfileFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         ImageView img_avatar = (ImageView) getView().findViewById(R.id.img_avatar);
+        AppCompatButton btn_log_out = getView().findViewById(R.id.btn_logout);
 
-        img_avatar.setOnClickListener(new View.OnClickListener() {
+        btn_log_out.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 FirebaseAuth.getInstance().signOut();

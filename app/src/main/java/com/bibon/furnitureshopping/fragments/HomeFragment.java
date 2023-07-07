@@ -71,6 +71,7 @@ public class HomeFragment extends Fragment implements UpdateProductListRecyclerV
         getAllProducts();
 
 //        getProductsBycategory("64a40e16be7269158c2533c5");
+
     }
 
 
