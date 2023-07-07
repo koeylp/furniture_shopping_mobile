@@ -15,10 +15,29 @@ import androidx.fragment.app.Fragment;
 import com.bibon.furnitureshopping.R;
 import com.bibon.furnitureshopping.activities.LoginActivity;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 
 public class ProfileFragment extends Fragment {
 
+    FirebaseAuth mAuth;
+
+//    @Override
+//    public void onStart() {
+//        super.onStart();
+//        // Check if user is signed in (non-null) and update UI accordingly.
+//        try {
+//            FirebaseUser currentUser = mAuth.getCurrentUser();
+//            if (currentUser == null) {
+//                Intent intent = new Intent(getActivity(), LoginActivity.class);
+//                startActivity(intent);
+//            } else {
+//                System.out.println(currentUser + "kkkkk");
+//            }
+//        } catch (NullPointerException e) {
+//            System.out.println(e);
+//        }
+//    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

@@ -1,5 +1,6 @@
 package com.bibon.furnitureshopping.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,9 +15,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bibon.furnitureshopping.R;
 import com.bibon.furnitureshopping.RecyclerView.UpdateProductListRecyclerView;
+import com.bibon.furnitureshopping.activities.ProductDetailActivity;
 import com.bibon.furnitureshopping.adapters.CategoryRVAdapter;
 import com.bibon.furnitureshopping.adapters.ProductRVAdapter;
 import com.bibon.furnitureshopping.applications.CartApplication;
+import com.bibon.furnitureshopping.models.Cart;
 import com.bibon.furnitureshopping.models.CartList;
 import com.bibon.furnitureshopping.models.Category;
 import com.bibon.furnitureshopping.models.Product;
@@ -122,7 +125,7 @@ public class HomeFragment extends Fragment implements UpdateProductListRecyclerV
                         System.out.println(product.getCategory());
                         productList.add(new Product(product.get_id(), product.getProductName(), product.getCategory(), product.getPrice(), product.getQuantity(), product.getDescription(), product.getImg()));
                     }
-                    productRVAdapter = new ProductRVAdapter(productList, cartList);
+                    productRVAdapter = new ProductRVAdapter(productList, cartList, HomeFragment.this);
                     recyclerViewProduct.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
                     recyclerViewProduct.setAdapter(productRVAdapter);
                 }
@@ -135,6 +138,14 @@ public class HomeFragment extends Fragment implements UpdateProductListRecyclerV
         } catch (Exception e) {
             Log.d("Error", e.getMessage());
         }
+    }
+
+    public void toProductDetail(Product product) {
+        Intent intent = new Intent(getActivity(), ProductDetailActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("Product", product);
+        intent.putExtra("BUNDLE", bundle);
+        startActivity(intent);
     }
 
     private void getProductsBycategory(String categoryId) {
@@ -173,7 +184,7 @@ public class HomeFragment extends Fragment implements UpdateProductListRecyclerV
         if (items.isEmpty()) {
             items = productList;
         }
-        productRVAdapter = new ProductRVAdapter(items, cartList);
+        productRVAdapter = new ProductRVAdapter(items, cartList, HomeFragment.this);
         recyclerViewProduct.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
         recyclerViewProduct.setAdapter(productRVAdapter);
     }
