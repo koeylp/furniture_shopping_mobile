@@ -3,7 +3,6 @@ package com.bibon.furnitureshopping.fragments;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -14,9 +13,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bibon.furnitureshopping.R;
-import com.bibon.furnitureshopping.RecyclerView.UpdateRecyclerView;
+import com.bibon.furnitureshopping.RecyclerView.UpdateProductListRecyclerView;
 import com.bibon.furnitureshopping.adapters.CategoryRVAdapter;
 import com.bibon.furnitureshopping.adapters.ProductRVAdapter;
+import com.bibon.furnitureshopping.applications.CartApplication;
+import com.bibon.furnitureshopping.models.CartList;
 import com.bibon.furnitureshopping.models.Category;
 import com.bibon.furnitureshopping.models.Product;
 import com.bibon.furnitureshopping.repositories.CategoryRepository;
@@ -31,7 +32,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-public class HomeFragment extends Fragment implements UpdateRecyclerView {
+public class HomeFragment extends Fragment implements UpdateProductListRecyclerView {
 
     ProductService productService;
     CategoryService categoryService;
@@ -40,6 +41,7 @@ public class HomeFragment extends Fragment implements UpdateRecyclerView {
     ArrayList<Category> categoryList;
     CategoryRVAdapter categoryRVAdapter;
     ProductRVAdapter productRVAdapter;
+    CartList cartList;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -53,6 +55,11 @@ public class HomeFragment extends Fragment implements UpdateRecyclerView {
         super.onViewCreated(view, savedInstanceState);
         productService = ProductRepository.getProductService();
         categoryService = CategoryRepository.getCategoryService();
+
+
+        cartList = new CartList();
+
+        cartList = ((CartApplication) this.getActivity().getApplication()).getCartList();
 
         // Category
         recyclerViewCategory = getView().findViewById(R.id.rv_category);
@@ -114,7 +121,7 @@ public class HomeFragment extends Fragment implements UpdateRecyclerView {
                         System.out.println(product.getCategory());
                         productList.add(new Product(product.get_id(), product.getProductName(), product.getCategory(), product.getPrice(), product.getQuantity(), product.getDescription(), product.getImg()));
                     }
-                    productRVAdapter = new ProductRVAdapter(productList);
+                    productRVAdapter = new ProductRVAdapter(productList, cartList);
                     recyclerViewProduct.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
                     recyclerViewProduct.setAdapter(productRVAdapter);
                 }
@@ -165,7 +172,7 @@ public class HomeFragment extends Fragment implements UpdateRecyclerView {
         if (items.isEmpty()) {
             items = productList;
         }
-        productRVAdapter = new ProductRVAdapter(items);
+        productRVAdapter = new ProductRVAdapter(items, cartList);
         recyclerViewProduct.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
         recyclerViewProduct.setAdapter(productRVAdapter);
     }

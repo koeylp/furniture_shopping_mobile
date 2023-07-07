@@ -26,14 +26,14 @@
         android:textStyle="bold" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textInputUsername"
+        android:id="@+id/textInputEmail"
         style="@style/parent.TextLayout"
         android:layout_marginTop="@dimen/signup_text_margin_top">
 
         <EditText
-            android:id="@+id/editTextUsername"
+            android:id="@+id/editTextEmail"
             style="@style/modifiedEditText"
-            android:hint="Username"
+            android:hint="Email"
             android:inputType="textEmailAddress"
             android:maxLines="1" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -51,6 +51,7 @@
             android:maxLines="1" />
     </com.google.android.material.textfield.TextInputLayout>
 
+
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputPassword"
         style="@style/parent.TextLayout"
@@ -63,6 +64,7 @@
             android:inputType="textPassword"
             android:maxLines="1" />
     </com.google.android.material.textfield.TextInputLayout>
+
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputConfirmPassword"
@@ -77,9 +79,17 @@
             android:maxLines="1" />
     </com.google.android.material.textfield.TextInputLayout>
 
+    <ProgressBar
+        android:id="@+id/progress_bar_register"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:visibility="gone"
+        />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btn_login"
+        android:id="@+id/btn_sign_up"
         android:layout_width="285dp"
         android:layout_height="50dp"
         android:background="@color/blackTextColor"

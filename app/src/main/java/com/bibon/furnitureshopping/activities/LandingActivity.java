@@ -8,8 +8,29 @@ import android.view.View;
 import android.widget.Button;
 
 import com.bibon.furnitureshopping.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class LandingActivity extends AppCompatActivity {
+
+    FirebaseAuth mAuth;
+
+    @Override
+    public void onStart()  {
+        super.onStart();
+        // Check if user is signed in (non-null) and update UI accordingly.
+        try {
+            FirebaseUser currentUser = mAuth.getCurrentUser();
+            if (currentUser != null) {
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        }catch (Exception e) {
+            System.out.println(e);
+        }
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

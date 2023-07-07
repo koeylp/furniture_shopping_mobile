@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "422980053183",
+    "project_id": "authentication-prm",
+    "storage_bucket": "authentication-prm.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:422980053183:android:61c2604854d3f73ca7fe0a",
+        "android_client_info": {
+          "package_name": "com.bibon.furnitureshopping"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "422980053183-ir0t1b988c6q06dnc2p36n5kkgdq1tv4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCYAlk6arWI0UFw7bosQHZZwK-DR2cGaN0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "422980053183-ir0t1b988c6q06dnc2p36n5kkgdq1tv4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,7 +1,6 @@
 package com.bibon.furnitureshopping.adapters;
 
 import android.app.Activity;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,12 +9,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bibon.furnitureshopping.R;
-import com.bibon.furnitureshopping.RecyclerView.UpdateRecyclerView;
-import com.bibon.furnitureshopping.fragments.HomeFragment;
+import com.bibon.furnitureshopping.RecyclerView.UpdateProductListRecyclerView;
 import com.bibon.furnitureshopping.models.Category;
 import com.bibon.furnitureshopping.models.Product;
 import com.bibon.furnitureshopping.services.ProductService;
@@ -23,32 +20,24 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-
 public class CategoryRVAdapter extends RecyclerView.Adapter<CategoryRVAdapter.CategoryRvViewHolder> {
 
     ProductService productService;
     private ArrayList<Category> items;
     private ArrayList<Product> productList;
     int row_index = -1;
-    UpdateRecyclerView updateRecyclerView;
+    UpdateProductListRecyclerView updateRecyclerView;
     Activity activity;
     boolean check = true;
     boolean select = true;
 
-    public CategoryRVAdapter(ArrayList<Category> items, ArrayList<Product> productList, Activity activity, UpdateRecyclerView updateRecyclerView) {
+    public CategoryRVAdapter(ArrayList<Category> items, ArrayList<Product> productList, Activity activity, UpdateProductListRecyclerView updateRecyclerView) {
         this.items = items;
         this.productList = productList;
         this.activity = activity;
         this.updateRecyclerView = updateRecyclerView;
     }
 
-
-//    public CategoryRVAdapter(ArrayList<Category> items) {
-//        this.items = items;
-//    }
 
     @NonNull
     @Override

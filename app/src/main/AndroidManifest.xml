@@ -20,13 +20,13 @@
             android:name=".activities.OrderHistoryActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.MainActivity"
+            android:name=".activities.LandingActivity"
             android:exported="false" />
         <activity
             android:name=".activities.ProductDetailActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.LandingActivity"
+            android:name=".activities.ConfirmationActivity"
             android:exported="false" />
         <activity
             android:name=".activities.SignUpActivity"
@@ -35,7 +35,7 @@
             android:name=".activities.LoginActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.ConfirmationActivity"
+            android:name=".activities.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

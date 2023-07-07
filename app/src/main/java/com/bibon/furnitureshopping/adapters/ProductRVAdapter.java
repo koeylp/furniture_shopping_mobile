@@ -1,16 +1,20 @@
 package com.bibon.furnitureshopping.adapters;
 
+import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bibon.furnitureshopping.R;
+import com.bibon.furnitureshopping.models.Cart;
+import com.bibon.furnitureshopping.models.CartList;
 import com.bibon.furnitureshopping.models.Product;
 import com.squareup.picasso.Picasso;
 
@@ -19,9 +23,11 @@ import java.util.ArrayList;
 public class ProductRVAdapter extends RecyclerView.Adapter<ProductRVAdapter.ProductRvHolder> {
 
     public ArrayList<Product> products;
+    CartList cartList;
 
-    public ProductRVAdapter(ArrayList<Product> products) {
+    public ProductRVAdapter(ArrayList<Product> products, CartList cartList) {
         this.products = products;
+        this.cartList = cartList;
     }
 
     public class ProductRvHolder extends RecyclerView.ViewHolder {
@@ -49,7 +55,7 @@ public class ProductRVAdapter extends RecyclerView.Adapter<ProductRVAdapter.Prod
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ProductRVAdapter.ProductRvHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ProductRVAdapter.ProductRvHolder holder, @SuppressLint("RecyclerView") int position) {
         Product currentItem = products.get(position);
         Picasso.get().load(currentItem.getImg()).placeholder(R.drawable.armchair).error(R.drawable.armchair).fit().into(holder.img_product);
         holder.tv_product_name.setText(currentItem.getProductName());
@@ -57,7 +63,23 @@ public class ProductRVAdapter extends RecyclerView.Adapter<ProductRVAdapter.Prod
         holder.img_add_to_cart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                System.out.println("Add to cart" + " " + currentItem.getProductName());
+                if (cartList == null) {
+                    cartList = new CartList();
+                }
+                int count = -1;
+                for (int i = 0; i < cartList.getCartList().size(); i++) {
+                    if (cartList.getCartList().get(i).getProductName().equals(currentItem.getProductName())) {
+                        count = i;
+                    }
+                }
+                Cart cart = new Cart(currentItem.getProductName(), currentItem.getPrice(), 1, currentItem.getImg());
+                if (count == -1) {
+                    cartList.getCartList().add(cart);
+                } else {
+                    System.out.println(count + " count");
+                    cartList.getCartList().get(count).setCartQuantity(cartList.getCartList().get(count).getCartQuantity() + 1);
+                }
+                Toast.makeText(v.getContext(), "Added " + currentItem.getProductName() + " to cart", Toast.LENGTH_SHORT).show();
             }
         });
     }

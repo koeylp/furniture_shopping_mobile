@@ -4,6 +4,7 @@ import com.bibon.furnitureshopping.models.Product;
 
 import java.util.ArrayList;
 
-public interface UpdateRecyclerView {
+public interface UpdateProductListRecyclerView {
     public void callback(int position, ArrayList<Product> items);
+
 }
