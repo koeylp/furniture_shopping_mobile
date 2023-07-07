@@ -13,6 +13,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bibon.furnitureshopping.R;
+import com.bibon.furnitureshopping.fragments.HomeFragment;
 import com.bibon.furnitureshopping.models.Cart;
 import com.bibon.furnitureshopping.models.CartList;
 import com.bibon.furnitureshopping.models.Product;
@@ -24,10 +25,12 @@ public class ProductRVAdapter extends RecyclerView.Adapter<ProductRVAdapter.Prod
 
     public ArrayList<Product> products;
     CartList cartList;
+    HomeFragment context;
 
-    public ProductRVAdapter(ArrayList<Product> products, CartList cartList) {
+    public ProductRVAdapter(ArrayList<Product> products, CartList cartList, HomeFragment context) {
         this.products = products;
         this.cartList = cartList;
+        this.context = context;
     }
 
     public class ProductRvHolder extends RecyclerView.ViewHolder {
@@ -86,7 +89,7 @@ public class ProductRVAdapter extends RecyclerView.Adapter<ProductRVAdapter.Prod
         holder.constraintLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                context.toProductDetail(currentItem);
             }
         });
     }

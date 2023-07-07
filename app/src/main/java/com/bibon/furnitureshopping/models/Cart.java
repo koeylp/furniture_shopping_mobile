@@ -1,6 +1,8 @@
 package com.bibon.furnitureshopping.models;
 
-public class Cart {
+import java.io.Serializable;
+
+public class Cart implements Serializable {
     private String productName;
     private double price;
     private int cartQuantity;
