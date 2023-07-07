@@ -25,11 +25,8 @@ public class CategoryRVAdapter extends RecyclerView.Adapter<CategoryRVAdapter.Ca
     ProductService productService;
     private ArrayList<Category> items;
     private ArrayList<Product> productList;
-    int row_index = -1;
     UpdateProductListRecyclerView updateRecyclerView;
     Activity activity;
-    boolean check = true;
-    boolean select = true;
 
     public CategoryRVAdapter(ArrayList<Category> items, ArrayList<Product> productList, Activity activity, UpdateProductListRecyclerView updateRecyclerView) {
         this.items = items;
@@ -37,7 +34,6 @@ public class CategoryRVAdapter extends RecyclerView.Adapter<CategoryRVAdapter.Ca
         this.activity = activity;
         this.updateRecyclerView = updateRecyclerView;
     }
-
 
     @NonNull
     @Override

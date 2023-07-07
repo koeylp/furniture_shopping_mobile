@@ -1,18 +1,17 @@
 package com.bibon.furnitureshopping.activities;
 
+import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.ImageView;
 
 import com.bibon.furnitureshopping.R;
 import com.bibon.furnitureshopping.databinding.ActivityMainBinding;
@@ -22,7 +21,6 @@ import com.bibon.furnitureshopping.fragments.NotificationFragment;
 import com.bibon.furnitureshopping.fragments.ProfileFragment;
 import com.google.android.material.navigation.NavigationBarView;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends AppCompatActivity {
 
