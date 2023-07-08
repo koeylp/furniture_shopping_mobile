@@ -1,9 +1,11 @@
 package com.bibon.furnitureshopping.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -14,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bibon.furnitureshopping.R;
 import com.bibon.furnitureshopping.RecyclerView.UpdateCartRecycleView;
+import com.bibon.furnitureshopping.activities.CheckoutActivity;
 import com.bibon.furnitureshopping.adapters.CartRVAdapter;
 import com.bibon.furnitureshopping.applications.CartApplication;
 import com.bibon.furnitureshopping.models.Cart;
@@ -24,8 +27,9 @@ public class CartFragment extends Fragment implements UpdateCartRecycleView {
 
     CartList cartList;
     CartRVAdapter cartRVAdapter;
-    TextView tv_total;
+    TextView tv_total, tv_total_label, tv_currency;
     private RecyclerView cartRecycleView;
+    Button btn_checkout;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -48,12 +52,30 @@ public class CartFragment extends Fragment implements UpdateCartRecycleView {
         cartRecycleView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
         cartRecycleView.setAdapter(cartRVAdapter);
 
+        tv_currency = getView().findViewById(R.id.tv_currency);
+        tv_total_label = getView().findViewById(R.id.tv_total_label);
         tv_total = getView().findViewById(R.id.tv_total);
         double total = 0;
         for(Cart cart : cartList.getCartList()) {
             total += cart.getCartQuantity() * cart.getPrice();
         }
         tv_total.setText(total + "");
+
+        btn_checkout = getView().findViewById(R.id.btn_checkout);
+        if (total == 0) {
+            btn_checkout.setVisibility(View.GONE);
+            tv_total.setVisibility(View.GONE);
+            tv_total_label.setVisibility(View.GONE);
+            tv_currency.setVisibility(View.GONE);
+        }
+
+        btn_checkout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), CheckoutActivity.class);
+                startActivity(intent);
+            }
+        });
 
     }
 
