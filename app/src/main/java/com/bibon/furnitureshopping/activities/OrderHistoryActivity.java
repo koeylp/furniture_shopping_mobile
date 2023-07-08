@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.os.Bundle;
+import android.view.WindowManager;
 
 import com.bibon.furnitureshopping.R;
 import com.bibon.furnitureshopping.adapters.ViewPageAdapter;
@@ -17,6 +18,9 @@ public class OrderHistoryActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_history);
+        
+        getSupportActionBar().hide();
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         tabLayout = findViewById(R.id.tabLayout);
         viewPager2 = findViewById(R.id.view_page);
