@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#86EDEDED"
     tools:context=".activities.CheckoutActivity">
 
     <androidx.appcompat.widget.Toolbar
@@ -39,6 +40,7 @@
     </androidx.appcompat.widget.Toolbar>
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
         android:layout_width="380dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="68dp"
@@ -79,9 +81,59 @@
         android:textColor="#E98C8585"
         android:textSize="18dp"
         android:textStyle="bold"
+        app:layout_goneMarginTop="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.058"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="380dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/btn_login"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.516"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardView"
+        app:layout_constraintVertical_bias="0.901">
+
+        <TextView
+            android:id="@+id/tv_order_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:fontFamily="sans-serif"
+            android:text="Bruno Fernandes"
+            android:textSize="25dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="18dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginBottom="20dp"
+            android:maxWidth="360dp"
+            android:text="25 rue Robert Latouche, Nice, 06200, Côte D’azur, France"
+            android:textSize="15dp" />
+
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_login"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="32dp"
+        android:adjustViewBounds="true"
+        android:background="@color/blackTextColor"
+        android:cropToPadding="true"
+        android:fontFamily="serif"
+        android:textStyle="bold"
+        android:text="Submit Order"
+        android:textColor="#ffffff"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
