@@ -24,6 +24,8 @@ public class OrderHistoryActivity extends AppCompatActivity {
 
         viewPager2.setAdapter(viewPageAdapter);
 
+
+
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
