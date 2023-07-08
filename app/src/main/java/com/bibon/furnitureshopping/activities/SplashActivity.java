@@ -18,15 +18,15 @@ public class SplashActivity extends AppCompatActivity {
 
 
         ImageView imageView = (ImageView) findViewById(R.id.ivSplash);
-        imageView.animate().translationX(1000).setDuration(1000).setStartDelay(3500);
+        imageView.animate().translationX(1000).setDuration(1000).setStartDelay(3000);
 
         TextView textView = (TextView) findViewById(R.id.tvSplash);
-        textView.animate().translationX(1000).setDuration(1000).setStartDelay(3500);
+        textView.animate().translationX(1000).setDuration(1000).setStartDelay(3000);
 
 
         Thread thread = new Thread(() -> {
             try {
-                Thread.sleep(6000);
+                Thread.sleep(4000);
             } catch (Exception e) {
                 e.printStackTrace();
             } finally {
