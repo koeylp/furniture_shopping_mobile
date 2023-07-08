@@ -7,7 +7,6 @@
     tools:context=".activities.OrderHistoryActivity"
     android:background="#ffffff">
 
-
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabLayout"
         android:layout_width="match_parent"

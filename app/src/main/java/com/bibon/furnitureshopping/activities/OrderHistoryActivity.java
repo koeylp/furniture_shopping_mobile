@@ -1,9 +1,11 @@
 package com.bibon.furnitureshopping.activities;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.os.Bundle;
+import android.view.View;
 
 import com.bibon.furnitureshopping.R;
 import com.bibon.furnitureshopping.adapters.ViewPageAdapter;
@@ -22,6 +24,10 @@ public class OrderHistoryActivity extends AppCompatActivity {
         viewPager2 = findViewById(R.id.view_page);
         viewPageAdapter = new ViewPageAdapter(this);
 
+        final ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayShowHomeEnabled(false);
+        actionBar.setTitle("");
+        actionBar.setSubtitle("");
         viewPager2.setAdapter(viewPageAdapter);
 
 
