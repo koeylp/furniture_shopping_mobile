@@ -14,10 +14,17 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.bibon.furnitureshopping.R;
+import com.bibon.furnitureshopping.models.User;
+import com.bibon.furnitureshopping.repositories.UserRepository;
+import com.bibon.furnitureshopping.services.UserService;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class SignUpActivity extends AppCompatActivity {
 
@@ -25,6 +32,7 @@ public class SignUpActivity extends AppCompatActivity {
     Button btn_sign_up;
     ProgressBar progressBar;
     FirebaseAuth mAuth;
+    UserService userService;
 
 //    @Override
 //    public void onStart() throws NullPointerException {
@@ -52,7 +60,7 @@ public class SignUpActivity extends AppCompatActivity {
         progressBar = findViewById(R.id.progress_bar_register);
 
         TextView tvLoginNow = (TextView) findViewById(R.id.tv_login_now);
-
+        userService = UserRepository.geUserService();
         btn_sign_up.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -77,7 +85,6 @@ public class SignUpActivity extends AppCompatActivity {
                             .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                                 @Override
                                 public void onComplete(@NonNull Task<AuthResult> task) {
-                                    System.out.println(email + " " + password);
                                     if (task.isSuccessful()) {
                                         progressBar.setVisibility(View.VISIBLE);
                                         Toast.makeText(SignUpActivity.this, "Account Created",
@@ -92,6 +99,21 @@ public class SignUpActivity extends AppCompatActivity {
                                     }
                                 }
                             });
+                    User user = new User(email, name);
+                    Call<User> call = userService.signup(user);
+                    call.enqueue(new Callback<User>() {
+                        @Override
+                        public void onResponse(Call<User> call, Response<User> response) {
+                            if (response.body() != null) {
+                                System.out.println(user.getFullname());
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<User> call, Throwable t) {
+
+                        }
+                    });
                 }
             }
         });

@@ -17,13 +17,23 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".activities.CheckoutActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.AddAddressShippingActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.MainActivity"
+            android:exported="false" />
+        <activity
             android:name=".activities.AddressShippingActivity"
             android:exported="false" />
         <activity
             android:name=".activities.OrderHistoryActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/Theme.MaterialComponents" />
         <activity
-            android:name=".activities.LandingActivity"
+            android:name=".activities.SplashActivity"
             android:exported="false" />
         <activity
             android:name=".activities.ProductDetailActivity"
@@ -38,7 +48,7 @@
             android:name=".activities.LoginActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.MainActivity"
+            android:name=".activities.LandingActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

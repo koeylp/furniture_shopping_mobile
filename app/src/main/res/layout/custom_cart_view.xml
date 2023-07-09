@@ -4,115 +4,109 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingBottom="20dp"
+    android:paddingBottom="5dp"
     android:id="@+id/constraint_layout"
-    android:paddingTop="5dp"
     android:layout_marginVertical="2dp"
     >
 
-    <ImageView
-        android:id="@+id/img_product"
-        android:layout_width="140dp"
-        android:layout_height="100dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.051"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@tools:sample/avatars" />
-
-    <TextView
-        android:id="@+id/tv_product_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
-        android:text="Coffee Table"
-        android:fontFamily="serif"
-        android:textStyle="bold"
-        android:textColor="#606060"
-        android:textSize="14dp"
-        app:layout_constraintStart_toEndOf="@+id/img_product"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/tv_currency"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:text="$"
-        android:textSize="18dp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@+id/img_product"
-        app:layout_constraintTop_toBottomOf="@+id/tv_product_name" />
-
-    <TextView
-        android:id="@+id/tv_price"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="10dp"
-        android:fontFamily="serif"
-        android:text="20.00"
-        android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@+id/tv_currency"
-        app:layout_constraintTop_toBottomOf="@+id/tv_product_name" />
-
-    <ImageView
-        android:id="@+id/img_delete"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:layout_marginEnd="16dp"
+    <androidx.cardview.widget.CardView
+        android:layout_width="408dp"
+        android:layout_height="130dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.074"
-        android:background="@drawable/my_custom_background"
-        android:padding="6dp"
-        app:srcCompat="@drawable/x" />
-
-    <ImageView
-        android:id="@+id/iv_plus"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:layout_marginEnd="208dp"
-        android:background="@drawable/my_custom_background"
-        android:padding="4dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/img_product"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.867"
-        app:srcCompat="@drawable/plus" />
-
-
-    <ImageView
-        android:id="@+id/iv_minus"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:background="@drawable/my_custom_background"
-        android:padding="4dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.58"
+        app:layout_constraintHorizontal_bias="0.333"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.867"
-        app:srcCompat="@drawable/minus" />
+        app:layout_constraintVertical_bias="1.0">
 
-    <TextView
-        android:id="@+id/tv_quantity"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:text="01"
-        android:textSize="13dp"
-        android:maxWidth="25dp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_price" />
+        <ImageView
+            android:id="@+id/img_product"
+            android:layout_width="140dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginLeft="5dp"
+            tools:srcCompat="@tools:sample/avatars" />
+
+        <TextView
+            android:id="@+id/tv_product_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="150dp"
+            android:layout_marginTop="24dp"
+            android:fontFamily="serif"
+            android:text="Coffee Table"
+            android:textColor="#606060"
+            android:textSize="14dp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@+id/img_product"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_currency"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="$"
+            android:layout_marginTop="47dp"
+            android:layout_marginLeft="150dp"
+            android:textSize="18dp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@+id/img_product"
+            app:layout_constraintTop_toBottomOf="@+id/tv_product_name" />
+
+        <TextView
+            android:id="@+id/tv_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="170dp"
+            android:layout_marginTop="50dp"
+            android:fontFamily="serif"
+            android:text="20.00"
+            android:textStyle="bold"
+            />
+
+        <ImageView
+            android:id="@+id/img_delete"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginLeft="370dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/my_custom_background"
+            android:padding="6dp"
+            app:srcCompat="@drawable/x" />
+
+        <ImageView
+            android:id="@+id/iv_plus"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:background="@drawable/my_custom_background"
+            android:padding="4dp"
+            android:layout_marginLeft="150dp"
+            android:layout_marginTop="80dp"
+            app:srcCompat="@drawable/plus" />
+
+
+        <ImageView
+            android:id="@+id/iv_minus"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginLeft="203dp"
+            android:background="@drawable/my_custom_background"
+            android:padding="4dp"
+            android:layout_marginTop="80dp"
+            app:srcCompat="@drawable/minus" />
+
+        <TextView
+            android:id="@+id/tv_quantity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxWidth="25dp"
+            android:text="01"
+            android:textSize="13dp"
+            android:textStyle="bold"
+            android:layout_marginLeft="179dp"
+            android:layout_marginTop="81dp"
+            />
+    </androidx.cardview.widget.CardView>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

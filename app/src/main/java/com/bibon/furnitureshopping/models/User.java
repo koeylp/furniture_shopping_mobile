@@ -3,7 +3,11 @@ package com.bibon.furnitureshopping.models;
 public class User {
     private String email;
     private String fullname;
-    private String password;
+
+    public User(String email, String fullname) {
+        this.email = email;
+        this.fullname = fullname;
+    }
 
     public String getEmail() {
         return email;
@@ -21,11 +25,5 @@ public class User {
         this.fullname = fullname;
     }
 
-    public String getPassword() {
-        return password;
-    }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
 }

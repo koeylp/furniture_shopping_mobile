@@ -56,12 +56,7 @@ public class MainActivity extends AppCompatActivity {
 
         ImageView img_back = (ImageView) findViewById(R.id.img_back);
 
-        img_back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
-            }
-        });
+        img_back.setVisibility(View.GONE);
 
         binding.bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
