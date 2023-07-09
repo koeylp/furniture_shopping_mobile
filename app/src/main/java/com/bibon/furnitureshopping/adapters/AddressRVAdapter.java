@@ -13,7 +13,7 @@ import com.bibon.furnitureshopping.models.Address;
 
 import java.util.ArrayList;
 
-public class AddressRVAdapter extends RecyclerView.Adapter<AddressRVAdapter.ViewHolder> {
+public class AddressRVAdapter extends RecyclerView.Adapter<AddressRVAdapter.AddressRvHolder> {
     private ArrayList<Address> addressList;
 
     public AddressRVAdapter(ArrayList<Address> addressList) {
@@ -22,18 +22,18 @@ public class AddressRVAdapter extends RecyclerView.Adapter<AddressRVAdapter.View
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        View view = layoutInflater.inflate(R.layout.custom_address_view, parent, false);
-        return new ViewHolder(view);
+    public AddressRvHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.custom_address_view, parent, false);
+        AddressRVAdapter.AddressRvHolder addressRvHolder = new AddressRvHolder(view);
+        return addressRvHolder;
     }
 
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull AddressRvHolder holder, int position) {
         Address address = addressList.get(position);
         String addressOneLine = address.getAddress() + ", " + address.getWard() + ", " + address.getDistrict() + ", " + address.getProvince();
-        holder.tv_fullname.setText(address.getFullName());
+        holder.tv_fullname.setText(address.getFullname());
         holder.tv_address_detail.setText(addressOneLine);
     }
 
@@ -43,16 +43,15 @@ public class AddressRVAdapter extends RecyclerView.Adapter<AddressRVAdapter.View
     }
 
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public class AddressRvHolder extends RecyclerView.ViewHolder {
         private TextView tv_fullname;
         private TextView tv_address_detail;
 
-        public ViewHolder(View itemView) {
+        public AddressRvHolder(@NonNull View itemView) {
             super(itemView);
             tv_fullname = itemView.findViewById(R.id.tv_fullname);
             tv_address_detail = itemView.findViewById(R.id.tv_address_detail);
         }
-
     }
 
 }
