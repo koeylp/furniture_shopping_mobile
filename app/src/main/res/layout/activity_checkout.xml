@@ -7,6 +7,237 @@
     android:background="#86EDEDED"
     tools:context=".activities.CheckoutActivity">
 
+    <ImageView
+        android:id="@+id/imageView13"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_marginTop="17dp"
+        android:layout_marginEnd="28dp"
+        android:layout_marginBottom="13dp"
+        app:layout_constraintBottom_toTopOf="@+id/card_delivery_method"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/card_payment"
+        app:layout_constraintVertical_bias="1.0"
+        app:srcCompat="@drawable/edit" />
+
+    <ImageView
+        android:id="@+id/imageView12"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_marginTop="18dp"
+        android:layout_marginEnd="28dp"
+        android:layout_marginBottom="12dp"
+        app:layout_constraintBottom_toTopOf="@+id/card_payment"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/card_address"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/edit" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cart_checkout_detail"
+        android:layout_width="361dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="27dp"
+        android:background="@drawable/custom_order_history_card"
+        android:elevation="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/card_delivery_method">
+
+        <TextView
+            android:id="@+id/textView18"
+            android:layout_width="61dp"
+            android:layout_height="25dp"
+            android:layout_marginStart="272dp"
+            android:layout_marginTop="16dp"
+            android:gravity="right"
+            android:fontFamily="@font/nunito_sans_bold"
+            android:text="$95.00"
+            android:textColor="#000000"
+            android:textSize="18dp"
+            android:textStyle="normal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView19"
+            android:layout_width="61dp"
+            android:layout_height="25dp"
+            android:layout_marginStart="272dp"
+            android:layout_marginTop="60dp"
+            android:fontFamily="@font/nunito_sans_bold"
+            android:gravity="right"
+            android:text="$5.00"
+            android:textColor="#000000"
+            android:textSize="18dp"
+            android:textStyle="normal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView20"
+            android:layout_width="77dp"
+            android:layout_height="22dp"
+            android:layout_marginStart="256dp"
+            android:layout_marginTop="108dp"
+            android:fontFamily="@font/nunito_sans_bold"
+            android:gravity="right"
+            android:text="$100.00"
+            android:textColor="#000000"
+            android:textSize="18dp"
+            android:textStyle="normal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView11"
+            android:layout_width="54dp"
+            android:layout_height="25dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/nunito_sans_semibold"
+            android:text="Order:"
+            android:textColor="#656262"
+            android:textSize="16dp"
+            android:textStyle="normal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView14"
+            android:layout_width="51dp"
+            android:layout_height="23dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="64dp"
+            android:fontFamily="@font/nunito_sans_semibold"
+            android:text="Delivery:"
+            android:textColor="#656262"
+            android:textSize="16dp"
+            android:textStyle="normal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView15"
+            android:layout_width="51dp"
+            android:layout_height="23dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="108dp"
+            android:fontFamily="@font/nunito_sans_semibold"
+            android:text="Total:"
+            android:textColor="#656262"
+            android:textSize="16dp"
+            android:textStyle="normal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/card_payment"
+        android:layout_width="361dp"
+        android:layout_height="65dp"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/custom_order_history_card"
+        android:elevation="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.52"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_label_address2">
+
+        <TextView
+            android:id="@+id/textView16"
+            android:layout_width="178dp"
+            android:layout_height="26dp"
+            android:layout_marginStart="88dp"
+            android:layout_marginTop="27dp"
+            android:fontFamily="@font/nunito_sans_bold"
+            android:text="**** **** **** 3947"
+            android:textColor="#000000"
+            android:textSize="14dp"
+            android:textStyle="normal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/imageView4"
+            android:layout_width="58dp"
+            android:layout_height="41dp"
+            android:layout_marginStart="9dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/card" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/tv_label_address3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="352dp"
+        android:fontFamily="@font/nunito_sans_light"
+        android:text="Deliery method"
+        android:textColor="#E98C8585"
+        android:textSize="18dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.094"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_goneMarginTop="10dp" />
+
+    <TextView
+        android:id="@+id/tv_label_address2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="232dp"
+        android:fontFamily="@font/nunito_sans_light"
+        android:text="Payment"
+        android:textColor="#E98C8585"
+        android:textSize="18dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.094"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_goneMarginTop="10dp" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/card_delivery_method"
+        android:layout_width="361dp"
+        android:layout_height="65dp"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/custom_order_history_card"
+        android:elevation="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.52"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_label_address3" >
+
+        <TextView
+            android:id="@+id/textView17"
+            android:layout_width="178dp"
+            android:layout_height="26dp"
+            android:layout_marginStart="88dp"
+            android:layout_marginTop="24dp"
+            android:fontFamily="@font/nunito_sans_bold"
+            android:text="Fast ( 2-3 days )"
+            android:textColor="#000000"
+            android:textSize="14dp"
+            android:textStyle="normal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/imageView14"
+            android:layout_width="58dp"
+            android:layout_height="41dp"
+            android:layout_marginStart="9dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/cod" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
@@ -29,7 +260,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:fontFamily="serif"
-            android:text="Home Furniture"
+            android:text="Check out"
             android:textAllCaps="true"
             android:textColor="#242424"
             android:textSize="20dp"
@@ -39,101 +270,111 @@
 
     </androidx.appcompat.widget.Toolbar>
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cardView"
-        android:layout_width="380dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="68dp"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/card_address"
+        android:layout_width="359dp"
+        android:layout_height="115dp"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/custom_order_history_card"
+        android:elevation="8dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.483"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar">
+        app:layout_constraintTop_toBottomOf="@+id/tv_label_address">
 
         <TextView
-            android:id="@+id/tv_fullname"
+            android:id="@+id/textView9"
+            android:layout_width="331dp"
+            android:layout_height="51dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="56dp"
+            android:fontFamily="@font/nunito_sans_semibold"
+            android:text="58 Tân lập 1, Phường Hiệp phú, Thành phố Thủ Đức"
+            android:textColor="#656262"
+            android:textSize="14dp"
+            android:textStyle="normal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView8"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:fontFamily="sans-serif"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/nunito_sans_bold"
             android:text="Bruno Fernandes"
-            android:textSize="25dp"
-            android:textStyle="bold" />
+            android:textColor="#000000"
+            android:textSize="20dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="18dp"
-            android:layout_marginTop="40dp"
-            android:layout_marginBottom="20dp"
-            android:maxWidth="360dp"
-            android:text="25 rue Robert Latouche, Nice, 06200, Côte D’azur, France"
-            android:textSize="15dp" />
+        <View
+            android:id="@+id/view"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.383" />
 
-
-    </androidx.cardview.widget.CardView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
         android:id="@+id/tv_label_address"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="12dp"
+        android:fontFamily="@font/nunito_sans_light"
         android:text="Shipping address"
         android:textColor="#E98C8585"
         android:textSize="18dp"
         android:textStyle="bold"
-        app:layout_goneMarginTop="10dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.058"
+        app:layout_constraintHorizontal_bias="0.094"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        app:layout_goneMarginTop="10dp" />
 
-    <androidx.cardview.widget.CardView
-        android:layout_width="380dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@+id/btn_login"
+    <ImageView
+        android:id="@+id/imageView10"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_marginTop="13dp"
+        android:layout_marginEnd="28dp"
+        android:layout_marginBottom="12dp"
+        app:layout_constraintBottom_toTopOf="@+id/card_address"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/edit" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/btn_save_address"
+        android:layout_width="361dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="28dp"
+        android:background="@drawable/custom_button"
+        android:elevation="15dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.516"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cardView"
-        app:layout_constraintVertical_bias="0.901">
+        app:layout_constraintTop_toBottomOf="@+id/cart_checkout_detail">
 
         <TextView
-            android:id="@+id/tv_order_label"
+            android:id="@+id/tv_submit_order"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:fontFamily="sans-serif"
-            android:text="Bruno Fernandes"
-            android:textSize="25dp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="18dp"
-            android:layout_marginTop="40dp"
-            android:layout_marginBottom="20dp"
-            android:maxWidth="360dp"
-            android:text="25 rue Robert Latouche, Nice, 06200, Côte D’azur, France"
-            android:textSize="15dp" />
-
-
-    </androidx.cardview.widget.CardView>
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btn_login"
-        android:layout_width="300dp"
-        android:layout_height="50dp"
-        android:layout_marginBottom="32dp"
-        android:adjustViewBounds="true"
-        android:background="@color/blackTextColor"
-        android:cropToPadding="true"
-        android:fontFamily="serif"
-        android:textStyle="bold"
-        android:text="Submit Order"
-        android:textColor="#ffffff"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+            android:fontFamily="@font/nunito_sans_bold"
+            android:text="SUBMIT ORDER"
+            android:textColor="#FFFFFF"
+            android:textSize="22dp"
+            android:textStyle="normal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
