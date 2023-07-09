@@ -1,8 +1,5 @@
 package com.bibon.furnitureshopping.activities;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,8 +9,9 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.bibon.furnitureshopping.R;
 import com.bibon.furnitureshopping.models.Address;
@@ -63,7 +61,7 @@ public class AddAddressShippingActivity extends AppCompatActivity {
         int[] provice_code = new int[1];
         int[] district_code = new int[1];
         String[] province = new String[1];
-        String[] disctrict = new String[1];
+        String[] district = new String[1];
         String[] ward = new String[1];
         spWard.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -82,7 +80,7 @@ public class AddAddressShippingActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
                 String district_name = adapterView.getItemAtPosition(position).toString();
-                disctrict[0] = district_name;
+                district[0] = district_name;
                 try {
                     Call<District[]> call = addressService.getAllDistricts();
                     call.enqueue(new Callback<District[]>() {
@@ -165,7 +163,7 @@ public class AddAddressShippingActivity extends AppCompatActivity {
                 User user = new User("Lee Chong Wei", "Lee Chong Wei");
                 String fullname = it_fullname.getText().toString();
                 String address = it_address.getText().toString();
-                addNewAddress(new Address(fullname, address, ward[0],  disctrict[0], province[0]));
+                addNewAddress(new Address(fullname, address, ward[0],  district[0], province[0]));
                 Intent intent = new Intent(v.getContext(), AddressShippingActivity.class);
                 startActivity(intent);
             }
@@ -186,7 +184,6 @@ public class AddAddressShippingActivity extends AppCompatActivity {
                         return;
                     }
                     for (Province province : provinces) {
-//                        provinceList.add(new Province(province.getName(), province.getCode(), province.getDivision_type(), province.getCodename(), province.getPhone_code(), province.getDistricts()));
                         provinceListName.add(province.getName());
                     }
                     ArrayAdapter<String> adapterProvince =
@@ -218,7 +215,6 @@ public class AddAddressShippingActivity extends AppCompatActivity {
                     }
                     for (District district : districts) {
                         if (code == district.getProvince_code()) {
-//                            districtListName.add(new District(district.getName(), district.getCode(), district.getDivision_type(), district.getCodename(), district.getProvince_code(), district.getWards()));
                             districtListName.add(district.getName());
                             System.out.println(district.getName());
                         }
