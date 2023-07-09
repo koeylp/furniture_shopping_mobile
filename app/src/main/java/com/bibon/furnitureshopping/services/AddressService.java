@@ -1,11 +1,14 @@
 package com.bibon.furnitureshopping.services;
 
+import com.bibon.furnitureshopping.models.Address;
 import com.bibon.furnitureshopping.models.District;
 import com.bibon.furnitureshopping.models.Province;
 import com.bibon.furnitureshopping.models.Ward;
 
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 
 public interface AddressService {
 
@@ -18,5 +21,11 @@ public interface AddressService {
 
     @GET(ADDRESS + "/wards")
     Call<Ward[]> getAllWards();
+
+    @GET(ADDRESS + "/{email}")
+    Call<Address[]> getAddressByEmail();
+
+    @POST(ADDRESS)
+    Call<Address> addAddress(@Body Address address);
 
 }

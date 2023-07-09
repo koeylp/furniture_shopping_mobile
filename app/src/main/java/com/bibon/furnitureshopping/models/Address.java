@@ -2,26 +2,26 @@ package com.bibon.furnitureshopping.models;
 
 public class Address {
 
-    private String fullName;
+    private String fullname;
     private String address;
     private String ward;
     private String district;
     private String province;
 
-    public Address(String fullName, String address, String ward, String district, String province) {
-        this.fullName = fullName;
+    public Address(String fullname, String address, String ward, String district, String province) {
+        this.fullname = fullname;
         this.address = address;
         this.ward = ward;
         this.district = district;
         this.province = province;
     }
 
-    public String getFullName() {
-        return fullName;
+    public String getFullname() {
+        return fullname;
     }
 
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
+    public void setFullname(String fullname) {
+        this.fullname = fullname;
     }
 
     public String getAddress() {

@@ -1,20 +1,23 @@
 package com.bibon.furnitureshopping.activities;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.bibon.furnitureshopping.R;
+import com.bibon.furnitureshopping.models.Address;
 import com.bibon.furnitureshopping.models.District;
 import com.bibon.furnitureshopping.models.Province;
+import com.bibon.furnitureshopping.models.User;
 import com.bibon.furnitureshopping.models.Ward;
 import com.bibon.furnitureshopping.repositories.AddressRepository;
 import com.bibon.furnitureshopping.services.AddressService;
@@ -27,12 +30,12 @@ import retrofit2.Response;
 
 public class AddAddressShippingActivity extends AppCompatActivity {
     Spinner spWard, spDistrict, spProvince;
-    ConstraintLayout constraintLayout;
-
+    Button btn_save_address, btn_cancel;
     AddressService addressService;
     ArrayList<String> provinceListName;
     ArrayList<String> districtListName;
     ArrayList<String> wardListName;
+    EditText it_fullname, it_address;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,15 +45,29 @@ public class AddAddressShippingActivity extends AppCompatActivity {
         spWard = (Spinner) findViewById(R.id.spinnerWard);
         spDistrict = (Spinner) findViewById(R.id.spinnerDistrict);
         spProvince = (Spinner) findViewById(R.id.spinnerProvince);
-        spProvince = (Spinner) findViewById(R.id.spinnerProvince);
-        constraintLayout = (ConstraintLayout) findViewById(R.id.btn_save_address);
+        it_fullname = findViewById(R.id.it_fullname);
+        it_address = findViewById(R.id.it_address);
+        btn_save_address = findViewById(R.id.btn_save_address);
+        btn_cancel = findViewById(R.id.btn_cancel_address);
+
+        btn_cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), AddressShippingActivity.class);
+                startActivity(intent);
+            }
+        });
 
         int[] provice_code = new int[1];
         int[] district_code = new int[1];
+        String[] province = new String[1];
+        String[] district = new String[1];
+        String[] ward = new String[1];
         spWard.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
-                String ward = adapterView.getItemAtPosition(position).toString();
+                String ward_name = adapterView.getItemAtPosition(position).toString();
+                ward[0] = ward_name;
             }
 
             @Override
@@ -63,6 +80,7 @@ public class AddAddressShippingActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
                 String district_name = adapterView.getItemAtPosition(position).toString();
+                district[0] = district_name;
                 try {
                     Call<District[]> call = addressService.getAllDistricts();
                     call.enqueue(new Callback<District[]>() {
@@ -101,6 +119,7 @@ public class AddAddressShippingActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
                 String province_name = adapterView.getItemAtPosition(position).toString();
+                province[0] = province_name;
                 try {
                     Call<Province[]> call = addressService.getAllProvinces();
                     call.enqueue(new Callback<Province[]>() {
@@ -138,10 +157,14 @@ public class AddAddressShippingActivity extends AppCompatActivity {
         getAllProvinces();
 
 
-        constraintLayout.setOnClickListener(new View.OnClickListener() {
+        btn_save_address.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(AddAddressShippingActivity.this, OrderHistoryActivity.class);
+                User user = new User("Lee Chong Wei", "Lee Chong Wei");
+                String fullname = it_fullname.getText().toString();
+                String address = it_address.getText().toString();
+                addNewAddress(new Address(fullname, address, ward[0],  district[0], province[0]));
+                Intent intent = new Intent(v.getContext(), AddressShippingActivity.class);
                 startActivity(intent);
             }
         });
@@ -161,7 +184,6 @@ public class AddAddressShippingActivity extends AppCompatActivity {
                         return;
                     }
                     for (Province province : provinces) {
-//                        provinceList.add(new Province(province.getName(), province.getCode(), province.getDivision_type(), province.getCodename(), province.getPhone_code(), province.getDistricts()));
                         provinceListName.add(province.getName());
                     }
                     ArrayAdapter<String> adapterProvince =
@@ -193,8 +215,7 @@ public class AddAddressShippingActivity extends AppCompatActivity {
                     }
                     for (District district : districts) {
                         if (code == district.getProvince_code()) {
-//                            districtListName.add(new District(district.getName(), district.getCode(), district.getDivision_type(), district.getCodename(), district.getProvince_code(), district.getWards()));
-                                districtListName.add(district.getName());
+                            districtListName.add(district.getName());
                             System.out.println(district.getName());
                         }
                     }
@@ -239,6 +260,25 @@ public class AddAddressShippingActivity extends AppCompatActivity {
 
                 @Override
                 public void onFailure(Call<Ward[]> call, Throwable t) {
+
+                }
+            });
+        } catch (Exception e) {
+            Log.d("Error", e.getMessage());
+        }
+    }
+
+    private void addNewAddress(Address newAddress) {
+        try {
+            Call<Address> call = addressService.addAddress(newAddress);
+            call.enqueue(new Callback<Address>() {
+                @Override
+                public void onResponse(Call<Address> call, Response<Address> response) {
+                    Toast.makeText(AddAddressShippingActivity.this, "Added successfully", Toast.LENGTH_SHORT).show();
+                }
+
+                @Override
+                public void onFailure(Call<Address> call, Throwable t) {
 
                 }
             });

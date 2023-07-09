@@ -16,7 +16,7 @@ public class LandingActivity extends AppCompatActivity {
     FirebaseAuth mAuth;
 
     @Override
-    public void onStart()  {
+    public void onStart() {
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
         try {
@@ -26,7 +26,7 @@ public class LandingActivity extends AppCompatActivity {
                 startActivity(intent);
                 finish();
             }
-        }catch (Exception e) {
+        } catch (Exception e) {
             System.out.println(e);
         }
 
