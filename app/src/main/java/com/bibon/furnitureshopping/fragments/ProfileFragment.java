@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -13,6 +14,7 @@ import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
 
 import com.bibon.furnitureshopping.R;
+import com.bibon.furnitureshopping.activities.AddressShippingActivity;
 import com.bibon.furnitureshopping.activities.LoginActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -51,12 +53,20 @@ public class ProfileFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         ImageView img_avatar = (ImageView) getView().findViewById(R.id.img_avatar);
         AppCompatButton btn_log_out = getView().findViewById(R.id.btn_logout);
-
+        LinearLayout linearLayoutAddresses = getView().findViewById(R.id.linearLayout_addresses);
         btn_log_out.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 FirebaseAuth.getInstance().signOut();
                 Intent intent = new Intent(v.getContext(), LoginActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        linearLayoutAddresses.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), AddressShippingActivity.class);
                 startActivity(intent);
             }
         });

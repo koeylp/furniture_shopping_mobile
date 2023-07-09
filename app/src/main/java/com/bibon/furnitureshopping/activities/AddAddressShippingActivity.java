@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -27,8 +28,7 @@ import retrofit2.Response;
 
 public class AddAddressShippingActivity extends AppCompatActivity {
     Spinner spWard, spDistrict, spProvince;
-    ConstraintLayout constraintLayout;
-
+    Button btn_save_address, btn_cancel;
     AddressService addressService;
     ArrayList<String> provinceListName;
     ArrayList<String> districtListName;
@@ -43,7 +43,16 @@ public class AddAddressShippingActivity extends AppCompatActivity {
         spDistrict = (Spinner) findViewById(R.id.spinnerDistrict);
         spProvince = (Spinner) findViewById(R.id.spinnerProvince);
         spProvince = (Spinner) findViewById(R.id.spinnerProvince);
-        constraintLayout = (ConstraintLayout) findViewById(R.id.btn_save_address);
+        btn_save_address = findViewById(R.id.btn_save_address);
+        btn_cancel = findViewById(R.id.btn_cancel_address);
+
+        btn_cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), AddressShippingActivity.class);
+                startActivity(intent);
+            }
+        });
 
         int[] provice_code = new int[1];
         int[] district_code = new int[1];
@@ -138,10 +147,10 @@ public class AddAddressShippingActivity extends AppCompatActivity {
         getAllProvinces();
 
 
-        constraintLayout.setOnClickListener(new View.OnClickListener() {
+        btn_save_address.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(AddAddressShippingActivity.this, OrderHistoryActivity.class);
+                Intent intent = new Intent(v.getContext(), AddressShippingActivity.class);
                 startActivity(intent);
             }
         });

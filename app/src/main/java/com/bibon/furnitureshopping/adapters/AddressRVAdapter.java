@@ -1,17 +1,11 @@
 package com.bibon.furnitureshopping.adapters;
 
-import android.content.Context;
-import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bibon.furnitureshopping.R;
@@ -21,22 +15,16 @@ import java.util.ArrayList;
 
 public class AddressRVAdapter extends RecyclerView.Adapter<AddressRVAdapter.ViewHolder> {
     private ArrayList<Address> addressList;
-    private Context context;
-
-    public void setContext(Context context) {
-        this.context = context;
-    }
 
     public AddressRVAdapter(ArrayList<Address> addressList) {
         this.addressList = addressList;
     }
 
-
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        View view = layoutInflater.inflate(R.layout.activity_address_shipping, parent, false);
+        View view = layoutInflater.inflate(R.layout.custom_address_view, parent, false);
         return new ViewHolder(view);
     }
 
@@ -44,9 +32,9 @@ public class AddressRVAdapter extends RecyclerView.Adapter<AddressRVAdapter.View
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Address address = addressList.get(position);
-
-        holder.tvFullname.setText(address.getFullName());
-        holder.tvAddress.setText(address.getAddress());
+        String addressOneLine = address.getAddress() + ", " + address.getWard() + ", " + address.getDistrict() + ", " + address.getProvince();
+        holder.tv_fullname.setText(address.getFullName());
+        holder.tv_address_detail.setText(addressOneLine);
     }
 
     @Override
@@ -56,21 +44,15 @@ public class AddressRVAdapter extends RecyclerView.Adapter<AddressRVAdapter.View
 
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        private TextView tvFullname;
-        private TextView tvAddress;
+        private TextView tv_fullname;
+        private TextView tv_address_detail;
 
         public ViewHolder(View itemView) {
             super(itemView);
-            tvFullname = itemView.findViewById(R.id.tvFullname);
-            tvAddress = itemView.findViewById(R.id.tvAddress);
-
+            tv_fullname = itemView.findViewById(R.id.tv_fullname);
+            tv_address_detail = itemView.findViewById(R.id.tv_address_detail);
         }
 
-        public void bind(Address address) {
-            tvFullname.setText(address.getFullName());
-            tvAddress.setText(address.getAddress());
-
-        }
     }
 
 }

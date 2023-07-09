@@ -38,14 +38,32 @@
 
     </androidx.appcompat.widget.Toolbar>
 
-    <CheckBox
-        android:id="@+id/checkBox"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Use as the shipping address"
-        android:textSize="18dp"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="63dp" />
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="412dp"
+        android:layout_height="606dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        app:layout_constraintVertical_bias="0.0" />
+
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_add_address"
+        android:layout_width="285dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="16dp"
+        android:adjustViewBounds="true"
+        android:background="@color/blackTextColor"
+        android:cropToPadding="true"
+        android:fontFamily="serif"
+        android:text="Add new address"
+        android:textColor="#ffffff"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/recyclerView" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

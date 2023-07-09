@@ -1,5 +1,6 @@
 package com.bibon.furnitureshopping.services;
 
+import com.bibon.furnitureshopping.models.Address;
 import com.bibon.furnitureshopping.models.District;
 import com.bibon.furnitureshopping.models.Province;
 import com.bibon.furnitureshopping.models.Ward;
@@ -18,5 +19,8 @@ public interface AddressService {
 
     @GET(ADDRESS + "/wards")
     Call<Ward[]> getAllWards();
+
+    @GET(ADDRESS + "/{email}")
+    Call<Address[]> getAddressByEmail();
 
 }
