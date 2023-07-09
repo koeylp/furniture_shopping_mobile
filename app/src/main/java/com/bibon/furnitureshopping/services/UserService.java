@@ -9,6 +9,6 @@ import retrofit2.http.POST;
 public interface UserService {
     String AUTH = "auth";
 
-    @POST(AUTH)
+    @POST(AUTH + "/signup")
     Call<User> signup(@Body User user);
 }

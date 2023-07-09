@@ -51,8 +51,6 @@ public class AddAddressShippingActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
                 String ward = adapterView.getItemAtPosition(position).toString();
-                Toast.makeText(AddAddressShippingActivity.this, "Selected ward: " + ward, Toast.LENGTH_SHORT).show();
-
             }
 
             @Override

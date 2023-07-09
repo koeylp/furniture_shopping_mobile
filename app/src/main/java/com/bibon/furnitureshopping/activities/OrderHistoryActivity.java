@@ -27,11 +27,6 @@ public class OrderHistoryActivity extends AppCompatActivity {
         viewPager2 = findViewById(R.id.view_page);
         viewPageAdapter = new ViewPageAdapter(this);
 
-        final ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayShowHomeEnabled(false);
-        actionBar.setTitle("");
-        actionBar.setSubtitle("");
-        viewPager2.setAdapter(viewPageAdapter);
 
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override

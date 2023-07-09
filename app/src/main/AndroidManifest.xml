@@ -33,7 +33,7 @@
             android:exported="false"
             android:theme="@style/Theme.MaterialComponents" />
         <activity
-            android:name=".activities.LandingActivity"
+            android:name=".activities.SplashActivity"
             android:exported="false" />
         <activity
             android:name=".activities.ProductDetailActivity"
@@ -48,7 +48,7 @@
             android:name=".activities.LoginActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.SplashActivity"
+            android:name=".activities.LandingActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
