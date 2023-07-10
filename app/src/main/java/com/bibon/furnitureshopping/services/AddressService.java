@@ -9,6 +9,8 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
+import retrofit2.http.Path;
 
 public interface AddressService {
 
@@ -22,10 +24,13 @@ public interface AddressService {
     @GET(ADDRESS + "/wards")
     Call<Ward[]> getAllWards();
 
-    @GET(ADDRESS + "/{email}")
-    Call<Address[]> getAddressByEmail();
+    @GET(ADDRESS + "/{user}")
+    Call<Address[]> getAddressByUser(@Path("user") Object user);
 
     @POST(ADDRESS)
     Call<Address> addAddress(@Body Address address);
+
+    @PUT(ADDRESS + "/{id}/{userId}")
+    Call<Address> setDefaultAddress(@Path("id") Object id, @Path("userId") Object userId);
 
 }

@@ -14,12 +14,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bibon.furnitureshopping.R;
-import com.bibon.furnitureshopping.RecyclerView.UpdateProductListRecyclerView;
+import com.bibon.furnitureshopping.utils.UpdateProductListRecyclerView;
 import com.bibon.furnitureshopping.activities.ProductDetailActivity;
 import com.bibon.furnitureshopping.adapters.CategoryRVAdapter;
 import com.bibon.furnitureshopping.adapters.ProductRVAdapter;
 import com.bibon.furnitureshopping.applications.CartApplication;
-import com.bibon.furnitureshopping.models.Cart;
 import com.bibon.furnitureshopping.models.CartList;
 import com.bibon.furnitureshopping.models.Category;
 import com.bibon.furnitureshopping.models.Product;

@@ -20,7 +20,11 @@ import com.bibon.furnitureshopping.models.Province;
 import com.bibon.furnitureshopping.models.User;
 import com.bibon.furnitureshopping.models.Ward;
 import com.bibon.furnitureshopping.repositories.AddressRepository;
+import com.bibon.furnitureshopping.repositories.UserRepository;
 import com.bibon.furnitureshopping.services.AddressService;
+import com.bibon.furnitureshopping.services.UserService;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
 
@@ -35,7 +39,11 @@ public class AddAddressShippingActivity extends AppCompatActivity {
     ArrayList<String> provinceListName;
     ArrayList<String> districtListName;
     ArrayList<String> wardListName;
-    EditText it_fullname, it_address;
+    EditText it_fullname, it_address, it_phone;
+    UserService userService;
+    FirebaseAuth mAuth = FirebaseAuth.getInstance();
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,9 +55,11 @@ public class AddAddressShippingActivity extends AppCompatActivity {
         spProvince = (Spinner) findViewById(R.id.spinnerProvince);
         it_fullname = findViewById(R.id.it_fullname);
         it_address = findViewById(R.id.it_address);
+        it_phone = findViewById(R.id.it_phone);
         btn_save_address = findViewById(R.id.btn_save_address);
         btn_cancel = findViewById(R.id.btn_cancel_address);
-
+        userService = UserRepository.geUserService();
+        addressService = AddressRepository.getAddressService();
         btn_cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -58,11 +68,13 @@ public class AddAddressShippingActivity extends AppCompatActivity {
             }
         });
 
-        int[] provice_code = new int[1];
+        int[] province_code = new int[1];
         int[] district_code = new int[1];
         String[] province = new String[1];
         String[] district = new String[1];
         String[] ward = new String[1];
+
+
         spWard.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
@@ -131,10 +143,10 @@ public class AddAddressShippingActivity extends AppCompatActivity {
                             }
                             for (Province province : provinces) {
                                 if (province.getName().equals(province_name)) {
-                                    provice_code[0] = province.getCode();
+                                    province_code[0] = province.getCode();
                                 }
                             }
-                            getDistrictByProvinceCode(provice_code[0]);
+                            getDistrictByProvinceCode(province_code[0]);
                         }
 
                         @Override
@@ -153,21 +165,34 @@ public class AddAddressShippingActivity extends AppCompatActivity {
             }
         });
 
-        addressService = AddressRepository.getAddressService();
+
         getAllProvinces();
+        String[] email = new String[1];
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if (currentUser != null) {
+            email[0] = currentUser.getEmail();
+        }
+        System.out.println(ward[0] + district[0] + province[0] + "out");
+
+        System.out.println(email[0]);
 
 
         btn_save_address.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                User user = new User("Lee Chong Wei", "Lee Chong Wei");
                 String fullname = it_fullname.getText().toString();
+                String phone = it_phone.getText().toString();
                 String address = it_address.getText().toString();
-                addNewAddress(new Address(fullname, address, ward[0],  district[0], province[0]));
+                Address addressSelection = new Address("", fullname, phone, address, ward[0], district[0], province[0]);
+                getUserByEmail(email[0], addressSelection);
+
+                System.out.println(ward[0] + district[0] + province[0]);
+
                 Intent intent = new Intent(v.getContext(), AddressShippingActivity.class);
                 startActivity(intent);
             }
         });
+
 
 
     }
@@ -282,6 +307,32 @@ public class AddAddressShippingActivity extends AppCompatActivity {
 
                 }
             });
+        } catch (Exception e) {
+            Log.d("Error", e.getMessage());
+        }
+    }
+
+    private void getUserByEmail(String email, Address newAddress) {
+        try {
+            Call<User> call = userService.getUserByEmail(email);
+            call.enqueue(new Callback<User>() {
+                @Override
+                public void onResponse(Call<User> call, Response<User> response) {
+                    User user = response.body();
+                    if (user == null) {
+                        return;
+                    }
+                    user = new User(user.get_id(), user.getEmail(), user.getFullname());
+                    newAddress.setUser(user.get_id());
+                    addNewAddress(newAddress);
+                }
+
+                @Override
+                public void onFailure(Call<User> call, Throwable t) {
+                    System.out.println("error: " + t);
+                }
+            });
+
         } catch (Exception e) {
             Log.d("Error", e.getMessage());
         }

@@ -11,7 +11,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bibon.furnitureshopping.R;
-import com.bibon.furnitureshopping.RecyclerView.UpdateCartRecycleView;
+import com.bibon.furnitureshopping.utils.UpdateCartRecycleView;
 import com.bibon.furnitureshopping.models.Cart;
 import com.bibon.furnitureshopping.models.CartList;
 import com.squareup.picasso.Picasso;

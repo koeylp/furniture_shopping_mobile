@@ -10,10 +10,10 @@
         android:id="@+id/spinnerDistrict"
         android:layout_width="380dp"
         android:layout_height="61dp"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="12dp"
         android:background="@drawable/custom_edittext"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.516"
+        app:layout_constraintHorizontal_bias="0.483"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/spinnerProvince" />
 
@@ -30,27 +30,27 @@
         app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/down_arrow" />
 
+
     <Spinner
         android:id="@+id/spinnerWard"
         android:layout_width="380dp"
         android:layout_height="61dp"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="12dp"
         android:background="@drawable/custom_edittext"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.483"
+        app:layout_constraintHorizontal_bias="0.516"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/spinnerDistrict" />
-
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/etAddress"
         android:layout_width="380dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="12dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.483"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etFullname">
+        app:layout_constraintTop_toBottomOf="@+id/etPhone">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/it_address"
@@ -110,15 +110,33 @@
             android:hint="Full name" />
     </com.google.android.material.textfield.TextInputLayout>
 
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/etPhone"
+        android:layout_width="380dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.516"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etFullname">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/it_phone"
+            android:layout_width="380dp"
+            android:layout_height="61dp"
+            android:background="@drawable/custom_edittext"
+            android:hint="Phone" />
+    </com.google.android.material.textfield.TextInputLayout>
+
     <Spinner
         android:id="@+id/spinnerProvince"
         android:layout_width="380dp"
         android:layout_height="61dp"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="12dp"
         android:background="@drawable/custom_edittext"
         android:contentDescription="province"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.483"
+        app:layout_constraintHorizontal_bias="0.516"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/etAddress" />
 
@@ -126,7 +144,7 @@
         android:id="@+id/btn_save_address"
         android:layout_width="380dp"
         android:layout_height="60dp"
-        android:layout_marginTop="96dp"
+        android:layout_marginTop="40dp"
         android:adjustViewBounds="true"
         android:background="#000000"
         android:cropToPadding="true"
@@ -144,7 +162,7 @@
         android:id="@+id/btn_cancel_address"
         android:layout_width="380dp"
         android:layout_height="60dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="12dp"
         android:adjustViewBounds="true"
         android:background="#FFFFFF"
         android:cropToPadding="true"
