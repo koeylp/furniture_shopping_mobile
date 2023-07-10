@@ -9,10 +9,8 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.bibon.furnitureshopping.R;
-import com.bibon.furnitureshopping.adapters.AddressRVAdapter;
 import com.bibon.furnitureshopping.models.Address;
 import com.bibon.furnitureshopping.models.User;
 import com.bibon.furnitureshopping.repositories.AddressRepository;
@@ -21,8 +19,6 @@ import com.bibon.furnitureshopping.services.AddressService;
 import com.bibon.furnitureshopping.services.UserService;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-
-import java.util.ArrayList;
 
 import retrofit2.Call;
 import retrofit2.Callback;
