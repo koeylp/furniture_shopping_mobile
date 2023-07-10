@@ -1,15 +1,231 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.ProductDetailActivity"
-    >
+    tools:context=".activities.ProductDetailActivity">
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/img_product_detail"
+            android:layout_width="374dp"
+            android:layout_height="270dp"
+            android:layout_marginTop="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.486"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar"
+            tools:srcCompat="@tools:sample/avatars" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="412dp"
+            android:layout_height="420dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/custom_cart_rounded"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/img_product_detail">
+
+
+            <TextView
+                android:id="@+id/tv_product_name_detail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="28dp"
+                android:fontFamily="@font/nunito_sans_bold"
+                android:text="Minimal Stand"
+                android:textColor="#000000"
+                android:textSize="24dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.138"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_currency"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="36dp"
+                android:layout_marginTop="1dp"
+                android:text="$"
+                android:textSize="30dp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_product_name_detail" />
+
+            <TextView
+                android:id="@+id/tv_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="1dp"
+                android:text="20.00"
+                android:textSize="30dp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@+id/tv_currency"
+                app:layout_constraintTop_toBottomOf="@+id/tv_product_name_detail" />
+
+            <ImageView
+                android:id="@+id/img_plus_detail"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_marginStart="120dp"
+                android:layout_marginTop="70dp"
+                android:background="@drawable/custom_edittext"
+                android:padding="5dp"
+
+                app:layout_constraintStart_toEndOf="@+id/tv_price"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/plus" />
+
+            <ImageView
+                android:id="@+id/img_minus_detail"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="70dp"
+                android:background="@drawable/custom_edittext"
+                android:padding="5dp"
+
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/tv_quantity"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/minus" />
+
+            <TextView
+                android:id="@+id/tv_quantity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="14dp"
+                android:layout_marginTop="64dp"
+                android:text="1"
+                android:textSize="25dp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/img_plus_detail"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+            <TextView
+                android:id="@+id/tv_description_detail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:fontFamily="@font/nunito_sans_light"
+                android:maxWidth="340dp"
+                android:text="Minimal Stand is made of by natural wood. The design that is very simple and minimal. This is truly one of the best furnitures in any family for now. With 3 different colors, you can easily select the best match for your home. "
+                android:textColor="#606060"
+                android:textSize="18dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.486"
+
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView4" />
+
+            <Button
+                android:id="@+id/btn_save_to_cart"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="335dp"
+                android:layout_marginEnd="20dp"
+                android:adjustViewBounds="true"
+                android:background="@drawable/custom_save_cart"
+                android:cropToPadding="true"
+                app:backgroundTint="@null"
+                app:layout_constraintEnd_toStartOf="@+id/btn_add_to_cart_detail"
+                app:layout_constraintHorizontal_bias="0.8"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+            </Button>
+
+            <ImageView
+                android:id="@+id/imageView3"
+                android:layout_width="29dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="17dp"
+                android:layout_marginEnd="11dp"
+                app:layout_constraintEnd_toStartOf="@+id/btn_add_to_cart_detail"
+                app:layout_constraintHorizontal_bias="0.576"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/btn_save_to_cart"
+                app:srcCompat="@drawable/save" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/btn_add_to_cart_detail"
+                android:layout_width="255dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="335dp"
+                android:layout_marginEnd="5dp"
+                android:background="@drawable/custom_button_add_to_cart"
+                android:elevation="15dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.822"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    android:cropToPadding="true"
+                    android:text="Add to cart"
+                    android:textColor="#FFFFFF"
+                    android:textSize="21dp"
+                    android:textStyle="normal"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.496"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.516" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <ImageView
+                android:id="@+id/imageView9"
+                android:layout_width="26dp"
+                android:layout_height="23dp"
+                android:layout_marginStart="36dp"
+                android:layout_marginTop="17dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_price"
+                app:srcCompat="@drawable/star" />
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="38dp"
+                android:layout_height="27dp"
+                android:layout_marginStart="13dp"
+                android:layout_marginTop="16dp"
+                android:text="4.5"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@+id/imageView9"
+                app:layout_constraintTop_toBottomOf="@+id/tv_price" />
+
+            <TextView
+                android:id="@+id/textView6"
+                android:layout_width="87dp"
+                android:layout_height="25dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="14dp"
+                android:text="(50 reviews)"
+                android:textColor="#C61A1A"
+                app:layout_constraintBottom_toTopOf="@+id/tv_description_detail"
+                app:layout_constraintStart_toEndOf="@+id/textView4"
+                app:layout_constraintTop_toBottomOf="@+id/tv_price"
+                app:layout_constraintVertical_bias="0.0" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
@@ -42,203 +258,6 @@
                 tools:layout_editor_absoluteY="15dp" />
 
         </androidx.appcompat.widget.Toolbar>
-
-
-        <ImageView
-            android:id="@+id/img_product_detail"
-            android:layout_width="378dp"
-            android:layout_height="296dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.476"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/toolbar"
-            tools:srcCompat="@tools:sample/avatars" />
-
-        <TextView
-            android:id="@+id/tv_product_name_detail"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="Minimal Stand"
-            android:textColor="#000000"
-            android:textSize="24dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.12"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/img_product_detail" />
-
-        <TextView
-            android:id="@+id/tv_currency"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="60dp"
-            android:text="$"
-            android:textSize="30dp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/img_product_detail" />
-
-        <TextView
-            android:id="@+id/tv_price"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
-            android:layout_marginTop="60dp"
-            android:text="20.00"
-            android:textSize="30dp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toEndOf="@+id/tv_currency"
-            app:layout_constraintTop_toBottomOf="@+id/img_product_detail" />
-
-        <ImageView
-            android:id="@+id/img_plus_detail"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:layout_marginStart="124dp"
-            android:layout_marginTop="68dp"
-            android:background="@drawable/custom_edittext"
-            android:padding="5dp"
-            app:layout_constraintStart_toEndOf="@+id/tv_price"
-            app:layout_constraintTop_toBottomOf="@+id/img_product_detail"
-            app:srcCompat="@drawable/plus" />
-
-        <ImageView
-            android:id="@+id/img_minus_detail"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="68dp"
-            android:background="@drawable/custom_edittext"
-            android:padding="5dp"
-            app:layout_constraintStart_toEndOf="@+id/tv_quantity"
-            app:layout_constraintTop_toBottomOf="@+id/img_product_detail"
-            app:srcCompat="@drawable/minus" />
-
-        <TextView
-            android:id="@+id/tv_quantity"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="64dp"
-            android:text="1"
-            android:textSize="25dp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toEndOf="@+id/img_plus_detail"
-            app:layout_constraintTop_toBottomOf="@+id/img_product_detail" />
-
-        <TextView
-            android:id="@+id/tv_description_detail"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="160dp"
-            android:fontFamily="@font/nunito_sans_light"
-            android:maxWidth="340dp"
-            android:text="Minimal Stand is made of by natural wood. The design that is very simple and minimal. This is truly one of the best furnitures in any family for now. With 3 different colors, you can easily select the best match for your home. "
-            android:textColor="#606060"
-            android:textSize="16dp"
-            app:layout_constraintBottom_toTopOf="@+id/btn_add_to_cart_detail"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.492"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/img_product_detail"
-            app:layout_constraintVertical_bias="0.315" />
-
-
-        <Button
-            android:id="@+id/btn_save_to_cart"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_marginTop="28dp"
-            android:layout_marginEnd="20dp"
-            android:adjustViewBounds="true"
-            android:background="@drawable/custom_save_cart"
-            android:cropToPadding="true"
-            app:backgroundTint="@null"
-            app:layout_constraintEnd_toStartOf="@+id/btn_add_to_cart_detail"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_description_detail">
-
-        </Button>
-
-        <ImageView
-            android:id="@+id/imageView3"
-            android:layout_width="29dp"
-            android:layout_height="30dp"
-            android:layout_marginTop="43dp"
-            app:layout_constraintEnd_toStartOf="@+id/btn_add_to_cart_detail"
-            app:layout_constraintHorizontal_bias="0.583"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_description_detail"
-            app:srcCompat="@drawable/save" />
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/btn_add_to_cart_detail"
-            android:layout_width="255dp"
-            android:layout_height="60dp"
-            android:layout_marginTop="28dp"
-            android:layout_marginEnd="5dp"
-            android:background="@drawable/custom_button"
-            android:elevation="15dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.76"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_description_detail">
-
-            <TextView
-                android:id="@+id/tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:adjustViewBounds="true"
-                android:cropToPadding="true"
-                android:text="Add to cart"
-                android:textColor="#FFFFFF"
-                android:textSize="21dp"
-                android:textStyle="normal"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <ImageView
-            android:id="@+id/imageView9"
-            android:layout_width="26dp"
-            android:layout_height="23dp"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="12dp"
-            android:layout_marginBottom="13dp"
-            app:layout_constraintBottom_toTopOf="@+id/tv_description_detail"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_price"
-            app:srcCompat="@drawable/star" />
-
-        <TextView
-            android:id="@+id/textView4"
-            android:layout_width="38dp"
-            android:layout_height="27dp"
-            android:layout_marginStart="13dp"
-            android:layout_marginTop="16dp"
-            android:text="4.5"
-            android:textSize="20dp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toEndOf="@+id/imageView9"
-            app:layout_constraintTop_toBottomOf="@+id/tv_price" />
-
-        <TextView
-            android:id="@+id/textView6"
-            android:layout_width="87dp"
-            android:layout_height="25dp"
-            android:layout_marginStart="12dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="14dp"
-            android:text="(50 reviews)"
-            android:textColor="#878787"
-            app:layout_constraintBottom_toTopOf="@+id/tv_description_detail"
-            app:layout_constraintStart_toEndOf="@+id/textView4"
-            app:layout_constraintTop_toBottomOf="@+id/tv_price"
-            app:layout_constraintVertical_bias="0.0" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

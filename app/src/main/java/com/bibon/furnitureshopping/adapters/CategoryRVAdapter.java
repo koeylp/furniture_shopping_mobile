@@ -12,7 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bibon.furnitureshopping.R;
-import com.bibon.furnitureshopping.RecyclerView.UpdateProductListRecyclerView;
+import com.bibon.furnitureshopping.utils.UpdateProductListRecyclerView;
 import com.bibon.furnitureshopping.models.Category;
 import com.bibon.furnitureshopping.models.Product;
 import com.bibon.furnitureshopping.services.ProductService;

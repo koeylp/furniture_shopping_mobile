@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:paddingHorizontal="10dp"
+    android:id="@+id/profile_fragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -19,11 +20,11 @@
             android:orientation="horizontal"
             android:padding="20dp">
 
-            <ImageView
+            <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/img_avatar"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                tools:srcCompat="@tools:sample/avatars" />
+                android:src="@drawable/avatar" />
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -47,6 +48,8 @@
                     android:layout_height="wrap_content"
                     android:text="bruno203@gmail.com"
                     android:textSize="14sp" />
+
+
             </LinearLayout>
         </LinearLayout>
 
@@ -56,17 +59,46 @@
             android:orientation="vertical">
 
             <LinearLayout
-                android:id="@+id/linearLayout_my_orders"
+                android:id="@+id/linearLayout_my_profile"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="40dp"
+                android:layout_marginTop="20dp"
                 android:background="@drawable/my_custom_background"
+                android:elevation="8dp"
                 android:orientation="vertical"
                 android:paddingLeft="30dp"
                 android:paddingBottom="25dp">
 
                 <TextView
-                    android:id="@+id/tv_title_address"
+                    android:id="@+id/tv_title_profile"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:text="My Profile"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tv_subtitle_profile"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="View your personal information" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearLayout_my_orders"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/my_custom_background"
+                android:elevation="8dp"
+                android:orientation="vertical"
+                android:paddingLeft="30dp"
+                android:paddingBottom="25dp">
+
+                <TextView
+                    android:id="@+id/tv_title_orders"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="24dp"
@@ -75,7 +107,7 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/tv_subtitle_address"
+                    android:id="@+id/tv_subtitle_orders"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
@@ -86,14 +118,15 @@
                 android:id="@+id/linearLayout_addresses"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="32dp"
+                android:layout_marginTop="20dp"
                 android:background="@drawable/my_custom_background"
+                android:elevation="8dp"
                 android:orientation="vertical"
                 android:paddingLeft="30dp"
                 android:paddingBottom="25dp">
 
                 <TextView
-                    android:id="@+id/tv_order"
+                    android:id="@+id/tv_title_address"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="24dp"
@@ -102,7 +135,7 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/tv_subtitle_order"
+                    android:id="@+id/tv_subtitle_address"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
@@ -113,8 +146,9 @@
                 android:id="@+id/linearLayout_payment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="36dp"
+                android:layout_marginTop="20dp"
                 android:background="@drawable/my_custom_background"
+                android:elevation="8dp"
                 android:orientation="vertical"
                 android:paddingLeft="30dp"
                 android:paddingBottom="25dp">
@@ -136,12 +170,13 @@
                     android:text="You have 2 cards" />
             </LinearLayout>
 
+
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_logout"
                 android:layout_width="285dp"
                 android:layout_height="50dp"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="72dp"
+                android:layout_marginTop="50dp"
                 android:background="@color/blackTextColor"
                 android:fontFamily="serif"
                 android:text="Log out"

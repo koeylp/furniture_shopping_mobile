@@ -13,7 +13,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class LandingActivity extends AppCompatActivity {
 
-    FirebaseAuth mAuth;
+    FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
     @Override
     public void onStart() {
@@ -27,7 +27,7 @@ public class LandingActivity extends AppCompatActivity {
                 finish();
             }
         } catch (Exception e) {
-            System.out.println(e);
+            e.printStackTrace();
         }
 
     }

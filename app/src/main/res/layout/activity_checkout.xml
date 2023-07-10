@@ -45,7 +45,7 @@
         app:layout_constraintTop_toBottomOf="@+id/card_delivery_method">
 
         <TextView
-            android:id="@+id/textView18"
+            android:id="@+id/tv_order_price"
             android:layout_width="61dp"
             android:layout_height="25dp"
             android:layout_marginStart="272dp"
@@ -67,7 +67,7 @@
             android:layout_marginTop="60dp"
             android:fontFamily="@font/nunito_sans_bold"
             android:gravity="right"
-            android:text="$5.00"
+            android:text="$ 5.0"
             android:textColor="#000000"
             android:textSize="18dp"
             android:textStyle="normal"
@@ -75,7 +75,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/textView20"
+            android:id="@+id/tv_total"
             android:layout_width="77dp"
             android:layout_height="22dp"
             android:layout_marginStart="256dp"
@@ -105,7 +105,7 @@
 
         <TextView
             android:id="@+id/textView14"
-            android:layout_width="51dp"
+            android:layout_width="65dp"
             android:layout_height="23dp"
             android:layout_marginStart="12dp"
             android:layout_marginTop="64dp"
@@ -282,7 +282,7 @@
         app:layout_constraintTop_toBottomOf="@+id/tv_label_address">
 
         <TextView
-            android:id="@+id/textView9"
+            android:id="@+id/tv_address_detail"
             android:layout_width="331dp"
             android:layout_height="51dp"
             android:layout_marginStart="16dp"
@@ -296,7 +296,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/textView8"
+            android:id="@+id/tv_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -305,6 +305,19 @@
             android:text="Bruno Fernandes"
             android:textColor="#000000"
             android:textSize="20dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_phone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="0946573434"
+            android:textColor="#000000"
+            android:textSize="15dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.869"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -338,7 +351,7 @@
         app:layout_goneMarginTop="10dp" />
 
     <ImageView
-        android:id="@+id/imageView10"
+        android:id="@+id/edit_profile"
         android:layout_width="25dp"
         android:layout_height="25dp"
         android:layout_marginTop="13dp"

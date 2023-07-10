@@ -1,4 +1,4 @@
-package com.bibon.furnitureshopping.RecyclerView;
+package com.bibon.furnitureshopping.utils;
 
 import com.bibon.furnitureshopping.models.Product;
 

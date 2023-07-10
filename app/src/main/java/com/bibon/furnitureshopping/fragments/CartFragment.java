@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bibon.furnitureshopping.R;
-import com.bibon.furnitureshopping.RecyclerView.UpdateCartRecycleView;
+import com.bibon.furnitureshopping.utils.UpdateCartRecycleView;
 import com.bibon.furnitureshopping.activities.CheckoutActivity;
 import com.bibon.furnitureshopping.adapters.CartRVAdapter;
 import com.bibon.furnitureshopping.applications.CartApplication;
@@ -55,14 +55,14 @@ public class CartFragment extends Fragment implements UpdateCartRecycleView {
         tv_currency = getView().findViewById(R.id.tv_currency);
         tv_total_label = getView().findViewById(R.id.tv_total_label);
         tv_total = getView().findViewById(R.id.tv_total);
-        double total = 0;
+        double[] total = new double[1];
         for(Cart cart : cartList.getCartList()) {
-            total += cart.getCartQuantity() * cart.getPrice();
+            total[0] += cart.getCartQuantity() * cart.getPrice();
         }
-        tv_total.setText(total + "");
+        tv_total.setText(String.valueOf(total[0]));
 
         btn_checkout = getView().findViewById(R.id.btn_checkout);
-        if (total == 0) {
+        if (total[0] == 0) {
             btn_checkout.setVisibility(View.GONE);
             tv_total.setVisibility(View.GONE);
             tv_total_label.setVisibility(View.GONE);
@@ -73,6 +73,9 @@ public class CartFragment extends Fragment implements UpdateCartRecycleView {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), CheckoutActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putDouble("Total", total[0]);
+                intent.putExtra("BUNDLE", bundle);
                 startActivity(intent);
             }
         });

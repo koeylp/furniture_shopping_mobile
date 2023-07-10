@@ -1,0 +1,5 @@
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <solid android:color="#bac3c3"/>
+    <corners android:topLeftRadius="60dp"
+        android:topRightRadius="60dp"/> <!-- Điều chỉnh bán kính của 2 góc trên tại đây -->
+</shape>
