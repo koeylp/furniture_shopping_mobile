@@ -6,7 +6,7 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 import com.bibon.furnitureshopping.fragments.CanceledFragment;
-import com.bibon.furnitureshopping.fragments.DeliveredFragment;
+import com.bibon.furnitureshopping.fragments.PendingFragment;
 import com.bibon.furnitureshopping.fragments.ProcessingFragment;
 
 public class ViewPageAdapter extends FragmentStateAdapter {
@@ -21,13 +21,13 @@ public class ViewPageAdapter extends FragmentStateAdapter {
     public Fragment createFragment(int position) {
         switch (position) {
             case 0:
-                return new DeliveredFragment();
+                return new PendingFragment();
             case 1:
                 return new ProcessingFragment();
             case 2:
                 return new CanceledFragment();
             default:
-                return new DeliveredFragment();
+                return new PendingFragment();
         }
     }
 

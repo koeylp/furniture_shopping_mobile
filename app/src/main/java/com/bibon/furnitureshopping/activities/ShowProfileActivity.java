@@ -85,6 +85,9 @@ public class ShowProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(ShowProfileActivity.this, MainActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("Fragment", "profile");
+                intent.putExtra("BUNDLE", bundle);
                 startActivity(intent);
             }
         });

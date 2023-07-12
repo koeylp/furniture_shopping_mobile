@@ -1,5 +1,6 @@
 package com.bibon.furnitureshopping.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -52,7 +53,23 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         toolbar.setTitle("");
         toolbar.setSubtitle("");
-        replaceFragment(new HomeFragment());
+
+        Intent intent = getIntent();
+        Bundle args = intent.getBundleExtra("BUNDLE");
+
+        System.out.println(args + " intent");
+
+        if (args != null) {
+            String fragment = args.getString("Fragment");
+
+            if (fragment.equals("profile")) {
+                replaceFragment(new ProfileFragment());
+            }
+
+        } else {
+            replaceFragment(new HomeFragment());
+        }
+
 
         ImageView img_back = (ImageView) findViewById(R.id.img_back);
 

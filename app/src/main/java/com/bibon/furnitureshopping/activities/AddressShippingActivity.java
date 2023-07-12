@@ -78,6 +78,9 @@ public class AddressShippingActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), MainActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("Fragment", "profile");
+                intent.putExtra("BUNDLE", bundle);
                 startActivity(intent);
             }
         });
