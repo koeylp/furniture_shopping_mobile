@@ -1,11 +1,5 @@
 package com.bibon.furnitureshopping.activities;
 
-import static com.bibon.furnitureshopping.activities.ShowProfileActivity.MY_REQUEST_CODE;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -13,16 +7,18 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import com.bibon.furnitureshopping.R;
 import com.bumptech.glide.Glide;
@@ -37,7 +33,7 @@ import java.io.ByteArrayOutputStream;
 public class UpdateProfileActivity extends AppCompatActivity {
 
     ImageView img,back;
-    EditText etUsername, etEmail, etPhone;
+    EditText etEmail, etPhone;
     Button btnUpdate;
 
     private static final int READ_EXTERNAL_STORAGE_PERMISSION_REQUEST_CODE = 1;
@@ -50,12 +46,12 @@ public class UpdateProfileActivity extends AppCompatActivity {
 
         img = findViewById(R.id.img_avatar_update);
         back = findViewById(R.id.img_back_update_profile);
-        etUsername = findViewById(R.id.it_fullname);
         etEmail = findViewById(R.id.it_email);
         etPhone = findViewById(R.id.it_phone);
         btnUpdate = findViewById(R.id.btn_update_profile);
 
         setUserInformation();
+
 
         img.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -84,18 +80,17 @@ public class UpdateProfileActivity extends AppCompatActivity {
         if (user == null) {
             return;
         }
-        etUsername.setText(user.getDisplayName());
         etEmail.setText(user.getEmail());
-        etPhone.setText("09812032023");
+        etPhone.setText("0981203202");
         Uri photoUrl = user.getPhotoUrl();
         Glide.with(this).load(photoUrl).error(R.drawable.avatar).into(img);
     }
 
     private void requestStoragePermissionAndPickImage() {
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_MEDIA_IMAGES) == PackageManager.PERMISSION_GRANTED) {
             openGallery();
         } else {
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, READ_EXTERNAL_STORAGE_PERMISSION_REQUEST_CODE);
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_MEDIA_IMAGES}, READ_EXTERNAL_STORAGE_PERMISSION_REQUEST_CODE);
         }
     }
 
@@ -142,10 +137,8 @@ public class UpdateProfileActivity extends AppCompatActivity {
         if (user == null) {
             return;
         }
-        String strFullName = etUsername.getText().toString().trim();
 
         UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
-                .setDisplayName(strFullName)
                 .setPhotoUri(getImageUri())
                 .build();
 

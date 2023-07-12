@@ -1,12 +1,5 @@
 package com.bibon.furnitureshopping.activities;
 
-import androidx.activity.result.ActivityResult;
-import androidx.activity.result.ActivityResultCallback;
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -15,18 +8,21 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.bibon.furnitureshopping.R;
-import com.bibon.furnitureshopping.activities.UpdateProfileActivity;
-import com.bibon.furnitureshopping.fragments.ProfileFragment;
 import com.bibon.furnitureshopping.models.User;
 import com.bibon.furnitureshopping.repositories.UserRepository;
 import com.bibon.furnitureshopping.services.UserService;
-import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -100,7 +96,7 @@ public class ShowProfileActivity extends AppCompatActivity {
         }
         getUserByEmail(user.getEmail());
         etEmail.setText(user.getEmail());
-        etPhone.setText("09812032023");
+        etPhone.setText("Macbook");
 
     }
 

@@ -75,7 +75,7 @@ public class ProductRVAdapter extends RecyclerView.Adapter<ProductRVAdapter.Prod
                         count = i;
                     }
                 }
-                Cart cart = new Cart(currentItem.getProductName(), currentItem.getPrice(), 1, currentItem.getImg());
+                Cart cart = new Cart(currentItem.get_id(), currentItem.getProductName(), currentItem.getPrice(), 1, currentItem.getImg());
                 if (count == -1) {
                     cartList.getCartList().add(cart);
                 } else {

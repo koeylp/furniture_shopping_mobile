@@ -3,6 +3,7 @@ package com.bibon.furnitureshopping.models;
 import java.io.Serializable;
 
 public class Cart implements Serializable {
+    private String productId;
     private String productName;
     private double price;
     private int cartQuantity;
@@ -16,6 +17,22 @@ public class Cart implements Serializable {
         this.price = price;
         this.cartQuantity = cartQuantity;
         this.img = img;
+    }
+
+    public Cart(String productId, String productName, double price, int cartQuantity, String img) {
+        this.productId = productId;
+        this.productName = productName;
+        this.price = price;
+        this.cartQuantity = cartQuantity;
+        this.img = img;
+    }
+
+    public String getProductId() {
+        return productId;
+    }
+
+    public void setProductId(String productId) {
+        this.productId = productId;
     }
 
     public String getProductName() {

@@ -36,28 +36,10 @@
         app:layout_constraintTop_toBottomOf="@+id/etPhone" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/etFullname"
-        android:layout_width="380dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="236dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.483"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/it_fullname"
-            android:layout_width="380dp"
-            android:layout_height="61dp"
-            android:background="@drawable/custom_edittext"
-            android:hint="Full name" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/etEmail"
         android:layout_width="380dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="332dp"
+        android:layout_marginTop="350dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.483"
         app:layout_constraintStart_toStartOf="parent"
@@ -75,7 +57,7 @@
         android:id="@+id/etPhone"
         android:layout_width="380dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="428dp"
+        android:layout_marginTop="438dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.483"
         app:layout_constraintStart_toStartOf="parent"
@@ -123,8 +105,8 @@
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/img_avatar_update"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
         android:layout_marginTop="65dp"
         android:src="@drawable/avatar"
         app:layout_constraintEnd_toEndOf="parent"
@@ -136,11 +118,10 @@
         android:layout_width="22dp"
         android:layout_height="22dp"
         android:layout_marginStart="1dp"
-        android:layout_marginTop="143dp"
-        android:layout_marginEnd="132dp"
+        android:layout_marginEnd="104dp"
         android:src="@drawable/edit"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/img_avatar"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+        app:layout_constraintTop_toBottomOf="@+id/img_avatar_update" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
