@@ -228,8 +228,6 @@ public class CheckoutActivity extends AppCompatActivity {
             call.enqueue(new Callback<Order>() {
                 @Override
                 public void onResponse(Call<Order> call, Response<Order> response) {
-                    System.out.println("create order successfully");
-                    System.out.println(order.getAddress());
                     cartList.getCartList().removeAll(cartList.getCartList());
                 }
 

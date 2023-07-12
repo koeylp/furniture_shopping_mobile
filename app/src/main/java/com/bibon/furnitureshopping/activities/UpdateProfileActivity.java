@@ -33,7 +33,7 @@ import java.io.ByteArrayOutputStream;
 public class UpdateProfileActivity extends AppCompatActivity {
 
     ImageView img,back;
-    EditText etUsername, etEmail, etPhone;
+    EditText etEmail, etPhone;
     Button btnUpdate;
 
     private static final int READ_EXTERNAL_STORAGE_PERMISSION_REQUEST_CODE = 1;
@@ -46,12 +46,12 @@ public class UpdateProfileActivity extends AppCompatActivity {
 
         img = findViewById(R.id.img_avatar_update);
         back = findViewById(R.id.img_back_update_profile);
-        etUsername = findViewById(R.id.it_fullname);
         etEmail = findViewById(R.id.it_email);
         etPhone = findViewById(R.id.it_phone);
         btnUpdate = findViewById(R.id.btn_update_profile);
 
         setUserInformation();
+
 
         img.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -80,18 +80,17 @@ public class UpdateProfileActivity extends AppCompatActivity {
         if (user == null) {
             return;
         }
-        etUsername.setText(user.getDisplayName());
         etEmail.setText(user.getEmail());
-        etPhone.setText("09812032023");
+        etPhone.setText("0981203202");
         Uri photoUrl = user.getPhotoUrl();
         Glide.with(this).load(photoUrl).error(R.drawable.avatar).into(img);
     }
 
     private void requestStoragePermissionAndPickImage() {
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_MEDIA_IMAGES) == PackageManager.PERMISSION_GRANTED) {
             openGallery();
         } else {
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, READ_EXTERNAL_STORAGE_PERMISSION_REQUEST_CODE);
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_MEDIA_IMAGES}, READ_EXTERNAL_STORAGE_PERMISSION_REQUEST_CODE);
         }
     }
 
@@ -138,10 +137,8 @@ public class UpdateProfileActivity extends AppCompatActivity {
         if (user == null) {
             return;
         }
-        String strFullName = etUsername.getText().toString().trim();
 
         UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
-                .setDisplayName(strFullName)
                 .setPhotoUri(getImageUri())
                 .build();
 

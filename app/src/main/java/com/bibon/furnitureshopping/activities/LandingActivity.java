@@ -22,7 +22,7 @@ public class LandingActivity extends AppCompatActivity {
         try {
             FirebaseUser currentUser = mAuth.getCurrentUser();
             if (currentUser != null) {
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                Intent intent = new Intent(getApplicationContext(), SplashActivity.class);
                 startActivity(intent);
                 finish();
             }
