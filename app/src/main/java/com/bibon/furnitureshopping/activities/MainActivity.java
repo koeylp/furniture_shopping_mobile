@@ -64,6 +64,8 @@ public class MainActivity extends AppCompatActivity {
 
             if (fragment.equals("profile")) {
                 replaceFragment(new ProfileFragment());
+            } else if (fragment.equals("cart")) {
+                replaceFragment(new CartFragment());
             }
 
         } else {

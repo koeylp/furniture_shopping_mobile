@@ -22,6 +22,8 @@ import com.bibon.furnitureshopping.applications.CartApplication;
 import com.bibon.furnitureshopping.models.Cart;
 import com.bibon.furnitureshopping.models.CartList;
 
+import java.util.Collections;
+
 
 public class CartFragment extends Fragment implements UpdateCartRecycleView {
 
@@ -46,6 +48,7 @@ public class CartFragment extends Fragment implements UpdateCartRecycleView {
             cartList = new CartList();
         }
         cartList = ((CartApplication) this.getActivity().getApplication()).getCartList();
+        Collections.reverse(cartList.getCartList());
 
         cartRecycleView = getView().findViewById(R.id.rv_cart_item);
         cartRVAdapter = new CartRVAdapter(cartList, CartFragment.this);
