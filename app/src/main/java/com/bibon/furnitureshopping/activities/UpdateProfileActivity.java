@@ -52,7 +52,6 @@ public class UpdateProfileActivity extends AppCompatActivity {
 
         setUserInformation();
 
-
         img.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -27,12 +27,14 @@ public class CategoryRVAdapter extends RecyclerView.Adapter<CategoryRVAdapter.Ca
     private ArrayList<Product> productList;
     UpdateProductListRecyclerView updateRecyclerView;
     Activity activity;
+    String user;
 
-    public CategoryRVAdapter(ArrayList<Category> items, ArrayList<Product> productList, Activity activity, UpdateProductListRecyclerView updateRecyclerView) {
+    public CategoryRVAdapter(ArrayList<Category> items, ArrayList<Product> productList, Activity activity, UpdateProductListRecyclerView updateRecyclerView, String user) {
         this.items = items;
         this.productList = productList;
         this.activity = activity;
         this.updateRecyclerView = updateRecyclerView;
+        this.user = user;
     }
 
     @NonNull
@@ -49,9 +51,7 @@ public class CategoryRVAdapter extends RecyclerView.Adapter<CategoryRVAdapter.Ca
         Picasso.get().load(currentItem.getImg()).placeholder(R.drawable.armchair).error(R.drawable.armchair).fit().into(holder.img_category);
         holder.tv_category_name.setText(currentItem.getCategoryName());
 
-        updateRecyclerView.callback(position, productList);
-
-        System.out.println(productList.size());
+        updateRecyclerView.callback(position, productList, user);
 
         ArrayList<Product> filteredProduct = new ArrayList<>();
         for (int i = 0; i < productList.size(); i++) {
@@ -64,7 +64,7 @@ public class CategoryRVAdapter extends RecyclerView.Adapter<CategoryRVAdapter.Ca
             @Override
             public void onClick(View v) {
                 System.out.println(filteredProduct.size());
-                updateRecyclerView.callback(position, filteredProduct);
+                updateRecyclerView.callback(position, filteredProduct, user);
             }
         });
 

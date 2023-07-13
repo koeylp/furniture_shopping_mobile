@@ -72,12 +72,15 @@ public class AddressShippingActivity extends AppCompatActivity {
         Button btn_add_address = findViewById(R.id.btn_add_address);
         recyclerViewAddress = findViewById(R.id.rv_addresses);
         addressService = AddressRepository.getAddressService();
-        userService = UserRepository.geUserService();
+        userService = UserRepository.getUserService();
 
         img_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), MainActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("Fragment", "profile");
+                intent.putExtra("BUNDLE", bundle);
                 startActivity(intent);
             }
         });

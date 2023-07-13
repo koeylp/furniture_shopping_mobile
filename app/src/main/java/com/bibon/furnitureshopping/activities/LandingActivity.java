@@ -36,7 +36,7 @@ public class LandingActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_landing);
-        Button btnGetStarted = (Button) findViewById(R.id.btn_start);
+        Button btnGetStarted = findViewById(R.id.btn_start);
 
         btnGetStarted.setOnClickListener(new View.OnClickListener() {
             @Override

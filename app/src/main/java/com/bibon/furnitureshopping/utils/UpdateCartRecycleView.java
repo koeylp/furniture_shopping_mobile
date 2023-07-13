@@ -1,9 +1,9 @@
 package com.bibon.furnitureshopping.utils;
 
-import com.bibon.furnitureshopping.models.CartList;
+import com.bibon.furnitureshopping.models.Cart;
 
 public interface UpdateCartRecycleView {
 
-    public void callback(int position, CartList items);
+    public void callback(int position, Cart cart);
 
 }

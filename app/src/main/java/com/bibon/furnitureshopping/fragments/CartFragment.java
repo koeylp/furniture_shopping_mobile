@@ -2,6 +2,7 @@ package com.bibon.furnitureshopping.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,21 +16,35 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bibon.furnitureshopping.R;
-import com.bibon.furnitureshopping.utils.UpdateCartRecycleView;
 import com.bibon.furnitureshopping.activities.CheckoutActivity;
 import com.bibon.furnitureshopping.adapters.CartRVAdapter;
-import com.bibon.furnitureshopping.applications.CartApplication;
 import com.bibon.furnitureshopping.models.Cart;
-import com.bibon.furnitureshopping.models.CartList;
+import com.bibon.furnitureshopping.models.User;
+import com.bibon.furnitureshopping.repositories.CartRepository;
+import com.bibon.furnitureshopping.repositories.UserRepository;
+import com.bibon.furnitureshopping.services.CartService;
+import com.bibon.furnitureshopping.services.UserService;
+import com.bibon.furnitureshopping.utils.UpdateCartRecycleView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
+import java.util.Collections;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class CartFragment extends Fragment implements UpdateCartRecycleView {
 
-    CartList cartList;
+    CartService cartService;
+    UserService userService;
     CartRVAdapter cartRVAdapter;
     TextView tv_total, tv_total_label, tv_currency;
     private RecyclerView cartRecycleView;
     Button btn_checkout;
+    FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    String email;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -42,26 +57,24 @@ public class CartFragment extends Fragment implements UpdateCartRecycleView {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        if (cartList == null) {
-            cartList = new CartList();
-        }
-        cartList = ((CartApplication) this.getActivity().getApplication()).getCartList();
+        // Service Calling
+        cartService = CartRepository.getCartService();
+        userService = UserRepository.getUserService();
 
-        cartRecycleView = getView().findViewById(R.id.rv_cart_item);
-        cartRVAdapter = new CartRVAdapter(cartList, CartFragment.this);
-        cartRecycleView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
-        cartRecycleView.setAdapter(cartRVAdapter);
 
-        tv_currency = getView().findViewById(R.id.tv_currency);
-        tv_total_label = getView().findViewById(R.id.tv_total_label);
-        tv_total = getView().findViewById(R.id.tv_total);
+        // View calling
+        cartRecycleView = view.findViewById(R.id.rv_cart_item);
+        tv_currency = view.findViewById(R.id.tv_currency);
+        tv_total_label = view.findViewById(R.id.tv_total_label);
+        tv_total = view.findViewById(R.id.tv_total);
+
         double[] total = new double[1];
-        for(Cart cart : cartList.getCartList()) {
-            total[0] += cart.getCartQuantity() * cart.getPrice();
-        }
+//        for (Cart cart : cartList.getCartList()) {
+//            total[0] += 0;
+//        }
         tv_total.setText(String.valueOf(total[0]));
 
-        btn_checkout = getView().findViewById(R.id.btn_checkout);
+        btn_checkout = view.findViewById(R.id.btn_checkout);
         if (total[0] == 0) {
             btn_checkout.setVisibility(View.GONE);
             tv_total.setVisibility(View.GONE);
@@ -80,22 +93,116 @@ public class CartFragment extends Fragment implements UpdateCartRecycleView {
             }
         });
 
+        // Get email
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if (currentUser != null) {
+            email = currentUser.getEmail();
+        }
+
+        getUserByEmail(email);
+
     }
 
 
-    @Override
-    public void callback(int position, CartList items) {
-        if (items.getCartList().isEmpty()) {
-            items = cartList;
+    private void getUserByEmail(String email) {
+        try {
+            Call<User> call = userService.getUserByEmail(email);
+            call.enqueue(new Callback<User>() {
+                @Override
+                public void onResponse(Call<User> call, Response<User> response) {
+                    User user = response.body();
+                    if (user == null) {
+                        return;
+                    }
+                    user = new User(user.get_id(), user.getEmail(), user.getFullname());
+                    getCartByUser(user.get_id(), email);
+                }
+
+                @Override
+                public void onFailure(Call<User> call, Throwable t) {
+                    System.out.println("error: " + t);
+                }
+            });
+
+        } catch (Exception e) {
+            Log.d("Error", e.getMessage());
         }
-        cartRVAdapter = new CartRVAdapter(items, CartFragment.this);
+    }
+
+    private void getCartByUser(String user, String email) {
+        try {
+            Call<Cart> call = cartService.getCartByUser(user);
+            call.enqueue(new Callback<Cart>() {
+                @Override
+                public void onResponse(Call<Cart> call, Response<Cart> response) {
+                    Cart cart = response.body();
+                    if (cart == null) {
+                        return;
+                    }
+                    Collections.reverse(cart.getItems());
+                    cartRVAdapter = new CartRVAdapter(cart, email, CartFragment.this);
+                    cartRecycleView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
+                    cartRecycleView.setAdapter(cartRVAdapter);
+                }
+
+                @Override
+                public void onFailure(Call<Cart> call, Throwable t) {
+
+                }
+            });
+        } catch (Exception e) {
+            Log.d("Error", e.getMessage());
+        }
+    }
+
+    public void passEmailToDeleteItem(String email, String productId) {
+        try {
+            Call<User> call = userService.getUserByEmail(email);
+            call.enqueue(new Callback<User>() {
+                @Override
+                public void onResponse(Call<User> call, Response<User> response) {
+                    System.out.println(productId + "kkkk");
+                    User user = response.body();
+                    if (user == null) {
+                        return;
+                    }
+                    deleteItemById(user.get_id(), productId, email);
+                }
+
+                @Override
+                public void onFailure(Call<User> call, Throwable t) {
+                    System.out.println("error: " + t);
+                }
+            });
+
+        } catch (Exception e) {
+            Log.d("Error", e.getMessage());
+        }
+    }
+
+    public void deleteItemById(String user, String productId, String email) {
+        try {
+            Call<Cart> call = cartService.deleteCartItemById(user, productId);
+            call.enqueue(new Callback<Cart>() {
+                @Override
+                public void onResponse(Call<Cart> call, Response<Cart> response) {
+
+                }
+
+                @Override
+                public void onFailure(Call<Cart> call, Throwable t) {
+
+                }
+            });
+        } catch (Exception e) {
+            Log.d("Error", e.getMessage());
+        }
+    }
+
+    @Override
+    public void callback(int position, Cart cart) {
+        cartRVAdapter = new CartRVAdapter(cart, email, CartFragment.this);
         cartRecycleView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
         cartRecycleView.setAdapter(cartRVAdapter);
-        tv_total = getView().findViewById(R.id.tv_total);
-        double total = 0;
-        for(Cart cart : cartList.getCartList()) {
-            total += cart.getCartQuantity() * cart.getPrice();
-        }
-        tv_total.setText(total + "");
     }
 }

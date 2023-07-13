@@ -1,69 +1,41 @@
 package com.bibon.furnitureshopping.models;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class Cart implements Serializable {
-    private String productId;
-    private String productName;
-    private double price;
-    private int cartQuantity;
-    private String img;
 
-    public Cart() {
+    private String _id;
+    private String user;
+    private ArrayList<CartItem> items;
+
+    public Cart(String _id, String user, ArrayList<CartItem> items) {
+        this._id = _id;
+        this.user = user;
+        this.items = items;
     }
 
-    public Cart(String productName, double price, int cartQuantity, String img) {
-        this.productName = productName;
-        this.price = price;
-        this.cartQuantity = cartQuantity;
-        this.img = img;
+    public String get_id() {
+        return _id;
     }
 
-    public Cart(String productId, String productName, double price, int cartQuantity, String img) {
-        this.productId = productId;
-        this.productName = productName;
-        this.price = price;
-        this.cartQuantity = cartQuantity;
-        this.img = img;
+    public void set_id(String _id) {
+        this._id = _id;
     }
 
-    public String getProductId() {
-        return productId;
+    public String getUser() {
+        return user;
     }
 
-    public void setProductId(String productId) {
-        this.productId = productId;
+    public void setUser(String user) {
+        this.user = user;
     }
 
-    public String getProductName() {
-        return productName;
+    public ArrayList<CartItem> getItems() {
+        return items;
     }
 
-    public void setProductName(String productName) {
-        this.productName = productName;
-    }
-
-    public double getPrice() {
-        return price;
-    }
-
-    public void setPrice(double price) {
-        this.price = price;
-    }
-
-    public int getCartQuantity() {
-        return cartQuantity;
-    }
-
-    public void setCartQuantity(int cartQuantity) {
-        this.cartQuantity = cartQuantity;
-    }
-
-    public String getImg() {
-        return img;
-    }
-
-    public void setImg(String img) {
-        this.img = img;
+    public void setItems(ArrayList<CartItem> items) {
+        this.items = items;
     }
 }
