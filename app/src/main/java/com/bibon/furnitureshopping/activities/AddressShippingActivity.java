@@ -72,7 +72,7 @@ public class AddressShippingActivity extends AppCompatActivity {
         Button btn_add_address = findViewById(R.id.btn_add_address);
         recyclerViewAddress = findViewById(R.id.rv_addresses);
         addressService = AddressRepository.getAddressService();
-        userService = UserRepository.geUserService();
+        userService = UserRepository.getUserService();
 
         img_back.setOnClickListener(new View.OnClickListener() {
             @Override

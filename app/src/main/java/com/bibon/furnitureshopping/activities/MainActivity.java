@@ -22,23 +22,11 @@ import com.bibon.furnitureshopping.fragments.NotificationFragment;
 import com.bibon.furnitureshopping.fragments.ProfileFragment;
 import com.google.android.material.navigation.NavigationBarView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends AppCompatActivity {
 
     ActivityMainBinding binding;
-    FirebaseAuth mAuth = FirebaseAuth.getInstance();
-
-//    @Override
-//    public void onStart() throws NullPointerException {
-//        super.onStart();
-//        // Check if user is signed in (non-null) and update UI accordingly.
-//        FirebaseUser currentUser = mAuth.getCurrentUser();
-//        if(currentUser == null){
-//            Intent intent = new Intent(getApplicationContext(), LoginActivity.class );
-//            startActivity(intent);
-//            finish();
-//        }
-//    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +49,6 @@ public class MainActivity extends AppCompatActivity {
 
         if (args != null) {
             String fragment = args.getString("Fragment");
-
             if (fragment.equals("profile")) {
                 replaceFragment(new ProfileFragment());
             } else if (fragment.equals("cart")) {

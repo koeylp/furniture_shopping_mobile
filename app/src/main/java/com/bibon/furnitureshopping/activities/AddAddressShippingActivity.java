@@ -50,6 +50,7 @@ public class AddAddressShippingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_address_shipping);
 
+        // View Calling
         spWard = (Spinner) findViewById(R.id.spinnerWard);
         spDistrict = (Spinner) findViewById(R.id.spinnerDistrict);
         spProvince = (Spinner) findViewById(R.id.spinnerProvince);
@@ -58,8 +59,11 @@ public class AddAddressShippingActivity extends AppCompatActivity {
         it_phone = findViewById(R.id.it_phone);
         btn_save_address = findViewById(R.id.btn_save_address);
         btn_cancel = findViewById(R.id.btn_cancel_address);
-        userService = UserRepository.geUserService();
+
+        // Service Calling
+        userService = UserRepository.getUserService();
         addressService = AddressRepository.getAddressService();
+
         btn_cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

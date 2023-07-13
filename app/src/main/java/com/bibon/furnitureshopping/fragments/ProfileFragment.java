@@ -19,6 +19,7 @@ import androidx.fragment.app.Fragment;
 import com.bibon.furnitureshopping.R;
 import com.bibon.furnitureshopping.activities.AddressShippingActivity;
 import com.bibon.furnitureshopping.activities.LoginActivity;
+import com.bibon.furnitureshopping.activities.OrderHistoryActivity;
 import com.bibon.furnitureshopping.activities.ShowProfileActivity;
 import com.bibon.furnitureshopping.models.User;
 import com.bibon.furnitureshopping.repositories.UserRepository;
@@ -38,6 +39,7 @@ public class ProfileFragment extends Fragment {
     ImageView img;
     TextView tvUsername, tvEmail;
     UserService userService;
+    LinearLayout linear_layout_my_orders;
 
 
     @Override
@@ -69,14 +71,16 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        img = (ImageView) getView().findViewById(R.id.img_avatar);
-        tvUsername = (TextView) getView().findViewById(R.id.tv_username);
-        tvEmail = (TextView) getView().findViewById(R.id.tv_email);
-        userService = UserRepository.geUserService();
+        img = view.findViewById(R.id.img_avatar);
+        tvUsername = view.findViewById(R.id.tv_username);
+        tvEmail = view.findViewById(R.id.tv_email);
+        linear_layout_my_orders = view.findViewById(R.id.linearLayout_my_orders);
 
-        AppCompatButton btn_log_out = getView().findViewById(R.id.btn_logout);
-        LinearLayout linearLayoutAddresses = getView().findViewById(R.id.linearLayout_addresses);
-        LinearLayout linearLayoutProfile = getView().findViewById(R.id.linearLayout_my_profile);
+        userService = UserRepository.getUserService();
+
+        AppCompatButton btn_log_out = view.findViewById(R.id.btn_logout);
+        LinearLayout linearLayoutAddresses = view.findViewById(R.id.linearLayout_addresses);
+        LinearLayout linearLayoutProfile = view.findViewById(R.id.linearLayout_my_profile);
         btn_log_out.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -96,6 +100,14 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), ShowProfileActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        linear_layout_my_orders.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), OrderHistoryActivity.class);
                 startActivity(intent);
             }
         });

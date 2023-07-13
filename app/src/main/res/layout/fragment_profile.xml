@@ -111,7 +111,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:text="Already have 10 orders" />
+                    android:text="View your orders" />
             </LinearLayout>
 
             <LinearLayout
@@ -139,7 +139,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:text="03 addresses" />
+                    android:text="View your addresses" />
             </LinearLayout>
 
             <LinearLayout
@@ -167,7 +167,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:text="You have 2 cards" />
+                    android:text="You have 2 payment methods" />
             </LinearLayout>
 
 

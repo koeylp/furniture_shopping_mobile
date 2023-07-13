@@ -1,5 +1,6 @@
 package com.bibon.furnitureshopping.activities;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,9 +13,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.bibon.furnitureshopping.R;
-import com.bibon.furnitureshopping.applications.CartApplication;
 import com.bibon.furnitureshopping.models.Address;
-import com.bibon.furnitureshopping.models.CartList;
 import com.bibon.furnitureshopping.models.Order;
 import com.bibon.furnitureshopping.models.OrderDetail;
 import com.bibon.furnitureshopping.models.User;
@@ -42,14 +41,13 @@ public class CheckoutActivity extends AppCompatActivity {
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
     TextView tv_name, tv_phone, tv_address_detail;
     ConstraintLayout btn_submit_order;
-    CartList cartList;
     Order order;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_checkout);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         // Sets the Toolbar to act as the ActionBar for this Activity window.
         // Make sure the toolbar exists in the activity and is not null
         setSupportActionBar(toolbar);
@@ -57,11 +55,13 @@ public class CheckoutActivity extends AppCompatActivity {
         toolbar.setTitle("");
         toolbar.setSubtitle("");
 
-        userService = UserRepository.geUserService();
+        // Service Calling
+        userService = UserRepository.getUserService();
         addressService = AddressRepository.getAddressService();
         orderService = OrderRepository.getOrderService();
 
-        ImageView img_back = (ImageView) findViewById(R.id.img_back);
+        // View Calling
+        ImageView img_back = findViewById(R.id.img_back);
         TextView tv_order_price = findViewById(R.id.tv_order_price);
         TextView tv_total = findViewById(R.id.tv_total);
         tv_name = findViewById(R.id.tv_name);
@@ -73,10 +73,9 @@ public class CheckoutActivity extends AppCompatActivity {
         Bundle args = intent.getBundleExtra("BUNDLE");
         double total = args.getDouble("Total");
 
-        tv_order_price.setText("$" + String.valueOf(total));
-        tv_total.setText("$" + String.valueOf(total + 5));
+        tv_order_price.setText("$" + total);
+        tv_total.setText("$" + (total + 5));
 
-        cartList = ((CartApplication) this.getApplication()).getCartList();
 
         img_back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -94,9 +93,7 @@ public class CheckoutActivity extends AppCompatActivity {
         getUserByEmail(email);
 
         ArrayList<OrderDetail> orderDetails = new ArrayList<>();
-        cartList.getCartList().forEach(item -> {
-            orderDetails.add(new OrderDetail(item.getProductId(), item.getCartQuantity()));
-        });
+
 
         btn_submit_order.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -114,6 +111,7 @@ public class CheckoutActivity extends AppCompatActivity {
         try {
             Call<Address[]> call = addressService.getAddressByUser(user);
             call.enqueue(new Callback<Address[]>() {
+                @SuppressLint("SetTextI18n")
                 @Override
                 public void onResponse(Call<Address[]> call, Response<Address[]> response) {
                     Address[] addresses = response.body();
@@ -127,7 +125,6 @@ public class CheckoutActivity extends AppCompatActivity {
                             tv_address_detail.setText(address.getAddress() + ", " + address.getWard() + ", " + address.getDistrict() + ", " + address.getProvince());
                         }
                     }
-
                 }
 
                 @Override
@@ -228,7 +225,7 @@ public class CheckoutActivity extends AppCompatActivity {
             call.enqueue(new Callback<Order>() {
                 @Override
                 public void onResponse(Call<Order> call, Response<Order> response) {
-                    cartList.getCartList().removeAll(cartList.getCartList());
+
                 }
 
                 @Override

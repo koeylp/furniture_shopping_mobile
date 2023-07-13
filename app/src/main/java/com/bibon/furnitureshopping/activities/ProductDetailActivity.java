@@ -98,12 +98,12 @@ public class ProductDetailActivity extends AppCompatActivity {
         btn_add_to_cart_detail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                cartList.getCartList().add(new Cart(product.get_id(), product.getProductName(), product.getPrice(), quantity[0], product.getImg()));
-                Intent intent = new Intent(v.getContext(), MainActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putString("Fragment", "cart");
-                intent.putExtra("BUNDLE", bundle);
-                startActivity(intent);
+//                cartList.getCartList().add(new Cart(product.get_id(), product.getProductName(), product.getPrice(), quantity[0], product.getImg()));
+//                Intent intent = new Intent(v.getContext(), MainActivity.class);
+//                Bundle bundle = new Bundle();
+//                bundle.putString("Fragment", "cart");
+//                intent.putExtra("BUNDLE", bundle);
+//                startActivity(intent);
             }
         });
 

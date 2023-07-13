@@ -63,7 +63,7 @@ public class ShowProfileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_profile_activity);
-        userService = UserRepository.geUserService();
+        userService = UserRepository.getUserService();
 
         etUsername = findViewById(R.id.tvFullname);
         etEmail = findViewById(R.id.tvEmail);

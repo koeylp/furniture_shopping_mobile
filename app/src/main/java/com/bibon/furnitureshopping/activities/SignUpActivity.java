@@ -60,7 +60,7 @@ public class SignUpActivity extends AppCompatActivity {
         progressBar = findViewById(R.id.progress_bar_register);
 
         TextView tvLoginNow = (TextView) findViewById(R.id.tv_login_now);
-        userService = UserRepository.geUserService();
+        userService = UserRepository.getUserService();
         btn_sign_up.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
