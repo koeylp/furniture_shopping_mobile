@@ -19,6 +19,7 @@ import com.bibon.furnitureshopping.R;
 import com.bibon.furnitureshopping.activities.CheckoutActivity;
 import com.bibon.furnitureshopping.adapters.CartRVAdapter;
 import com.bibon.furnitureshopping.models.Cart;
+import com.bibon.furnitureshopping.models.CartItem;
 import com.bibon.furnitureshopping.models.User;
 import com.bibon.furnitureshopping.repositories.CartRepository;
 import com.bibon.furnitureshopping.repositories.UserRepository;
@@ -45,6 +46,8 @@ public class CartFragment extends Fragment implements UpdateCartRecycleView {
     Button btn_checkout;
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
     String email;
+    Cart cart;
+    double total = 0;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -67,31 +70,9 @@ public class CartFragment extends Fragment implements UpdateCartRecycleView {
         tv_currency = view.findViewById(R.id.tv_currency);
         tv_total_label = view.findViewById(R.id.tv_total_label);
         tv_total = view.findViewById(R.id.tv_total);
-
-        double[] total = new double[1];
-//        for (Cart cart : cartList.getCartList()) {
-//            total[0] += 0;
-//        }
-        tv_total.setText(String.valueOf(total[0]));
-
         btn_checkout = view.findViewById(R.id.btn_checkout);
-        if (total[0] == 0) {
-            btn_checkout.setVisibility(View.GONE);
-            tv_total.setVisibility(View.GONE);
-            tv_total_label.setVisibility(View.GONE);
-            tv_currency.setVisibility(View.GONE);
-        }
 
-        btn_checkout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), CheckoutActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putDouble("Total", total[0]);
-                intent.putExtra("BUNDLE", bundle);
-                startActivity(intent);
-            }
-        });
+
 
         // Get email
         FirebaseUser currentUser = mAuth.getCurrentUser();
@@ -114,7 +95,6 @@ public class CartFragment extends Fragment implements UpdateCartRecycleView {
                     if (user == null) {
                         return;
                     }
-                    user = new User(user.get_id(), user.getEmail(), user.getFullname());
                     getCartByUser(user.get_id(), email);
                 }
 
@@ -140,9 +120,29 @@ public class CartFragment extends Fragment implements UpdateCartRecycleView {
                         return;
                     }
                     Collections.reverse(cart.getItems());
-                    cartRVAdapter = new CartRVAdapter(cart, email, CartFragment.this);
+                    for (CartItem item : cart.getItems()) {
+                        total += item.getCartQuantity() * item.getProduct().getPrice();
+                    }
+                    cartRVAdapter = new CartRVAdapter(cart, email, CartFragment.this, total);
                     cartRecycleView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
                     cartRecycleView.setAdapter(cartRVAdapter);
+
+                    tv_total.setText(String.valueOf(total));
+
+                    if (total == 0) {
+                        btn_checkout.setVisibility(View.GONE);
+                    }
+
+                    btn_checkout.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent intent = new Intent(v.getContext(), CheckoutActivity.class);
+                            Bundle bundle = new Bundle();
+                            bundle.putDouble("Total", total);
+                            intent.putExtra("BUNDLE", bundle);
+                            startActivity(intent);
+                        }
+                    });
                 }
 
                 @Override
@@ -155,7 +155,7 @@ public class CartFragment extends Fragment implements UpdateCartRecycleView {
         }
     }
 
-    public void passEmailToDeleteItem(String email, String productId) {
+    public void passEmailToDeleteItem(String email, String productId, double total) {
         try {
             Call<User> call = userService.getUserByEmail(email);
             call.enqueue(new Callback<User>() {
@@ -167,6 +167,7 @@ public class CartFragment extends Fragment implements UpdateCartRecycleView {
                         return;
                     }
                     deleteItemById(user.get_id(), productId, email);
+                    tv_total.setText(String.valueOf(total));
                 }
 
                 @Override
@@ -200,9 +201,23 @@ public class CartFragment extends Fragment implements UpdateCartRecycleView {
     }
 
     @Override
-    public void callback(int position, Cart cart) {
-        cartRVAdapter = new CartRVAdapter(cart, email, CartFragment.this);
+    public void callback(int position, Cart cart, double total) {
+        cartRVAdapter = new CartRVAdapter(cart, email, CartFragment.this, total);
         cartRecycleView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
         cartRecycleView.setAdapter(cartRVAdapter);
+        if (total == 0) {
+            btn_checkout.setVisibility(View.GONE);
+        }
+
+        btn_checkout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), CheckoutActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putDouble("Total", total);
+                intent.putExtra("BUNDLE", bundle);
+                startActivity(intent);
+            }
+        });
     }
 }

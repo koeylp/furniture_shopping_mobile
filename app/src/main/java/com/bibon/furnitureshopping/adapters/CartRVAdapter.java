@@ -21,12 +21,13 @@ public class CartRVAdapter extends RecyclerView.Adapter<CartRVAdapter.CartRvHold
     Cart cart;
     String email;
     CartFragment context;
+    double total;
 
-
-    public CartRVAdapter(Cart cart, String email, CartFragment context) {
+    public CartRVAdapter(Cart cart, String email, CartFragment context, double total) {
         this.cart = cart;
         this.email = email;
         this.context = context;
+        this.total = total;
     }
 
     @NonNull
@@ -48,9 +49,10 @@ public class CartRVAdapter extends RecyclerView.Adapter<CartRVAdapter.CartRvHold
         holder.img_delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                context.passEmailToDeleteItem(email, cartItem.getProduct().get_id());
                 cart.getItems().remove(position);
-                context.callback(position, cart);
+                total -= cartItem.getCartQuantity() * cartItem.getProduct().getPrice();
+                context.passEmailToDeleteItem(email, cartItem.getProduct().get_id(), total);
+                context.callback(position, cart, total);
             }
         });
 
@@ -90,7 +92,6 @@ public class CartRVAdapter extends RecyclerView.Adapter<CartRVAdapter.CartRvHold
             tv_quantity = itemView.findViewById(R.id.tv_quantity);
             tv_product_name = itemView.findViewById(R.id.tv_product_name);
             tv_product_price = itemView.findViewById(R.id.tv_price);
-
             constraintLayout = itemView.findViewById(R.id.constraint_layout);
         }
     }
