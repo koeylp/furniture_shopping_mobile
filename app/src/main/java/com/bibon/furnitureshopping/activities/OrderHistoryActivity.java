@@ -1,5 +1,6 @@
 package com.bibon.furnitureshopping.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
@@ -12,6 +13,8 @@ import com.bibon.furnitureshopping.R;
 import com.bibon.furnitureshopping.adapters.ViewPageAdapter;
 import com.google.android.material.tabs.TabLayout;
 
+import java.util.Objects;
+
 public class OrderHistoryActivity extends AppCompatActivity  {
     TabLayout tabLayout;
     ViewPager2 viewPager2;
@@ -21,7 +24,7 @@ public class OrderHistoryActivity extends AppCompatActivity  {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_history);
-        getSupportActionBar().hide();
+        Objects.requireNonNull(getSupportActionBar()).hide();
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         tabLayout = findViewById(R.id.tabLayout);
@@ -33,7 +36,12 @@ public class OrderHistoryActivity extends AppCompatActivity  {
         img_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onBackPressed();
+                Intent intent = new Intent(v.getContext(), MainActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("Fragment", "profile");
+                intent.putExtra("BUNDLE", bundle);
+                startActivity(intent);
+                finish();
             }
         });
 
