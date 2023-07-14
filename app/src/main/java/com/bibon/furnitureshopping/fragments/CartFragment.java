@@ -45,7 +45,7 @@ public class CartFragment extends Fragment implements UpdateCartRecycleView {
     CartService cartService;
     UserService userService;
     CartRVAdapter cartRVAdapter;
-    TextView tv_total, tv_total_label, tv_currency;
+    TextView tv_total, tv_total_label;
     private RecyclerView cartRecycleView;
     Button btn_checkout;
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
@@ -72,12 +72,19 @@ public class CartFragment extends Fragment implements UpdateCartRecycleView {
 
         // View calling
         cartRecycleView = view.findViewById(R.id.rv_cart_item);
-        tv_currency = view.findViewById(R.id.tv_currency);
         tv_total_label = view.findViewById(R.id.tv_total_label);
         tv_total = view.findViewById(R.id.tv_total);
         btn_checkout = view.findViewById(R.id.btn_checkout);
         lottieAnimationView = view.findViewById(R.id.lottieAnimationView);
 
+
+        if (total == 0) {
+            btn_checkout.setVisibility(View.GONE);
+            lottieAnimationView.setVisibility(View.VISIBLE);
+        } else {
+            lottieAnimationView.setVisibility(View.GONE);
+            btn_checkout.setVisibility(View.VISIBLE);
+        }
 
         // Get email
         FirebaseUser currentUser = mAuth.getCurrentUser();
@@ -127,6 +134,7 @@ public class CartFragment extends Fragment implements UpdateCartRecycleView {
                     MainActivity mainActivity = (MainActivity) getActivity();
                     mainActivity.setCountProductToCart(cart.getItems().size());
                     Collections.reverse(cart.getItems());
+                    total = 0;
                     for (CartItem item : cart.getItems()) {
                         total += item.getCartQuantity() * item.getProduct().getPrice();
                     }
@@ -140,16 +148,21 @@ public class CartFragment extends Fragment implements UpdateCartRecycleView {
 
                     if (total == 0) {
                         btn_checkout.setVisibility(View.GONE);
+                        lottieAnimationView.setVisibility(View.VISIBLE);
+                    } else {
+                        lottieAnimationView.setVisibility(View.GONE);
+                        btn_checkout.setVisibility(View.VISIBLE);
                     }
 
                     btn_checkout.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            Intent intent = new Intent(v.getContext(), CheckoutActivity.class);
+                            Intent intent = new Intent(getContext(), CheckoutActivity.class);
                             Bundle bundle = new Bundle();
                             bundle.putDouble("Total", total);
                             intent.putExtra("BUNDLE", bundle);
                             startActivity(intent);
+                            getActivity().finish();
                         }
                     });
                 }
@@ -223,7 +236,7 @@ public class CartFragment extends Fragment implements UpdateCartRecycleView {
             lottieAnimationView.setVisibility(View.VISIBLE);
         } else {
             lottieAnimationView.setVisibility(View.GONE);
-
+            btn_checkout.setVisibility(View.VISIBLE);
         }
 
         btn_checkout.setOnClickListener(new View.OnClickListener() {

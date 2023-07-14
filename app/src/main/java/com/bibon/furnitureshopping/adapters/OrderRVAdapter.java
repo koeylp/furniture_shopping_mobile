@@ -11,7 +11,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bibon.furnitureshopping.R;
 import com.bibon.furnitureshopping.models.Order;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class OrderRVAdapter extends RecyclerView.Adapter<OrderRVAdapter.OrderRvHolder> {
 
@@ -32,9 +34,12 @@ public class OrderRVAdapter extends RecyclerView.Adapter<OrderRVAdapter.OrderRvH
     @Override
     public void onBindViewHolder(@NonNull OrderRvHolder holder, int position) {
         Order currentOrder = orderList.get(position);
+        Locale localeVN = new Locale("vi", "VN");
+        NumberFormat currencyVN = NumberFormat.getCurrencyInstance(localeVN);
+        String price = currencyVN.format(currentOrder.getTotalPrice());
         holder.tv_order_id.setText("Order Id: " + currentOrder.get_id());
-        holder.tv_total_price.setText("$" + currentOrder.getTotalPrice());
-        holder.tv_date.setText(currentOrder.getOrderDate());
+        holder.tv_total_price.setText(price);
+        holder.tv_date.setText(currentOrder.getOrderDate().substring(0,10));
 
     }
 

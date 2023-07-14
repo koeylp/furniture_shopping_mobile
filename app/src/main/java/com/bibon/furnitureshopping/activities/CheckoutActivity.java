@@ -2,7 +2,6 @@ package com.bibon.furnitureshopping.activities;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.util.Log;
@@ -10,9 +9,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -36,8 +33,12 @@ import com.google.firebase.auth.FirebaseUser;
 
 import org.json.JSONObject;
 
+import java.math.BigDecimal;
+import java.text.NumberFormat;
 import java.util.ArrayList;
+
 import java.util.List;
+import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -60,6 +61,7 @@ public class CheckoutActivity extends AppCompatActivity {
     Spinner spinnerPayment;
 
     PaymentAdapter paymentAdapter;
+    TextView tv_order_price, tv_total;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,8 +91,8 @@ public class CheckoutActivity extends AppCompatActivity {
 
         // View Calling
         ImageView img_back = findViewById(R.id.img_back);
-        TextView tv_order_price = findViewById(R.id.tv_order_price);
-        TextView tv_total = findViewById(R.id.tv_total);
+        tv_order_price = findViewById(R.id.tv_order_price);
+        tv_total = findViewById(R.id.tv_total);
         tv_name = findViewById(R.id.tv_name);
         tv_phone = findViewById(R.id.tv_phone);
         tv_address_detail = findViewById(R.id.tv_address_detail);
@@ -101,14 +103,25 @@ public class CheckoutActivity extends AppCompatActivity {
         Bundle args = intent.getBundleExtra("BUNDLE");
         double total = args.getDouble("Total");
 
-        tv_order_price.setText("$" + total);
-        tv_total.setText("$" + (total + 5));
+        System.out.println(total + "bundle");
+
+
+        Locale localeVN = new Locale("vi", "VN");
+        NumberFormat currencyVN = NumberFormat.getCurrencyInstance(localeVN);
+        String price = currencyVN.format(total);
+        tv_order_price.setText(price);
+        tv_total.setText(currencyVN.format(total + 15000));
 
 
         img_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onBackPressed();
+                Intent intent = new Intent(v.getContext(), MainActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("Fragment", "cart");
+                intent.putExtra("BUNDLE", bundle);
+                startActivity(intent);
+                finish();
             }
         });
 
@@ -119,15 +132,13 @@ public class CheckoutActivity extends AppCompatActivity {
         }
 
         getUserByEmail(email);
-
         ArrayList<OrderDetail> orderDetails = new ArrayList<>();
 
 
         btn_submit_order.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                requestZaloPay(email, orderDetails, total);
+                requestZaloPay(email, orderDetails, total + 15000);
             }
 
         });
@@ -183,6 +194,7 @@ public class CheckoutActivity extends AppCompatActivity {
                         return;
                     }
                     getAddressByUser(user.get_id());
+
                 }
 
                 @Override
@@ -272,9 +284,8 @@ public class CheckoutActivity extends AppCompatActivity {
 
     private void requestZaloPay(String email, ArrayList<OrderDetail> orderDetails, double total) {
         CreateOrder orderApi = new CreateOrder();
-
         try {
-            JSONObject data = orderApi.createOrder("100000");
+            JSONObject data = orderApi.createOrder(new BigDecimal(total).toPlainString());
             String code = data.getString("return_code");
 
             if (code.equals("1")) {
@@ -284,10 +295,9 @@ public class CheckoutActivity extends AppCompatActivity {
                     @Override
                     public void onPaymentSucceeded(String s, String s1, String s2) {
                         Intent intent = new Intent(getApplicationContext(), ConfirmationActivity.class);
-
-                        getUserByEmailOrder(email, total + 5, orderDetails);
-
+                        getUserByEmailOrder(email, total + 15000 , orderDetails);
                         startActivity(intent);
+                        finish();
                     }
 
                     @Override
