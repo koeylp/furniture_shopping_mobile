@@ -9,8 +9,6 @@ import android.view.animation.ScaleAnimation;
 import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
 
-import androidx.annotation.NonNull;
-
 import org.jetbrains.annotations.NotNull;
 
 public class FlyToCartAnimation {

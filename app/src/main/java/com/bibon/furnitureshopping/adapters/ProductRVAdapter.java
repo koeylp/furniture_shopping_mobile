@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -13,6 +14,8 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bibon.furnitureshopping.R;
+import com.bibon.furnitureshopping.activities.MainActivity;
+import com.bibon.furnitureshopping.animations.FlyToCartAnimation;
 import com.bibon.furnitureshopping.fragments.HomeFragment;
 import com.bibon.furnitureshopping.models.CartAdding;
 import com.bibon.furnitureshopping.models.CartItemAdding;
@@ -31,11 +34,14 @@ public class ProductRVAdapter extends RecyclerView.Adapter<ProductRVAdapter.Prod
     HomeFragment context;
     String user;
 
-    public ProductRVAdapter(ArrayList<Product> products, CartList cartList, HomeFragment context, String user) {
+    MainActivity mainActivity;
+
+    public ProductRVAdapter(ArrayList<Product> products, CartList cartList, HomeFragment context, String user, MainActivity mainActivity) {
         this.products = products;
         this.cartList = cartList;
         this.context = context;
         this.user = user;
+        this.mainActivity = mainActivity;
     }
 
     public class ProductRvHolder extends RecyclerView.ViewHolder {
@@ -77,10 +83,24 @@ public class ProductRVAdapter extends RecyclerView.Adapter<ProductRVAdapter.Prod
                 ArrayList<CartItemAdding> items = new ArrayList<>();
                 items.add(new CartItemAdding(currentItem.get_id(), 1));
                 CartAdding bigCart = new CartAdding(user, items);
-
                 context.addToCart(bigCart);
-
                 Toast.makeText(v.getContext(), "Added " + currentItem.getProductName() + " to cart", Toast.LENGTH_SHORT).show();
+
+                mainActivity.setCountProductToCart(mainActivity.getCountProduct() +1 );
+                //add animation fly to cart
+                FlyToCartAnimation.translateAnimation(mainActivity.getViewAnimation(), holder.img_add_to_cart, mainActivity.getViewEndAnimation(), new Animation.AnimationListener() {
+                    @Override
+                    public void onAnimationStart(Animation animation) {
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animation animation) {
+                    }
+
+                    @Override
+                    public void onAnimationRepeat(Animation animation) {
+                    }
+                });
             }
         });
 

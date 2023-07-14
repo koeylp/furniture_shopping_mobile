@@ -11,6 +11,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bibon.furnitureshopping.R;
+import com.bibon.furnitureshopping.activities.MainActivity;
 import com.bibon.furnitureshopping.fragments.CartFragment;
 import com.bibon.furnitureshopping.models.Cart;
 import com.bibon.furnitureshopping.models.CartItem;
@@ -24,6 +25,7 @@ public class CartRVAdapter extends RecyclerView.Adapter<CartRVAdapter.CartRvHold
     Cart cart;
     String email;
     CartFragment context;
+
     double total;
 
     public CartRVAdapter(Cart cart, String email, CartFragment context, double total) {

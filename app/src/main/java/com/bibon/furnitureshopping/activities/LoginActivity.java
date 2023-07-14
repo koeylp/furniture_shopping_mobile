@@ -17,7 +17,6 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -71,5 +70,28 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
+//    public void setUsername(){
+//        String username = editTextEmail.getText().toString();
+//        if(username!= null){
+//            userChat.setUsername(username);
+//        }else{
+//
+//        }
+//
+//    }
+//    public void getChatUserName() {
+//        FirebaseUtil.currentUserDetails().get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+//            @Override
+//            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+//                if (task.isSuccessful()) {
+//                    UserChat userChat = task.getResult().toObject(UserChat.class);
+//                    if(userChat != null){
+//                        editTextEmail.setText(userChat.getUsername());
+//                    }
+//                }
+//            }
+//        });
+//
+//    }
 
 }

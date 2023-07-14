@@ -8,6 +8,7 @@ import android.os.StrictMode;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -17,10 +18,12 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.bibon.furnitureshopping.R;
+import com.bibon.furnitureshopping.adapters.PaymentAdapter;
 import com.bibon.furnitureshopping.models.Address;
 import com.bibon.furnitureshopping.models.CreateOrder;
 import com.bibon.furnitureshopping.models.Order;
 import com.bibon.furnitureshopping.models.OrderDetail;
+import com.bibon.furnitureshopping.models.Payment;
 import com.bibon.furnitureshopping.models.User;
 import com.bibon.furnitureshopping.repositories.AddressRepository;
 import com.bibon.furnitureshopping.repositories.OrderRepository;
@@ -34,6 +37,7 @@ import com.google.firebase.auth.FirebaseUser;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -53,6 +57,9 @@ public class CheckoutActivity extends AppCompatActivity {
     TextView tv_name, tv_phone, tv_address_detail;
     ConstraintLayout btn_submit_order;
     Order order;
+    Spinner spinnerPayment;
+
+    PaymentAdapter paymentAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -124,6 +131,14 @@ public class CheckoutActivity extends AppCompatActivity {
             }
 
         });
+
+        //set payment
+        spinnerPayment = (Spinner) findViewById(R.id.spinnerPayment);
+        List<Payment> paymentList = new ArrayList<>();
+        paymentList.add(new Payment("Zalo Pay", R.drawable.zalopay));
+        paymentList.add(new Payment("COD", R.drawable.cashondelivery));
+        paymentAdapter = new PaymentAdapter(this, paymentList);
+        spinnerPayment.setAdapter(paymentAdapter);
     }
 
     private void getAddressByUser(String user) {
