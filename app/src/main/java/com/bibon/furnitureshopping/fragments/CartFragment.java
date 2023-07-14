@@ -15,6 +15,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.bibon.furnitureshopping.R;
 import com.bibon.furnitureshopping.activities.CheckoutActivity;
 import com.bibon.furnitureshopping.adapters.CartRVAdapter;
@@ -49,6 +50,8 @@ public class CartFragment extends Fragment implements UpdateCartRecycleView {
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
     String email;
     double total = 0;
+    LottieAnimationView lottieAnimationView;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -72,6 +75,7 @@ public class CartFragment extends Fragment implements UpdateCartRecycleView {
         tv_total_label = view.findViewById(R.id.tv_total_label);
         tv_total = view.findViewById(R.id.tv_total);
         btn_checkout = view.findViewById(R.id.btn_checkout);
+        lottieAnimationView = view.findViewById(R.id.lottieAnimationView);
 
 
 
@@ -212,6 +216,10 @@ public class CartFragment extends Fragment implements UpdateCartRecycleView {
         cartRecycleView.setAdapter(cartRVAdapter);
         if (total == 0) {
             btn_checkout.setVisibility(View.GONE);
+            lottieAnimationView.setVisibility(View.VISIBLE);
+        } else {
+            lottieAnimationView.setVisibility(View.GONE);
+
         }
 
         btn_checkout.setOnClickListener(new View.OnClickListener() {
