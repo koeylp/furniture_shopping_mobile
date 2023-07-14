@@ -1,7 +1,9 @@
 package com.bibon.furnitureshopping.activities;
 
 import android.os.Bundle;
+import android.view.View;
 import android.view.WindowManager;
+import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager2.widget.ViewPager2;
@@ -14,6 +16,7 @@ public class OrderHistoryActivity extends AppCompatActivity  {
     TabLayout tabLayout;
     ViewPager2 viewPager2;
     ViewPageAdapter viewPageAdapter;
+    ImageView img_back;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,6 +28,14 @@ public class OrderHistoryActivity extends AppCompatActivity  {
         viewPager2 = findViewById(R.id.view_page);
         viewPageAdapter = new ViewPageAdapter(this);
         viewPager2.setAdapter(viewPageAdapter);
+        img_back = findViewById(R.id.img_back);
+
+        img_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
 
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override

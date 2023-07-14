@@ -33,7 +33,10 @@ import com.google.firebase.auth.FirebaseUser;
 
 import org.json.JSONObject;
 
+import java.math.BigDecimal;
+import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -93,9 +96,11 @@ public class CheckoutActivity extends AppCompatActivity {
         Intent intent = getIntent();
         Bundle args = intent.getBundleExtra("BUNDLE");
         double total = args.getDouble("Total");
-
-        tv_order_price.setText("$" + total);
-        tv_total.setText("$" + (total + 5));
+        Locale localeVN = new Locale("vi", "VN");
+        NumberFormat currencyVN = NumberFormat.getCurrencyInstance(localeVN);
+        String price = currencyVN.format(total);
+        tv_order_price.setText(price);
+        tv_total.setText(currencyVN.format(total + 15000));
 
 
         img_back.setOnClickListener(new View.OnClickListener() {
@@ -119,7 +124,6 @@ public class CheckoutActivity extends AppCompatActivity {
         btn_submit_order.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 requestZaloPay(email, orderDetails, total);
             }
 
@@ -257,9 +261,8 @@ public class CheckoutActivity extends AppCompatActivity {
 
     private void requestZaloPay(String email, ArrayList<OrderDetail> orderDetails, double total) {
         CreateOrder orderApi = new CreateOrder();
-
         try {
-            JSONObject data = orderApi.createOrder("100000");
+            JSONObject data = orderApi.createOrder(new BigDecimal(total).toPlainString());
             String code = data.getString("return_code");
 
             if (code.equals("1")) {
@@ -269,9 +272,7 @@ public class CheckoutActivity extends AppCompatActivity {
                     @Override
                     public void onPaymentSucceeded(String s, String s1, String s2) {
                         Intent intent = new Intent(getApplicationContext(), ConfirmationActivity.class);
-
-                        getUserByEmailOrder(email, total + 5, orderDetails);
-
+                        getUserByEmailOrder(email, total + 15000 , orderDetails);
                         startActivity(intent);
                     }
 

@@ -77,7 +77,13 @@ public class CartFragment extends Fragment implements UpdateCartRecycleView {
         btn_checkout = view.findViewById(R.id.btn_checkout);
         lottieAnimationView = view.findViewById(R.id.lottieAnimationView);
 
+        if (total == 0) {
+            btn_checkout.setVisibility(View.GONE);
+            lottieAnimationView.setVisibility(View.VISIBLE);
+        } else {
+            lottieAnimationView.setVisibility(View.GONE);
 
+        }
 
         // Get email
         FirebaseUser currentUser = mAuth.getCurrentUser();
@@ -138,6 +144,10 @@ public class CartFragment extends Fragment implements UpdateCartRecycleView {
 
                     if (total == 0) {
                         btn_checkout.setVisibility(View.GONE);
+                        lottieAnimationView.setVisibility(View.VISIBLE);
+                    } else {
+                        lottieAnimationView.setVisibility(View.GONE);
+
                     }
 
                     btn_checkout.setOnClickListener(new View.OnClickListener() {
