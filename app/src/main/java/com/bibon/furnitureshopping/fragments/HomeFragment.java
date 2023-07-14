@@ -189,7 +189,6 @@ public class HomeFragment extends Fragment implements UpdateProductListRecyclerV
                     if (user == null) {
                         return;
                     }
-                    user = new User(user.get_id(), user.getEmail(), user.getFullname());
                     getAllProducts(user.get_id());
                     getALlCategories(user.get_id());
                 }
