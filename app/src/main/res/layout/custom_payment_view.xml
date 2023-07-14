@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="361dp"
+    android:layout_height="45dp"
+    android:background="#f0f0f0"
+    android:padding="2dp">
+
+    <TextView
+        android:id="@+id/tvPaymentName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="11dp"
+        android:text="TextView"
+        app:layout_constraintStart_toEndOf="@+id/ivPaymentImage"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/ivPaymentImage"
+        android:layout_width="68dp"
+        android:layout_height="37dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="4dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:srcCompat="@drawable/zalopay" />
+
+    <View
+        android:id="@+id/view2"
+        android:layout_width="380dp"
+        android:layout_height="1dp"
+        android:background="#f5f5f5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="41dp" />
+</androidx.constraintlayout.widget.ConstraintLayout>
