@@ -29,7 +29,9 @@ import com.bibon.furnitureshopping.utils.UpdateCartRecycleView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.text.NumberFormat;
 import java.util.Collections;
+import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -46,7 +48,6 @@ public class CartFragment extends Fragment implements UpdateCartRecycleView {
     Button btn_checkout;
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
     String email;
-    Cart cart;
     double total = 0;
 
     @Override
@@ -100,7 +101,7 @@ public class CartFragment extends Fragment implements UpdateCartRecycleView {
 
                 @Override
                 public void onFailure(Call<User> call, Throwable t) {
-                    System.out.println("error: " + t);
+                    Log.d("Reason: ", t.getMessage());
                 }
             });
 
@@ -126,8 +127,10 @@ public class CartFragment extends Fragment implements UpdateCartRecycleView {
                     cartRVAdapter = new CartRVAdapter(cart, email, CartFragment.this, total);
                     cartRecycleView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
                     cartRecycleView.setAdapter(cartRVAdapter);
-
-                    tv_total.setText(String.valueOf(total));
+                    Locale localeVN = new Locale("vi", "VN");
+                    NumberFormat currencyVN = NumberFormat.getCurrencyInstance(localeVN);
+                    String price = currencyVN.format(total);
+                    tv_total.setText(price);
 
                     if (total == 0) {
                         btn_checkout.setVisibility(View.GONE);
@@ -161,13 +164,15 @@ public class CartFragment extends Fragment implements UpdateCartRecycleView {
             call.enqueue(new Callback<User>() {
                 @Override
                 public void onResponse(Call<User> call, Response<User> response) {
-                    System.out.println(productId + "kkkk");
                     User user = response.body();
                     if (user == null) {
                         return;
                     }
                     deleteItemById(user.get_id(), productId, email);
-                    tv_total.setText(String.valueOf(total));
+                    Locale localeVN = new Locale("vi", "VN");
+                    NumberFormat currencyVN = NumberFormat.getCurrencyInstance(localeVN);
+                    String price = currencyVN.format(total);
+                    tv_total.setText(price);
                 }
 
                 @Override

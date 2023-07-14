@@ -16,6 +16,9 @@ import com.bibon.furnitureshopping.models.Cart;
 import com.bibon.furnitureshopping.models.CartItem;
 import com.squareup.picasso.Picasso;
 
+import java.text.NumberFormat;
+import java.util.Locale;
+
 public class CartRVAdapter extends RecyclerView.Adapter<CartRVAdapter.CartRvHolder> {
 
     Cart cart;
@@ -43,8 +46,11 @@ public class CartRVAdapter extends RecyclerView.Adapter<CartRVAdapter.CartRvHold
         CartItem cartItem = cart.getItems().get(position);
         Picasso.get().load(cartItem.getProduct().getImg()).placeholder(R.drawable.armchair).error(R.drawable.armchair).fit().into(holder.img_product);
         holder.tv_product_name.setText(cartItem.getProduct().getProductName());
-        holder.tv_product_price.setText(cartItem.getProduct().getPrice() + "");
-        holder.tv_quantity.setText(cartItem.getCartQuantity() + "");
+        Locale localeVN = new Locale("vi", "VN");
+        NumberFormat currencyVN = NumberFormat.getCurrencyInstance(localeVN);
+        String price = currencyVN.format(cartItem.getProduct().getPrice());
+        holder.tv_product_price.setText(price);
+        holder.tv_quantity.setText(String.valueOf(cartItem.getCartQuantity()));
 
         holder.img_delete.setOnClickListener(new View.OnClickListener() {
             @Override

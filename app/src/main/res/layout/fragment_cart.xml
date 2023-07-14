@@ -33,49 +33,36 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/tv_currency"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="28dp"
-            android:layout_marginTop="4dp"
-            android:text="$"
-            android:textColor="#f6d128"
-            android:textSize="25sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_total_label" />
 
         <TextView
             android:id="@+id/tv_total"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="6dp"
+            android:layout_marginStart="28dp"
             android:layout_marginTop="4dp"
-            android:maxWidth="90dp"
+            android:maxWidth="200dp"
             android:text="0"
             android:textColor="#f6d128"
-            android:textSize="24sp"
+            android:textSize="19sp"
             android:textStyle="bold"
-            app:layout_constraintStart_toEndOf="@+id/tv_currency"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_total_label" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_checkout"
-            android:layout_width="167dp"
-            android:layout_height="56dp"
+            android:layout_width="130dp"
+            android:layout_height="45dp"
             android:layout_gravity="center_horizontal"
-            android:layout_marginEnd="32dp"
+            android:layout_marginEnd="16dp"
             android:background="@drawable/custom_button_checkout"
             android:fontFamily="serif"
             android:text="Check out"
             android:textAllCaps="false"
             android:textColor="#ffffff"
-            android:textSize="20dp"
+            android:textSize="15dp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.457" />
+            app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </LinearLayout>

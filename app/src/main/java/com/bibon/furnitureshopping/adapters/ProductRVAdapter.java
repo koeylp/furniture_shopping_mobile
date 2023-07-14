@@ -20,7 +20,9 @@ import com.bibon.furnitureshopping.models.CartList;
 import com.bibon.furnitureshopping.models.Product;
 import com.squareup.picasso.Picasso;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class ProductRVAdapter extends RecyclerView.Adapter<ProductRVAdapter.ProductRvHolder> {
 
@@ -65,26 +67,13 @@ public class ProductRVAdapter extends RecyclerView.Adapter<ProductRVAdapter.Prod
         Product currentItem = products.get(position);
         Picasso.get().load(currentItem.getImg()).placeholder(R.drawable.armchair).error(R.drawable.armchair).fit().into(holder.img_product);
         holder.tv_product_name.setText(currentItem.getProductName());
-        holder.tv_product_price.setText(String.valueOf(currentItem.getPrice()));
+        Locale localeVN = new Locale("vi", "VN");
+        NumberFormat currencyVN = NumberFormat.getCurrencyInstance(localeVN);
+        String price = currencyVN.format(currentItem.getPrice());
+        holder.tv_product_price.setText(price);
         holder.img_add_to_cart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                if (cartList == null) {
-//                    cartList = new CartList();
-//                }
-//                int count = -1;
-//                for (int i = 0; i < cartList.getCartList().size(); i++) {
-//                    if (cartList.getCartList().get(i).getProductName().equals(currentItem.getProductName())) {
-//                        count = i;
-//                    }
-//                }
-//                Cart cart = new Cart(currentItem.get_id(), currentItem.getProductName(), currentItem.getPrice(), 1, currentItem.getImg());
-//                if (count == -1) {
-//                    cartList.getCartList().add(cart);
-//                } else {
-//                    System.out.println(count + " count");
-//                    cartList.getCartList().get(count).setCartQuantity(cartList.getCartList().get(count).getCartQuantity() + 1);
-//                }
                 ArrayList<CartItemAdding> items = new ArrayList<>();
                 items.add(new CartItemAdding(currentItem.get_id(), 1));
                 CartAdding bigCart = new CartAdding(user, items);
