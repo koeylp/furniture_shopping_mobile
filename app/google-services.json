@@ -1,33 +1,34 @@
 {
   "project_info": {
-    "project_number": "253255717601",
-    "project_id": "homefurniture-44b9d",
-    "storage_bucket": "homefurniture-44b9d.appspot.com"
+    "project_number": "422980053183",
+    "firebase_url": "https://authentication-prm-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "authentication-prm",
+    "storage_bucket": "authentication-prm.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:253255717601:android:de7f185ef50ac30a2c9da0",
+        "mobilesdk_app_id": "1:422980053183:android:61c2604854d3f73ca7fe0a",
         "android_client_info": {
           "package_name": "com.bibon.furnitureshopping"
         }
       },
       "oauth_client": [
         {
-          "client_id": "253255717601-nsr5vb5qbqb9vbl3f3cnsk179v3tq076.apps.googleusercontent.com",
+          "client_id": "422980053183-ir0t1b988c6q06dnc2p36n5kkgdq1tv4.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyC1F3DqEYv9v406mZbjCnMkIbJ754Z21FM"
+          "current_key": "AIzaSyCYAlk6arWI0UFw7bosQHZZwK-DR2cGaN0"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "253255717601-nsr5vb5qbqb9vbl3f3cnsk179v3tq076.apps.googleusercontent.com",
+              "client_id": "422980053183-ir0t1b988c6q06dnc2p36n5kkgdq1tv4.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

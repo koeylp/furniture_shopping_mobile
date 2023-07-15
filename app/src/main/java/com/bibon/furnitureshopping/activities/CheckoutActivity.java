@@ -103,8 +103,6 @@ public class CheckoutActivity extends AppCompatActivity {
         Bundle args = intent.getBundleExtra("BUNDLE");
         double total = args.getDouble("Total");
 
-        System.out.println(total + "bundle");
-
 
         Locale localeVN = new Locale("vi", "VN");
         NumberFormat currencyVN = NumberFormat.getCurrencyInstance(localeVN);

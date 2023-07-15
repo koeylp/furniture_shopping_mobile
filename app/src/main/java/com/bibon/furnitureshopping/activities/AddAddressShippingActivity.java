@@ -326,7 +326,6 @@ public class AddAddressShippingActivity extends AppCompatActivity {
                     if (user == null) {
                         return;
                     }
-                    user = new User(user.get_id(), user.getEmail(), user.getFullname());
                     newAddress.setUser(user.get_id());
                     addNewAddress(newAddress);
                 }
