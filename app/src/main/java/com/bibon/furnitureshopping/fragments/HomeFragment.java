@@ -140,7 +140,7 @@ public class HomeFragment extends Fragment implements UpdateProductListRecyclerV
                     for (Product product : products) {
                         productList.add(new Product(product.get_id(), product.getProductName(), product.getCategory(), product.getPrice(), product.getQuantity(), product.getDescription(), product.getImg()));
                     }
-                    productRVAdapter = new ProductRVAdapter(productList, cartList, HomeFragment.this, user,(MainActivity) getActivity());
+                    productRVAdapter = new ProductRVAdapter(productList, HomeFragment.this, user,(MainActivity) getActivity());
                     recyclerViewProduct.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
                     recyclerViewProduct.setAdapter(productRVAdapter);
                 }
@@ -169,6 +169,7 @@ public class HomeFragment extends Fragment implements UpdateProductListRecyclerV
             call.enqueue(new Callback<CartAdding>() {
                 @Override
                 public void onResponse(Call<CartAdding> call, Response<CartAdding> response) {
+
                 }
 
                 @Override
@@ -211,7 +212,7 @@ public class HomeFragment extends Fragment implements UpdateProductListRecyclerV
         if (items.isEmpty()) {
             items = productList;
         }
-        productRVAdapter = new ProductRVAdapter(items, cartList, HomeFragment.this, user, (MainActivity) getActivity());
+        productRVAdapter = new ProductRVAdapter(items, HomeFragment.this, user, (MainActivity) getActivity());
         recyclerViewProduct.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
         recyclerViewProduct.setAdapter(productRVAdapter);
     }

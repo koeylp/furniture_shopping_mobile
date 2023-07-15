@@ -36,9 +36,8 @@ public class ProductRVAdapter extends RecyclerView.Adapter<ProductRVAdapter.Prod
 
     MainActivity mainActivity;
 
-    public ProductRVAdapter(ArrayList<Product> products, CartList cartList, HomeFragment context, String user, MainActivity mainActivity) {
+    public ProductRVAdapter(ArrayList<Product> products, HomeFragment context, String user, MainActivity mainActivity) {
         this.products = products;
-        this.cartList = cartList;
         this.context = context;
         this.user = user;
         this.mainActivity = mainActivity;
@@ -84,9 +83,9 @@ public class ProductRVAdapter extends RecyclerView.Adapter<ProductRVAdapter.Prod
                 items.add(new CartItemAdding(currentItem.get_id(), 1));
                 CartAdding bigCart = new CartAdding(user, items);
                 context.addToCart(bigCart);
-                Toast.makeText(v.getContext(), "Added " + currentItem.getProductName() + " to cart", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(v.getContext(), "Added " + currentItem.getProductName() + " to cart", Toast.LENGTH_SHORT).show();
+                mainActivity.setCountProductToCart(mainActivity.getCountProduct() + 1 );
 
-                mainActivity.setCountProductToCart(mainActivity.getCountProduct() +1 );
                 //add animation fly to cart
                 FlyToCartAnimation.translateAnimation(mainActivity.getViewAnimation(), holder.img_add_to_cart, mainActivity.getViewEndAnimation(), new Animation.AnimationListener() {
                     @Override

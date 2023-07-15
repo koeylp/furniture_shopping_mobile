@@ -136,7 +136,6 @@ public class ProfileFragment extends Fragment {
     }
 
     private void getUserByEmail(String email) {
-        User[] userModel = new User[1];
         try {
             Call<User> call = userService.getUserByEmail(email);
             call.enqueue(new Callback<User>() {
@@ -146,8 +145,7 @@ public class ProfileFragment extends Fragment {
                     if (user == null) {
                         return;
                     }
-                    userModel[0] = new User(user.get_id(), user.getEmail(), user.getFullname());
-                    tvUsername.setText(userModel[0].getFullname());
+                    tvUsername.setText(user.getFullname());
                 }
 
                 @Override
