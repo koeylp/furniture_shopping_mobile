@@ -35,28 +35,40 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/tv_price"
+        android:id="@+id/tv_currency"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="12dp"
-        android:fontFamily="serif"
-        android:text="20.00"
+        android:layout_marginTop="8dp"
+        android:text="$"
+        android:textSize="18dp"
         android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/img_product"
         app:layout_constraintTop_toBottomOf="@+id/tv_product_name" />
 
+    <TextView
+        android:id="@+id/tv_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="10dp"
+        android:fontFamily="serif"
+        android:text="20.00"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/tv_currency"
+        app:layout_constraintTop_toBottomOf="@+id/tv_product_name" />
+
     <ImageView
         android:id="@+id/img_add_to_cart"
-        android:layout_width="34dp"
-        android:layout_height="34dp"
-        android:layout_marginTop="48dp"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="40dp"
         android:layout_marginEnd="36dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/img_product"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/shopping_bag" />
+        app:srcCompat="@drawable/addtocart" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

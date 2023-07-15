@@ -28,11 +28,12 @@ import retrofit2.Response;
 
 public class SignUpActivity extends AppCompatActivity {
 
-    EditText editTextEmail, editTextName, editTextPassword, editTextConfirmPassword;
+    EditText editTextEmail, editTextName, editTextPassword, editTextConfirmPassword, editTextPhone;
     Button btn_sign_up;
     ProgressBar progressBar;
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
     UserService userService;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,11 +46,14 @@ public class SignUpActivity extends AppCompatActivity {
         // View Calling
         editTextEmail = findViewById(R.id.editTextEmail);
         editTextName = findViewById(R.id.editTextName);
+        editTextPhone = findViewById(R.id.editTextPhone);
         editTextPassword = findViewById(R.id.editTextPassword);
         editTextConfirmPassword = findViewById(R.id.editTextConfirmPassword);
         btn_sign_up = findViewById(R.id.btn_sign_up);
         progressBar = findViewById(R.id.progress_bar_register);
-        TextView tvLoginNow = (TextView) findViewById(R.id.tv_login_now);
+
+
+        TextView tvLoginNow = findViewById(R.id.tv_login_now);
 
         btn_sign_up.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,6 +63,7 @@ public class SignUpActivity extends AppCompatActivity {
                 String name = String.valueOf(editTextName.getText());
                 String password = String.valueOf(editTextPassword.getText());
                 String confirmPassword = String.valueOf(editTextConfirmPassword.getText());
+                String phone = String.valueOf(editTextPhone.getText());
 
                 if (TextUtils.isEmpty(email)) {
                     Toast.makeText(v.getContext(), "Email Required", Toast.LENGTH_SHORT).show();
@@ -68,6 +73,8 @@ public class SignUpActivity extends AppCompatActivity {
                     Toast.makeText(v.getContext(), "Password Required", Toast.LENGTH_SHORT).show();
                 } else if (TextUtils.isEmpty(confirmPassword)) {
                     Toast.makeText(v.getContext(), "Confirm Password Required", Toast.LENGTH_SHORT).show();
+                } else if (TextUtils.isEmpty(phone)) {
+                    Toast.makeText(v.getContext(), "Phone required", Toast.LENGTH_SHORT).show();
                 } else if (!password.equals(confirmPassword)) {
                     Toast.makeText(v.getContext(), "Password and Confirm Password must be matched", Toast.LENGTH_SHORT).show();
                 } else {
@@ -89,7 +96,7 @@ public class SignUpActivity extends AppCompatActivity {
                                     }
                                 }
                             });
-                    User user = new User(email, name);
+                    User user = new User(email, name, phone);
                     Call<User> call = userService.signup(user);
                     call.enqueue(new Callback<User>() {
                         @Override

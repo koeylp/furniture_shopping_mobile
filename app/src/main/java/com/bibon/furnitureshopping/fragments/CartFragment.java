@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.airbnb.lottie.LottieAnimationView;
 import com.bibon.furnitureshopping.R;
 import com.bibon.furnitureshopping.activities.CheckoutActivity;
+import com.bibon.furnitureshopping.activities.MainActivity;
 import com.bibon.furnitureshopping.adapters.CartRVAdapter;
 import com.bibon.furnitureshopping.models.Cart;
 import com.bibon.furnitureshopping.models.CartItem;
@@ -130,6 +131,8 @@ public class CartFragment extends Fragment implements UpdateCartRecycleView {
                     if (cart == null) {
                         return;
                     }
+                    MainActivity mainActivity = (MainActivity) getActivity();
+                    mainActivity.setCountProductToCart(cart.getItems().size());
                     Collections.reverse(cart.getItems());
                     total = 0;
                     for (CartItem item : cart.getItems()) {
@@ -189,6 +192,8 @@ public class CartFragment extends Fragment implements UpdateCartRecycleView {
                     NumberFormat currencyVN = NumberFormat.getCurrencyInstance(localeVN);
                     String price = currencyVN.format(total);
                     tv_total.setText(price);
+                    MainActivity mainActivity = (MainActivity) getActivity();
+                    mainActivity.setCountProductToCart(mainActivity.getCountProduct() - 1);
                 }
 
                 @Override

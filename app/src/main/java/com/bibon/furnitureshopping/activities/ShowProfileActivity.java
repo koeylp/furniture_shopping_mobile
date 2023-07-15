@@ -131,7 +131,6 @@ public class ShowProfileActivity extends AppCompatActivity {
                     if (user == null) {
                         return;
                     }
-                    user = new User(user.get_id(), user.getEmail(), user.getFullname());
                     etUsername.setText(user.getFullname());
                 }
 
