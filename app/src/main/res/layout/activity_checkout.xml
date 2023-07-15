@@ -289,7 +289,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="56dp"
             android:fontFamily="@font/nunito_sans_semibold"
-            android:text="58 Tân lập 1, Phường Hiệp phú, Thành phố Thủ Đức"
+            android:text="null"
             android:textColor="#656262"
             android:textSize="14dp"
             android:textStyle="normal"
@@ -303,7 +303,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="10dp"
             android:fontFamily="@font/nunito_sans_bold"
-            android:text="Bruno Fernandes"
+            android:text="null"
             android:textColor="#000000"
             android:textSize="20dp"
             app:layout_constraintStart_toStartOf="parent"
@@ -314,7 +314,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="0946573434"
+            android:text="null"
             android:textColor="#000000"
             android:textSize="15dp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -352,7 +352,7 @@
         app:layout_goneMarginTop="10dp" />
 
     <ImageView
-        android:id="@+id/edit_profile"
+        android:id="@+id/edit_address"
         android:layout_width="25dp"
         android:layout_height="25dp"
         android:layout_marginTop="13dp"

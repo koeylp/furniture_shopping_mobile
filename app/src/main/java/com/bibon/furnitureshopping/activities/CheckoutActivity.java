@@ -6,9 +6,11 @@ import android.os.Bundle;
 import android.os.StrictMode;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -36,7 +38,6 @@ import org.json.JSONObject;
 import java.math.BigDecimal;
 import java.text.NumberFormat;
 import java.util.ArrayList;
-
 import java.util.List;
 import java.util.Locale;
 
@@ -53,15 +54,15 @@ public class CheckoutActivity extends AppCompatActivity {
     UserService userService;
     AddressService addressService;
     OrderService orderService;
-    String email;
+    String email, payment;
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
     TextView tv_name, tv_phone, tv_address_detail;
     ConstraintLayout btn_submit_order;
     Order order;
     Spinner spinnerPayment;
-
     PaymentAdapter paymentAdapter;
     TextView tv_order_price, tv_total;
+    ImageView editAddress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,6 +98,7 @@ public class CheckoutActivity extends AppCompatActivity {
         tv_phone = findViewById(R.id.tv_phone);
         tv_address_detail = findViewById(R.id.tv_address_detail);
         btn_submit_order = findViewById(R.id.btn_submit_order);
+        editAddress = findViewById(R.id.edit_address);
 
         // Intent
         Intent intent = getIntent();
@@ -132,15 +134,6 @@ public class CheckoutActivity extends AppCompatActivity {
         getUserByEmail(email);
         ArrayList<OrderDetail> orderDetails = new ArrayList<>();
 
-
-        btn_submit_order.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                requestZaloPay(email, orderDetails, total + 15000);
-            }
-
-        });
-
         //set payment
         spinnerPayment = (Spinner) findViewById(R.id.spinnerPayment);
         List<Payment> paymentList = new ArrayList<>();
@@ -148,6 +141,34 @@ public class CheckoutActivity extends AppCompatActivity {
         paymentList.add(new Payment("COD", R.drawable.cashondelivery));
         paymentAdapter = new PaymentAdapter(this, paymentList);
         spinnerPayment.setAdapter(paymentAdapter);
+        spinnerPayment.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                payment = parent.getItemAtPosition(position).toString();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        btn_submit_order.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                System.out.println(payment + "payaa");
+                if (payment.equals("0")) {
+                    requestZaloPay(email, orderDetails, total + 15000, "ZaloPay");
+                } else {
+                    getUserByEmailOrder(email, total + 15000, orderDetails, "COD");
+                }
+            }
+
+        });
+
+
+
+
     }
 
     private void getAddressByUser(String user) {
@@ -158,16 +179,29 @@ public class CheckoutActivity extends AppCompatActivity {
                 @Override
                 public void onResponse(Call<Address[]> call, Response<Address[]> response) {
                     Address[] addresses = response.body();
+
                     if (addresses == null) {
                         return;
                     }
-                    for (Address address : addresses) {
-                        if (address.getStatus() == 1 || addresses.length == 1) {
-                            tv_name.setText(address.getFullname());
-                            tv_phone.setText(address.getPhone());
-                            tv_address_detail.setText(address.getAddress() + ", " + address.getWard() + ", " + address.getDistrict() + ", " + address.getProvince());
+
+                    if (addresses.length == 0) {
+                        Intent intent = new Intent(getApplicationContext(), AddressShippingActivity.class);
+                        Bundle bundle = new Bundle();
+                        bundle.putString("Type", "checkout");
+                        intent.putExtra("BUNDLE", bundle);
+                        startActivity(intent);
+                        finish();
+                        Toast.makeText(CheckoutActivity.this, "You have not added your address!", Toast.LENGTH_LONG).show();
+                    } else {
+                        for (Address address : addresses) {
+                            if (address.getStatus() == 1 || addresses.length == 1) {
+                                tv_name.setText(address.getFullname());
+                                tv_phone.setText(address.getPhone());
+                                tv_address_detail.setText(address.getAddress() + ", " + address.getWard() + ", " + address.getDistrict() + ", " + address.getProvince());
+                            }
                         }
                     }
+
                 }
 
                 @Override
@@ -206,7 +240,7 @@ public class CheckoutActivity extends AppCompatActivity {
         }
     }
 
-    private void getUserByEmailOrder(String email, double total, ArrayList<OrderDetail> orderDetails) {
+    private void getUserByEmailOrder(String email, double total, ArrayList<OrderDetail> orderDetails, String payment) {
         try {
             Call<User> call = userService.getUserByEmail(email);
             call.enqueue(new Callback<User>() {
@@ -216,7 +250,7 @@ public class CheckoutActivity extends AppCompatActivity {
                     if (user == null) {
                         return;
                     }
-                    order = new Order(user.get_id(), "", "ZaloPay", total, orderDetails);
+                    order = new Order(user.get_id(), "", payment, total, orderDetails);
                     getAddressByUserOrder(user.get_id(), order);
                 }
 
@@ -245,6 +279,9 @@ public class CheckoutActivity extends AppCompatActivity {
                         if (address.getStatus() == 1 || addresses.length == 1) {
                             order.setAddress(address.get_id());
                             createOrder(order);
+                            Intent intent = new Intent(getApplicationContext(), ConfirmationActivity.class);
+                            startActivity(intent);
+                            finish();
                         }
                     }
 
@@ -280,7 +317,7 @@ public class CheckoutActivity extends AppCompatActivity {
         }
     }
 
-    private void requestZaloPay(String email, ArrayList<OrderDetail> orderDetails, double total) {
+    private void requestZaloPay(String email, ArrayList<OrderDetail> orderDetails, double total, String payment) {
         CreateOrder orderApi = new CreateOrder();
         try {
             JSONObject data = orderApi.createOrder(new BigDecimal(total).toPlainString());
@@ -292,10 +329,7 @@ public class CheckoutActivity extends AppCompatActivity {
                 ZaloPaySDK.getInstance().payOrder(CheckoutActivity.this, token, "demozpdk://app", new PayOrderListener() {
                     @Override
                     public void onPaymentSucceeded(String s, String s1, String s2) {
-                        Intent intent = new Intent(getApplicationContext(), ConfirmationActivity.class);
-                        getUserByEmailOrder(email, total + 15000 , orderDetails);
-                        startActivity(intent);
-                        finish();
+                        getUserByEmailOrder(email, total + 15000, orderDetails, payment);
                     }
 
                     @Override

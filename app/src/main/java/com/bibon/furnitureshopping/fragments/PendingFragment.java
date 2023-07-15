@@ -110,7 +110,6 @@ public class PendingFragment extends Fragment {
                     if (user == null) {
                         return;
                     }
-                    user = new User(user.get_id(), user.getEmail(), user.getFullname());
                     getOrderByUserStatus(user.get_id(), status);
                 }
 

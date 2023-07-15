@@ -187,7 +187,7 @@ public class CartFragment extends Fragment implements UpdateCartRecycleView {
                     if (user == null) {
                         return;
                     }
-                    deleteItemById(user.get_id(), productId, email);
+                    deleteItemById(user.get_id(), productId);
                     Locale localeVN = new Locale("vi", "VN");
                     NumberFormat currencyVN = NumberFormat.getCurrencyInstance(localeVN);
                     String price = currencyVN.format(total);
@@ -207,7 +207,7 @@ public class CartFragment extends Fragment implements UpdateCartRecycleView {
         }
     }
 
-    public void deleteItemById(String user, String productId, String email) {
+    public void deleteItemById(String user, String productId) {
         try {
             Call<Cart> call = cartService.deleteCartItemById(user, productId);
             call.enqueue(new Callback<Cart>() {
