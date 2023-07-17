@@ -70,6 +70,7 @@ public class CartRVAdapter extends RecyclerView.Adapter<CartRVAdapter.CartRvHold
                 cartItem.setCartQuantity(cartItem.getCartQuantity() + 1);
                 holder.tv_quantity.setText(String.valueOf(cartItem.getCartQuantity()));
                 total += cartItem.getProduct().getPrice();
+                context.passEmailToUpdateQuantity(cartItem.getCartQuantity(), email, cartItem.getProduct().get_id(), total);
                 context.callback(position, cart, total);
             }
         });
@@ -79,10 +80,14 @@ public class CartRVAdapter extends RecyclerView.Adapter<CartRVAdapter.CartRvHold
             public void onClick(View v) {
                 if (cartItem.getCartQuantity() - 1 == 0 ) {
                     cart.getItems().remove(position);
+                    total -= cartItem.getCartQuantity() * cartItem.getProduct().getPrice();
+                    context.passEmailToDeleteItem(email, cartItem.getProduct().get_id(), total);
+                    context.callback(position, cart, total);
                 } else {
                     cartItem.setCartQuantity(cartItem.getCartQuantity() - 1);
                     holder.tv_quantity.setText(String.valueOf(cartItem.getCartQuantity()));
                     total -= cartItem.getProduct().getPrice();
+                    context.passEmailToUpdateQuantity(cartItem.getCartQuantity(), email, cartItem.getProduct().get_id(), total);
                     context.callback(position, cart, total);
                 }
 

@@ -30,9 +30,11 @@ import com.bibon.furnitureshopping.fragments.NotificationFragment;
 import com.bibon.furnitureshopping.fragments.ProfileFragment;
 import com.bibon.furnitureshopping.models.Cart;
 import com.bibon.furnitureshopping.models.User;
+
 import com.bibon.furnitureshopping.models.UserChat;
 import com.bibon.furnitureshopping.repositories.CartRepository;
 import com.bibon.furnitureshopping.repositories.UserRepository;
+
 import com.bibon.furnitureshopping.services.CartService;
 import com.bibon.furnitureshopping.services.UserService;
 import com.bibon.furnitureshopping.utils.AndroidUtils;
