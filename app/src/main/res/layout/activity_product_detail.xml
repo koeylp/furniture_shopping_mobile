@@ -47,35 +47,23 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/tv_currency"
+                android:id="@+id/tv_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="36dp"
                 android:layout_marginTop="1dp"
-                android:text="$"
-                android:textSize="30dp"
+                android:text="20.00"
+                android:textSize="27dp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_product_name_detail" />
-
-            <TextView
-                android:id="@+id/tv_price"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="1dp"
-                android:text="20.00"
-                android:textSize="30dp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toEndOf="@+id/tv_currency"
                 app:layout_constraintTop_toBottomOf="@+id/tv_product_name_detail" />
 
             <ImageView
                 android:id="@+id/img_plus_detail"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
-                android:layout_marginStart="120dp"
-                android:layout_marginTop="70dp"
+                android:layout_marginStart="144dp"
+                android:layout_marginTop="72dp"
                 android:background="@drawable/custom_edittext"
                 android:padding="5dp"
 
@@ -83,17 +71,18 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/plus" />
 
+
             <ImageView
                 android:id="@+id/img_minus_detail"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:layout_marginStart="12dp"
-                android:layout_marginTop="70dp"
+                android:layout_marginTop="72dp"
                 android:background="@drawable/custom_edittext"
                 android:padding="5dp"
 
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintHorizontal_bias="0.046"
                 app:layout_constraintStart_toEndOf="@+id/tv_quantity"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/minus" />
@@ -103,7 +92,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="14dp"
-                android:layout_marginTop="64dp"
+                android:layout_marginTop="67dp"
                 android:text="1"
                 android:textSize="25dp"
                 android:textStyle="bold"
@@ -111,7 +100,6 @@
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@+id/img_plus_detail"
                 app:layout_constraintTop_toTopOf="parent" />
-
 
             <TextView
                 android:id="@+id/tv_description_detail"

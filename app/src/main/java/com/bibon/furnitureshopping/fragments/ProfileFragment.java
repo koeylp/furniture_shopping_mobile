@@ -94,6 +94,7 @@ public class ProfileFragment extends Fragment {
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), AddressShippingActivity.class);
                 startActivity(intent);
+                getActivity().finish();
             }
         });
         linearLayoutProfile.setOnClickListener(new View.OnClickListener() {
@@ -101,6 +102,7 @@ public class ProfileFragment extends Fragment {
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), ShowProfileActivity.class);
                 startActivity(intent);
+                getActivity().finish();
             }
         });
 
@@ -109,6 +111,7 @@ public class ProfileFragment extends Fragment {
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), OrderHistoryActivity.class);
                 startActivity(intent);
+                getActivity().finish();
             }
         });
 
@@ -127,19 +130,12 @@ public class ProfileFragment extends Fragment {
         Uri photoUrl = user.getPhotoUrl();
 
         getUserByEmail(email);
-
-//        if (username == null) {
-//            tvUsername.setVisibility(View.GONE);
-//        } else {
-//            tvUsername.setVisibility(View.VISIBLE);
-//        }
         tvUsername.setText(username);
         tvEmail.setText(email);
         Glide.with(this).load(photoUrl).error(R.drawable.avatar).into(img);
     }
 
     private void getUserByEmail(String email) {
-        User[] userModel = new User[1];
         try {
             Call<User> call = userService.getUserByEmail(email);
             call.enqueue(new Callback<User>() {
@@ -149,8 +145,7 @@ public class ProfileFragment extends Fragment {
                     if (user == null) {
                         return;
                     }
-                    userModel[0] = new User(user.get_id(), user.getEmail(), user.getFullname());
-                    tvUsername.setText(userModel[0].getFullname());
+                    tvUsername.setText(user.getFullname());
                 }
 
                 @Override

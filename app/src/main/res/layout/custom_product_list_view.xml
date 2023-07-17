@@ -60,15 +60,15 @@
 
     <ImageView
         android:id="@+id/img_add_to_cart"
-        android:layout_width="34dp"
-        android:layout_height="34dp"
-        android:layout_marginTop="48dp"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="40dp"
         android:layout_marginEnd="36dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/img_product"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/shopping_bag" />
+        app:srcCompat="@drawable/addtocart" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

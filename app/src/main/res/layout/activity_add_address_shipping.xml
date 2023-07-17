@@ -17,19 +17,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/spinnerProvince" />
 
+
     <ImageView
         android:id="@+id/imageView7"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="17dp"
         android:layout_marginEnd="28dp"
-        android:layout_marginBottom="35dp"
+        android:layout_marginBottom="12dp"
         android:layout_weight="1"
         app:layout_constraintBottom_toBottomOf="@+id/spinnerDistrict"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/spinnerDistrict"
-        app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/down_arrow" />
-
 
     <Spinner
         android:id="@+id/spinnerWard"
@@ -180,12 +180,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="28dp"
-        android:layout_marginBottom="32dp"
+        android:layout_marginBottom="25dp"
         android:layout_weight="1"
         app:layout_constraintBottom_toTopOf="@+id/spinnerDistrict"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/spinnerProvince"
-        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintVertical_bias="1.0"
         app:srcCompat="@drawable/down_arrow" />
 
     <ImageView
@@ -196,7 +196,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/spinnerWard"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/spinnerWard"
-        app:layout_constraintVertical_bias="0.176"
+        app:layout_constraintVertical_bias="0.448"
         app:srcCompat="@drawable/down_arrow" />
 
 

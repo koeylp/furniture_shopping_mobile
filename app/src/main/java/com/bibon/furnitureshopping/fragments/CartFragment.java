@@ -15,10 +15,13 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.bibon.furnitureshopping.R;
 import com.bibon.furnitureshopping.activities.CheckoutActivity;
+import com.bibon.furnitureshopping.activities.MainActivity;
 import com.bibon.furnitureshopping.adapters.CartRVAdapter;
 import com.bibon.furnitureshopping.models.Cart;
+import com.bibon.furnitureshopping.models.CartItem;
 import com.bibon.furnitureshopping.models.User;
 import com.bibon.furnitureshopping.repositories.CartRepository;
 import com.bibon.furnitureshopping.repositories.UserRepository;
@@ -28,7 +31,9 @@ import com.bibon.furnitureshopping.utils.UpdateCartRecycleView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.text.NumberFormat;
 import java.util.Collections;
+import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -40,11 +45,14 @@ public class CartFragment extends Fragment implements UpdateCartRecycleView {
     CartService cartService;
     UserService userService;
     CartRVAdapter cartRVAdapter;
-    TextView tv_total, tv_total_label, tv_currency;
+    TextView tv_total, tv_total_label;
     private RecyclerView cartRecycleView;
     Button btn_checkout;
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
     String email;
+    double total = 0;
+    LottieAnimationView lottieAnimationView;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -64,34 +72,19 @@ public class CartFragment extends Fragment implements UpdateCartRecycleView {
 
         // View calling
         cartRecycleView = view.findViewById(R.id.rv_cart_item);
-        tv_currency = view.findViewById(R.id.tv_currency);
         tv_total_label = view.findViewById(R.id.tv_total_label);
         tv_total = view.findViewById(R.id.tv_total);
-
-        double[] total = new double[1];
-//        for (Cart cart : cartList.getCartList()) {
-//            total[0] += 0;
-//        }
-        tv_total.setText(String.valueOf(total[0]));
-
         btn_checkout = view.findViewById(R.id.btn_checkout);
-        if (total[0] == 0) {
-            btn_checkout.setVisibility(View.GONE);
-            tv_total.setVisibility(View.GONE);
-            tv_total_label.setVisibility(View.GONE);
-            tv_currency.setVisibility(View.GONE);
-        }
+        lottieAnimationView = view.findViewById(R.id.lottieAnimationView);
 
-        btn_checkout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), CheckoutActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putDouble("Total", total[0]);
-                intent.putExtra("BUNDLE", bundle);
-                startActivity(intent);
-            }
-        });
+
+        if (total == 0) {
+            btn_checkout.setVisibility(View.GONE);
+            lottieAnimationView.setVisibility(View.VISIBLE);
+        } else {
+            lottieAnimationView.setVisibility(View.GONE);
+            btn_checkout.setVisibility(View.VISIBLE);
+        }
 
         // Get email
         FirebaseUser currentUser = mAuth.getCurrentUser();
@@ -114,13 +107,12 @@ public class CartFragment extends Fragment implements UpdateCartRecycleView {
                     if (user == null) {
                         return;
                     }
-                    user = new User(user.get_id(), user.getEmail(), user.getFullname());
                     getCartByUser(user.get_id(), email);
                 }
 
                 @Override
                 public void onFailure(Call<User> call, Throwable t) {
-                    System.out.println("error: " + t);
+                    Log.d("Reason: ", t.getMessage());
                 }
             });
 
@@ -139,10 +131,40 @@ public class CartFragment extends Fragment implements UpdateCartRecycleView {
                     if (cart == null) {
                         return;
                     }
+                    MainActivity mainActivity = (MainActivity) getActivity();
+                    mainActivity.setCountProductToCart(cart.getItems().size());
                     Collections.reverse(cart.getItems());
-                    cartRVAdapter = new CartRVAdapter(cart, email, CartFragment.this);
+                    total = 0;
+                    for (CartItem item : cart.getItems()) {
+                        total += item.getCartQuantity() * item.getProduct().getPrice();
+                    }
+                    cartRVAdapter = new CartRVAdapter(cart, email, CartFragment.this, total);
                     cartRecycleView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
                     cartRecycleView.setAdapter(cartRVAdapter);
+                    Locale localeVN = new Locale("vi", "VN");
+                    NumberFormat currencyVN = NumberFormat.getCurrencyInstance(localeVN);
+                    String price = currencyVN.format(total);
+                    tv_total.setText(price);
+
+                    if (total == 0) {
+                        btn_checkout.setVisibility(View.GONE);
+                        lottieAnimationView.setVisibility(View.VISIBLE);
+                    } else {
+                        lottieAnimationView.setVisibility(View.GONE);
+                        btn_checkout.setVisibility(View.VISIBLE);
+                    }
+
+                    btn_checkout.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent intent = new Intent(getContext(), CheckoutActivity.class);
+                            Bundle bundle = new Bundle();
+                            bundle.putDouble("Total", total);
+                            intent.putExtra("BUNDLE", bundle);
+                            startActivity(intent);
+                            getActivity().finish();
+                        }
+                    });
                 }
 
                 @Override
@@ -155,18 +177,23 @@ public class CartFragment extends Fragment implements UpdateCartRecycleView {
         }
     }
 
-    public void passEmailToDeleteItem(String email, String productId) {
+    public void passEmailToDeleteItem(String email, String productId, double total) {
         try {
             Call<User> call = userService.getUserByEmail(email);
             call.enqueue(new Callback<User>() {
                 @Override
                 public void onResponse(Call<User> call, Response<User> response) {
-                    System.out.println(productId + "kkkk");
                     User user = response.body();
                     if (user == null) {
                         return;
                     }
                     deleteItemById(user.get_id(), productId, email);
+                    Locale localeVN = new Locale("vi", "VN");
+                    NumberFormat currencyVN = NumberFormat.getCurrencyInstance(localeVN);
+                    String price = currencyVN.format(total);
+                    tv_total.setText(price);
+                    MainActivity mainActivity = (MainActivity) getActivity();
+                    mainActivity.setCountProductToCart(mainActivity.getCountProduct() - 1);
                 }
 
                 @Override
@@ -200,9 +227,27 @@ public class CartFragment extends Fragment implements UpdateCartRecycleView {
     }
 
     @Override
-    public void callback(int position, Cart cart) {
-        cartRVAdapter = new CartRVAdapter(cart, email, CartFragment.this);
+    public void callback(int position, Cart cart, double total) {
+        cartRVAdapter = new CartRVAdapter(cart, email, CartFragment.this, total);
         cartRecycleView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
         cartRecycleView.setAdapter(cartRVAdapter);
+        if (total == 0) {
+            btn_checkout.setVisibility(View.GONE);
+            lottieAnimationView.setVisibility(View.VISIBLE);
+        } else {
+            lottieAnimationView.setVisibility(View.GONE);
+            btn_checkout.setVisibility(View.VISIBLE);
+        }
+
+        btn_checkout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), CheckoutActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putDouble("Total", total);
+                intent.putExtra("BUNDLE", bundle);
+                startActivity(intent);
+            }
+        });
     }
 }

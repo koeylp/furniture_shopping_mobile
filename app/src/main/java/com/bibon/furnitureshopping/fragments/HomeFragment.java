@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bibon.furnitureshopping.R;
+import com.bibon.furnitureshopping.activities.MainActivity;
 import com.bibon.furnitureshopping.activities.ProductDetailActivity;
 import com.bibon.furnitureshopping.adapters.CategoryRVAdapter;
 import com.bibon.furnitureshopping.adapters.ProductRVAdapter;
@@ -55,6 +56,8 @@ public class HomeFragment extends Fragment implements UpdateProductListRecyclerV
     CartList cartList;
     String email;
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
+
+    MainActivity mainActivity;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -137,7 +140,7 @@ public class HomeFragment extends Fragment implements UpdateProductListRecyclerV
                     for (Product product : products) {
                         productList.add(new Product(product.get_id(), product.getProductName(), product.getCategory(), product.getPrice(), product.getQuantity(), product.getDescription(), product.getImg()));
                     }
-                    productRVAdapter = new ProductRVAdapter(productList, cartList, HomeFragment.this, user);
+                    productRVAdapter = new ProductRVAdapter(productList, HomeFragment.this, user,(MainActivity) getActivity());
                     recyclerViewProduct.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
                     recyclerViewProduct.setAdapter(productRVAdapter);
                 }
@@ -189,7 +192,6 @@ public class HomeFragment extends Fragment implements UpdateProductListRecyclerV
                     if (user == null) {
                         return;
                     }
-                    user = new User(user.get_id(), user.getEmail(), user.getFullname());
                     getAllProducts(user.get_id());
                     getALlCategories(user.get_id());
                 }
@@ -210,7 +212,7 @@ public class HomeFragment extends Fragment implements UpdateProductListRecyclerV
         if (items.isEmpty()) {
             items = productList;
         }
-        productRVAdapter = new ProductRVAdapter(items, cartList, HomeFragment.this, user);
+        productRVAdapter = new ProductRVAdapter(items, HomeFragment.this, user, (MainActivity) getActivity());
         recyclerViewProduct.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
         recyclerViewProduct.setAdapter(productRVAdapter);
     }

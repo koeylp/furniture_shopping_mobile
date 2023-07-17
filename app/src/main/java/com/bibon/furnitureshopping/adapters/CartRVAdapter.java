@@ -11,10 +11,14 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bibon.furnitureshopping.R;
+import com.bibon.furnitureshopping.activities.MainActivity;
 import com.bibon.furnitureshopping.fragments.CartFragment;
 import com.bibon.furnitureshopping.models.Cart;
 import com.bibon.furnitureshopping.models.CartItem;
 import com.squareup.picasso.Picasso;
+
+import java.text.NumberFormat;
+import java.util.Locale;
 
 public class CartRVAdapter extends RecyclerView.Adapter<CartRVAdapter.CartRvHolder> {
 
@@ -22,11 +26,13 @@ public class CartRVAdapter extends RecyclerView.Adapter<CartRVAdapter.CartRvHold
     String email;
     CartFragment context;
 
+    double total;
 
-    public CartRVAdapter(Cart cart, String email, CartFragment context) {
+    public CartRVAdapter(Cart cart, String email, CartFragment context, double total) {
         this.cart = cart;
         this.email = email;
         this.context = context;
+        this.total = total;
     }
 
     @NonNull
@@ -42,15 +48,19 @@ public class CartRVAdapter extends RecyclerView.Adapter<CartRVAdapter.CartRvHold
         CartItem cartItem = cart.getItems().get(position);
         Picasso.get().load(cartItem.getProduct().getImg()).placeholder(R.drawable.armchair).error(R.drawable.armchair).fit().into(holder.img_product);
         holder.tv_product_name.setText(cartItem.getProduct().getProductName());
-        holder.tv_product_price.setText(cartItem.getProduct().getPrice() + "");
-        holder.tv_quantity.setText(cartItem.getCartQuantity() + "");
+        Locale localeVN = new Locale("vi", "VN");
+        NumberFormat currencyVN = NumberFormat.getCurrencyInstance(localeVN);
+        String price = currencyVN.format(cartItem.getProduct().getPrice());
+        holder.tv_product_price.setText(price);
+        holder.tv_quantity.setText(String.valueOf(cartItem.getCartQuantity()));
 
         holder.img_delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                context.passEmailToDeleteItem(email, cartItem.getProduct().get_id());
                 cart.getItems().remove(position);
-                context.callback(position, cart);
+                total -= cartItem.getCartQuantity() * cartItem.getProduct().getPrice();
+                context.passEmailToDeleteItem(email, cartItem.getProduct().get_id(), total);
+                context.callback(position, cart, total);
             }
         });
 
@@ -90,7 +100,6 @@ public class CartRVAdapter extends RecyclerView.Adapter<CartRVAdapter.CartRvHold
             tv_quantity = itemView.findViewById(R.id.tv_quantity);
             tv_product_name = itemView.findViewById(R.id.tv_product_name);
             tv_product_price = itemView.findViewById(R.id.tv_price);
-
             constraintLayout = itemView.findViewById(R.id.constraint_layout);
         }
     }

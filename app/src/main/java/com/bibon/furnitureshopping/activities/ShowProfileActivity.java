@@ -84,7 +84,7 @@ public class ShowProfileActivity extends AppCompatActivity {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ShowProfileActivity.this, MainActivity.class);
+                Intent intent = new Intent(v.getContext(), MainActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putString("Fragment", "profile");
                 intent.putExtra("BUNDLE", bundle);
@@ -131,7 +131,6 @@ public class ShowProfileActivity extends AppCompatActivity {
                     if (user == null) {
                         return;
                     }
-                    user = new User(user.get_id(), user.getEmail(), user.getFullname());
                     etUsername.setText(user.getFullname());
                 }
 

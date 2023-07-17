@@ -21,4 +21,8 @@ public interface CartService {
 
     @PUT(CART + "/{user}/{product}")
     Call<Cart> deleteCartItemById(@Path("user") Object user, @Path("product") Object product);
+
+    @PUT(CART + "/quantity/{user}/{product}/{func}")
+    Call<Cart> editCartQuantity(@Path("user") Object user, @Path("product") Object product, @Path("func") Object func);
+
 }
