@@ -40,6 +40,7 @@ public class OrderRVAdapter extends RecyclerView.Adapter<OrderRVAdapter.OrderRvH
         holder.tv_order_id.setText("Order Id: " + currentOrder.get_id());
         holder.tv_total_price.setText(price);
         holder.tv_date.setText(currentOrder.getOrderDate().substring(0,10));
+        holder.tv_payment.setText(currentOrder.getPaymentMethod());
 
     }
 
@@ -50,13 +51,14 @@ public class OrderRVAdapter extends RecyclerView.Adapter<OrderRVAdapter.OrderRvH
 
     public class OrderRvHolder extends RecyclerView.ViewHolder {
 
-        TextView tv_order_id, tv_total_price, tv_date;
+        TextView tv_order_id, tv_total_price, tv_date, tv_payment;
 
         public OrderRvHolder(@NonNull View itemView) {
             super(itemView);
             tv_order_id = itemView.findViewById(R.id.tv_order_id);
             tv_total_price = itemView.findViewById(R.id.tv_total_price);
             tv_date = itemView.findViewById(R.id.tv_date);
+            tv_payment = itemView.findViewById(R.id.tvPayment);
         }
     }
 }

@@ -181,4 +181,28 @@ public class AddressShippingActivity extends AppCompatActivity {
             Log.d("Error", e.getMessage());
         }
     }
+
+    public void deleteAddress(String addressId) {
+        try {
+            Call<Address>  call = addressService.deleteAddress(addressId);
+            call.enqueue(new Callback<Address>() {
+                @Override
+                public void onResponse(Call<Address> call, Response<Address> response) {
+                    FirebaseUser currentUser = mAuth.getCurrentUser();
+                    if (currentUser != null) {
+                        email = currentUser.getEmail();
+                    }
+                    getUserByEmail(email);
+                }
+
+                @Override
+                public void onFailure(Call<Address> call, Throwable t) {
+
+                }
+            });
+
+        } catch (Exception e) {
+            Log.d("Error", e.getMessage());
+        }
+    }
 }

@@ -67,13 +67,21 @@ public class CartRVAdapter extends RecyclerView.Adapter<CartRVAdapter.CartRvHold
         holder.img_plus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                cartItem.setCartQuantity(cartItem.getCartQuantity() + 1);
+                holder.tv_quantity.setText(String.valueOf(cartItem.getCartQuantity()));
+                total += cartItem.getProduct().getPrice();
             }
         });
 
         holder.img_minus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                cartItem.setCartQuantity(cartItem.getCartQuantity() - 1);
+                if (cartItem.getCartQuantity() == 0) {
+                    cart.getItems().remove(position);
+                }
+                holder.tv_quantity.setText(String.valueOf(cartItem.getCartQuantity()));
+                total -= cartItem.getProduct().getPrice();
 
             }
         });

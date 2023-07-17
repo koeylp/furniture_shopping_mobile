@@ -32,6 +32,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import java.text.NumberFormat;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Locale;
 
@@ -135,7 +136,9 @@ public class CartFragment extends Fragment implements UpdateCartRecycleView {
                     mainActivity.setCountProductToCart(cart.getItems().size());
                     Collections.reverse(cart.getItems());
                     total = 0;
+                    ArrayList<CartItem> cartItemsList = new ArrayList<>();
                     for (CartItem item : cart.getItems()) {
+                        cartItemsList.add(item);
                         total += item.getCartQuantity() * item.getProduct().getPrice();
                     }
                     cartRVAdapter = new CartRVAdapter(cart, email, CartFragment.this, total);
@@ -160,6 +163,7 @@ public class CartFragment extends Fragment implements UpdateCartRecycleView {
                             Intent intent = new Intent(getContext(), CheckoutActivity.class);
                             Bundle bundle = new Bundle();
                             bundle.putDouble("Total", total);
+                            bundle.putSerializable("CartItems", cartItemsList);
                             intent.putExtra("BUNDLE", bundle);
                             startActivity(intent);
                             getActivity().finish();
@@ -187,7 +191,7 @@ public class CartFragment extends Fragment implements UpdateCartRecycleView {
                     if (user == null) {
                         return;
                     }
-                    deleteItemById(user.get_id(), productId, email);
+                    deleteItemById(user.get_id(), productId);
                     Locale localeVN = new Locale("vi", "VN");
                     NumberFormat currencyVN = NumberFormat.getCurrencyInstance(localeVN);
                     String price = currencyVN.format(total);
@@ -207,7 +211,7 @@ public class CartFragment extends Fragment implements UpdateCartRecycleView {
         }
     }
 
-    public void deleteItemById(String user, String productId, String email) {
+    public void deleteItemById(String user, String productId) {
         try {
             Call<Cart> call = cartService.deleteCartItemById(user, productId);
             call.enqueue(new Callback<Cart>() {

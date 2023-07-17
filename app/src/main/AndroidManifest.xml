@@ -30,6 +30,9 @@
         <activity android:name=".activities.StoreMapActivity"
             android:exported="false"/>
         <activity
+            android:name=".activities.FailedActivity"
+            android:exported="false" />
+        <activity
             android:name=".activities.ShowProfileActivity"
             android:exported="false" />
         <activity

@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -19,7 +18,6 @@ import com.bibon.furnitureshopping.animations.FlyToCartAnimation;
 import com.bibon.furnitureshopping.fragments.HomeFragment;
 import com.bibon.furnitureshopping.models.CartAdding;
 import com.bibon.furnitureshopping.models.CartItemAdding;
-import com.bibon.furnitureshopping.models.CartList;
 import com.bibon.furnitureshopping.models.Product;
 import com.squareup.picasso.Picasso;
 
@@ -30,7 +28,6 @@ import java.util.Locale;
 public class ProductRVAdapter extends RecyclerView.Adapter<ProductRVAdapter.ProductRvHolder> {
 
     public ArrayList<Product> products;
-    CartList cartList;
     HomeFragment context;
     String user;
 
