@@ -31,6 +31,8 @@ import com.bibon.furnitureshopping.fragments.ProfileFragment;
 import com.bibon.furnitureshopping.models.Cart;
 import com.bibon.furnitureshopping.models.User;
 import com.bibon.furnitureshopping.models.UserChat;
+import com.bibon.furnitureshopping.repositories.CartRepository;
+import com.bibon.furnitureshopping.repositories.UserRepository;
 import com.bibon.furnitureshopping.services.CartService;
 import com.bibon.furnitureshopping.services.UserService;
 import com.bibon.furnitureshopping.utils.AndroidUtils;
@@ -42,6 +44,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationBarView;
 import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -137,8 +140,16 @@ public class MainActivity extends AppCompatActivity {
 
     private void InitNavigateToMapFragmentFab() {
         FloatingActionButton navigateMapFab = findViewById(R.id.navigate_map_fab);
+        //
+        cartService = CartRepository.getCartService();
+        userService = UserRepository.getUserService();
+        // Get email
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if (currentUser != null) {
+            email = currentUser.getEmail();
+        }
 
-
+        getUserByEmail(email);
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
