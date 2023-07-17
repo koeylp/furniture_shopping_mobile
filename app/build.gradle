@@ -40,7 +40,9 @@ dependencies {
     implementation 'com.github.bumptech.glide:glide:4.15.1'
     implementation 'de.hdodenhof:circleimageview:3.1.0'
     implementation(platform("com.google.firebase:firebase-bom:32.2.0"))
+    implementation 'com.firebaseui:firebase-ui-firestore:8.0.2'
 
+    
     implementation 'com.squareup.picasso:picasso:2.71828'
     implementation 'com.squareup.retrofit2:retrofit:2.5.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
@@ -50,6 +52,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-auth:22.0.0'
     implementation fileTree(dir: 'C:\\Users\\thekh\\Downloads\\zaloPay', include: ['*.aar', '*.jar'], exclude: [])
     implementation fileTree(dir: 'C:\\Users\\Truong Giang\\Desktop\\FPT\\semester 7\\PRM\\project group 5\\zaloPay', include: ['*.aar', '*.jar'], exclude: [])
+    implementation 'com.google.firebase:firebase-firestore:24.4.1'
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'

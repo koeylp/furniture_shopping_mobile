@@ -13,15 +13,20 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bibon.furnitureshopping.R;
+import com.bibon.furnitureshopping.models.UserChat;
+import com.bibon.furnitureshopping.utils.FirebaseUtil;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.Timestamp;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
 
 public class LoginActivity extends AppCompatActivity {
 
     FirebaseAuth mAuth;
-
+    UserChat userChat;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,34 +69,13 @@ public class LoginActivity extends AppCompatActivity {
         tvSignUpNow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), SignUpActivity.class);
+                Intent intent = new Intent(LoginActivity.this, SignUpActivity.class);
                 startActivity(intent);
             }
         });
     }
 
-//    public void setUsername(){
-//        String username = editTextEmail.getText().toString();
-//        if(username!= null){
-//            userChat.setUsername(username);
-//        }else{
-//
-//        }
-//
-//    }
-//    public void getChatUserName() {
-//        FirebaseUtil.currentUserDetails().get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-//            @Override
-//            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-//                if (task.isSuccessful()) {
-//                    UserChat userChat = task.getResult().toObject(UserChat.class);
-//                    if(userChat != null){
-//                        editTextEmail.setText(userChat.getUsername());
-//                    }
-//                }
-//            }
-//        });
-//
-//    }
+
+
 
 }

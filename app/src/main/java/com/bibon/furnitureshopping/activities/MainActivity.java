@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -29,14 +30,26 @@ import com.bibon.furnitureshopping.fragments.ProfileFragment;
 import com.bibon.furnitureshopping.models.Cart;
 import com.bibon.furnitureshopping.models.CartItem;
 import com.bibon.furnitureshopping.models.User;
+import com.bibon.furnitureshopping.models.UserChat;
 import com.bibon.furnitureshopping.repositories.CartRepository;
 import com.bibon.furnitureshopping.repositories.UserRepository;
 import com.bibon.furnitureshopping.services.CartService;
 import com.bibon.furnitureshopping.services.UserService;
+import com.bibon.furnitureshopping.utils.AndroidUtils;
+import com.bibon.furnitureshopping.utils.FirebaseUtil;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.badge.BadgeDrawable;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationBarView;
+import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.text.NumberFormat;
 import java.util.Collections;
@@ -59,16 +72,22 @@ public class MainActivity extends AppCompatActivity {
     CartService cartService;
     UserService userService;
     String email;
+    UserChat userChat;
+
+    FloatingActionButton floatingActionButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
 //        setContentView(R.layout.activity_main);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         //Animation
         viewEndAnimation = (TextView) findViewById(R.id.view_end_animation);
         viewAnimation = (ImageView) findViewById(R.id.view_animation);
+        floatingActionButton = (FloatingActionButton) findViewById(R.id.floatingActionButton);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         // Sets the Toolbar to act as the ActionBar for this Activity window.
         // Make sure the toolbar exists in the activity and is not null
@@ -127,6 +146,13 @@ public class MainActivity extends AppCompatActivity {
 
         getUserByEmail(email);
 
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getAdminUserModel();
+            }
+        });
+
     }
 
 
@@ -162,6 +188,7 @@ public class MainActivity extends AppCompatActivity {
     public int getCountProduct() {
         return countProduct;
     }
+
     private void getUserByEmail(String email) {
         try {
             Call<User> call = userService.getUserByEmail(email);
@@ -172,6 +199,16 @@ public class MainActivity extends AppCompatActivity {
                     if (user == null) {
                         return;
                     }
+                    if (userChat != null) {
+                        userChat.setUsername(user.getFullname());
+                    } else {
+                        userChat = new UserChat(user.getPhone(), user.getFullname(), Timestamp.now(), FirebaseUtil.currentUserId());
+                    }
+                    FirebaseUtil.currentUserDetails().set(userChat).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                        }
+                    });
                     getCartByUser(user.get_id(), email);
                 }
 
@@ -185,6 +222,7 @@ public class MainActivity extends AppCompatActivity {
             Log.d("Error", e.getMessage());
         }
     }
+
     private void getCartByUser(String user, String email) {
         try {
             Call<Cart> call = cartService.getCartByUser(user);
@@ -207,4 +245,89 @@ public class MainActivity extends AppCompatActivity {
             Log.d("Error", e.getMessage());
         }
     }
+
+    void getAdminUserModel() {
+        String currentUsername = userChat.getUsername();
+        if (currentUsername != null && currentUsername.equals("admin")) {
+            FirebaseUtil.allUserCollectionReference()
+                    .whereEqualTo("username", "giang")
+                    .get()
+                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if (task.isSuccessful()) {
+                                QuerySnapshot snapshot = task.getResult();
+                                if (snapshot != null && !snapshot.isEmpty()) {
+                                    DocumentSnapshot document = snapshot.getDocuments().get(0);
+                                    UserChat userChat = document.toObject(UserChat.class);
+                                    String userId = document.getId();
+                                    DocumentReference userDetails = FirebaseUtil.allUserCollectionReference().document(userId);
+                                    userDetails.set(userChat)
+                                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<Void> task) {
+                                                    if (task.isSuccessful()) {
+                                                        // Successfully set the userChat for admin
+                                                        if (userChat.getUserId().equals(FirebaseUtil.currentUserId())) {
+                                                            Toast.makeText(MainActivity.this, "Hello " + userChat.getUsername(), Toast.LENGTH_SHORT).show();
+                                                        }
+                                                        Intent intent = new Intent(MainActivity.this, ChatActivity.class);
+                                                        AndroidUtils.passAdminModelAsIntent(intent, userChat);
+                                                        startActivity(intent);
+                                                    } else {
+                                                        // Failed to set the userChat for admin
+                                                    }
+                                                }
+                                            });
+                                } else {
+                                    // No admin user found
+                                }
+                            } else {
+                                // Error occurred while querying for admin user
+                            }
+                        }
+                    });
+        } else {
+            FirebaseUtil.allUserCollectionReference()
+                    .whereEqualTo("username", "admin")
+                    .get()
+                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if (task.isSuccessful()) {
+                                QuerySnapshot snapshot = task.getResult();
+                                if (snapshot != null && !snapshot.isEmpty()) {
+                                    DocumentSnapshot document = snapshot.getDocuments().get(0);
+                                    UserChat adminUserChat = document.toObject(UserChat.class);
+                                    String adminUserId = document.getId();
+                                    DocumentReference adminUserDetails = FirebaseUtil.currentUserDetails().collection("admin").document(adminUserId);
+                                    adminUserDetails.set(adminUserChat)
+                                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<Void> task) {
+                                                    if (task.isSuccessful()) {
+                                                        // Successfully set the userChat for admin
+                                                        if (adminUserChat.getUserId().equals(FirebaseUtil.currentUserId())) {
+                                                            Toast.makeText(MainActivity.this, "Hello " + adminUserChat.getUsername(), Toast.LENGTH_SHORT).show();
+                                                        }
+                                                        Intent intent = new Intent(MainActivity.this, ChatActivity.class);
+                                                        AndroidUtils.passAdminModelAsIntent(intent, adminUserChat);
+                                                        startActivity(intent);
+                                                    } else {
+                                                        // Failed to set the userChat for admin
+                                                    }
+                                                }
+                                            });
+                                } else {
+                                    // No admin user found
+                                }
+                            } else {
+                                // Error occurred while querying for admin user
+                            }
+                        }
+                    });
+        }
+    }
+
+
 }

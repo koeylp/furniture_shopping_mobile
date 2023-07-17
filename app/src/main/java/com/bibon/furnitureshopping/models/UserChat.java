@@ -1,19 +1,22 @@
 package com.bibon.furnitureshopping.models;
 
-import java.sql.Timestamp;
+import com.google.firebase.Timestamp;
 
 public class UserChat {
     private String phone;
     private String username;
     private Timestamp createdTimestamps;
 
+    private String userId;
+
     public UserChat() {
     }
 
-    public UserChat(String phone, String username, Timestamp createdTimestamps) {
+    public UserChat(String phone, String username, Timestamp createdTimestamps, String userId) {
         this.phone = phone;
         this.username = username;
         this.createdTimestamps = createdTimestamps;
+        this.userId = userId;
     }
 
     public String getPhone() {
@@ -38,5 +41,13 @@ public class UserChat {
 
     public void setCreatedTimestamps(Timestamp createdTimestamps) {
         this.createdTimestamps = createdTimestamps;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 }

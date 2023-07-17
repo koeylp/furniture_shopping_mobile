@@ -15,12 +15,16 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.bibon.furnitureshopping.R;
 import com.bibon.furnitureshopping.models.User;
+import com.bibon.furnitureshopping.models.UserChat;
 import com.bibon.furnitureshopping.repositories.UserRepository;
 import com.bibon.furnitureshopping.services.UserService;
+import com.bibon.furnitureshopping.utils.FirebaseUtil;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.Timestamp;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentSnapshot;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -33,6 +37,7 @@ public class SignUpActivity extends AppCompatActivity {
     ProgressBar progressBar;
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
     UserService userService;
+
 
 
     @Override
@@ -54,7 +59,6 @@ public class SignUpActivity extends AppCompatActivity {
 
 
         TextView tvLoginNow = findViewById(R.id.tv_login_now);
-
         btn_sign_up.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -123,4 +127,6 @@ public class SignUpActivity extends AppCompatActivity {
             }
         });
     }
+
+
 }

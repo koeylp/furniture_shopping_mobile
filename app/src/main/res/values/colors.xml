@@ -3,4 +3,7 @@
     <color name="colorLoginPrimaryDark">#FDFFFF</color>
 
     <color name="primatyColor">#CACCCE</color>
+    <color name="chatColor">#FF5964</color>
+    <color name="chatColor_sender">#1e88e5</color>
+    <color name="chatColor_receiver">#7cb342</color>
 </resources>
