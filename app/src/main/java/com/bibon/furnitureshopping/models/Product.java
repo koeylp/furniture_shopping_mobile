@@ -10,11 +10,9 @@ public class Product implements Serializable {
     private int quantity;
     private String description;
     private String img;
+    private boolean status;
 
-    public Product() {
-    }
-
-    public Product(String _id, String productName, String category, double price, int quantity, String description, String img) {
+    public Product(String _id, String productName, String category, double price, int quantity, String description, String img, boolean status) {
         this._id = _id;
         this.productName = productName;
         this.category = category;
@@ -22,15 +20,7 @@ public class Product implements Serializable {
         this.quantity = quantity;
         this.description = description;
         this.img = img;
-    }
-
-    public Product(String _id, String productName, double price, int quantity, String description, String img) {
-        this._id = _id;
-        this.productName = productName;
-        this.price = price;
-        this.quantity = quantity;
-        this.description = description;
-        this.img = img;
+        this.status = status;
     }
 
     public String get_id() {
@@ -87,5 +77,13 @@ public class Product implements Serializable {
 
     public void setImg(String img) {
         this.img = img;
+    }
+
+    public boolean isStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
     }
 }

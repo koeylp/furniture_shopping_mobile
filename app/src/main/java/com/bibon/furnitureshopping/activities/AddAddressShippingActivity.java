@@ -2,12 +2,14 @@ package com.bibon.furnitureshopping.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -42,8 +44,8 @@ public class AddAddressShippingActivity extends AppCompatActivity {
     EditText it_fullname, it_address, it_phone;
     UserService userService;
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
-
-
+    private final String REQUIRED = "Required";
+    ImageView img_back;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,10 +61,18 @@ public class AddAddressShippingActivity extends AppCompatActivity {
         it_phone = findViewById(R.id.it_phone);
         btn_save_address = findViewById(R.id.btn_save_address);
         btn_cancel = findViewById(R.id.btn_cancel_address);
+        img_back = findViewById(R.id.img_back);
 
         // Service Calling
         userService = UserRepository.getUserService();
         addressService = AddressRepository.getAddressService();
+
+        img_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
 
         btn_cancel.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -187,18 +197,21 @@ public class AddAddressShippingActivity extends AppCompatActivity {
                 String fullname = it_fullname.getText().toString();
                 String phone = it_phone.getText().toString();
                 String address = it_address.getText().toString();
-                Address addressSelection = new Address("", fullname, phone, address, ward[0], district[0], province[0]);
-                getUserByEmail(email[0], addressSelection);
 
-                System.out.println(ward[0] + district[0] + province[0]);
-
-                Intent intent = new Intent(v.getContext(), AddressShippingActivity.class);
-                startActivity(intent);
+                if (TextUtils.isEmpty(fullname)) {
+                    it_fullname.setError(REQUIRED);
+                } else if (TextUtils.isEmpty(phone)) {
+                    it_phone.setError(REQUIRED);
+                } else if (TextUtils.isEmpty(address)) {
+                    it_address.setError(REQUIRED);
+                } else {
+                    Address addressSelection = new Address("", fullname, phone, address, ward[0], district[0], province[0]);
+                    getUserByEmail(email[0], addressSelection);
+                    Intent intent = new Intent(v.getContext(), AddressShippingActivity.class);
+                    startActivity(intent);
+                }
             }
         });
-
-
-
     }
 
     private void getAllProvinces() {

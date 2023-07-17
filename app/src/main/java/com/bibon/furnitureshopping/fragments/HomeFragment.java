@@ -138,7 +138,9 @@ public class HomeFragment extends Fragment implements UpdateProductListRecyclerV
                         return;
                     }
                     for (Product product : products) {
-                        productList.add(new Product(product.get_id(), product.getProductName(), product.getCategory(), product.getPrice(), product.getQuantity(), product.getDescription(), product.getImg()));
+                        if (product.isStatus()) {
+                            productList.add(new Product(product.get_id(), product.getProductName(), product.getCategory(), product.getPrice(), product.getQuantity(), product.getDescription(), product.getImg(), product.isStatus()));
+                        }
                     }
                     productRVAdapter = new ProductRVAdapter(productList, HomeFragment.this, user,(MainActivity) getActivity());
                     recyclerViewProduct.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));

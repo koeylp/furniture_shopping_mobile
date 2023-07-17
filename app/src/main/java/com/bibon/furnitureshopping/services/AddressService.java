@@ -7,6 +7,7 @@ import com.bibon.furnitureshopping.models.Ward;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
@@ -32,5 +33,8 @@ public interface AddressService {
 
     @PUT(ADDRESS + "/{id}/{userId}")
     Call<Address> setDefaultAddress(@Path("id") Object id, @Path("userId") Object userId);
+
+    @DELETE(ADDRESS + "/delete/{addressId}")
+    Call<Address> deleteAddress(@Path("addressId") Object addressId);
 
 }

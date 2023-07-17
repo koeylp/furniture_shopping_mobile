@@ -19,6 +19,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import com.bibon.furnitureshopping.R;
 import com.bibon.furnitureshopping.adapters.PaymentAdapter;
 import com.bibon.furnitureshopping.models.Address;
+import com.bibon.furnitureshopping.models.CartItem;
 import com.bibon.furnitureshopping.models.CreateOrder;
 import com.bibon.furnitureshopping.models.Order;
 import com.bibon.furnitureshopping.models.OrderDetail;
@@ -63,6 +64,7 @@ public class CheckoutActivity extends AppCompatActivity {
     PaymentAdapter paymentAdapter;
     TextView tv_order_price, tv_total;
     ImageView editAddress;
+    ArrayList<CartItem> cartItems;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,7 +106,7 @@ public class CheckoutActivity extends AppCompatActivity {
         Intent intent = getIntent();
         Bundle args = intent.getBundleExtra("BUNDLE");
         double total = args.getDouble("Total");
-
+        cartItems = (ArrayList<CartItem>) args.getSerializable("CartItems");
 
         Locale localeVN = new Locale("vi", "VN");
         NumberFormat currencyVN = NumberFormat.getCurrencyInstance(localeVN);
@@ -112,6 +114,14 @@ public class CheckoutActivity extends AppCompatActivity {
         tv_order_price.setText(price);
         tv_total.setText(currencyVN.format(total + 15000));
 
+        editAddress.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), AddressShippingActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
 
         img_back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -135,7 +145,7 @@ public class CheckoutActivity extends AppCompatActivity {
         ArrayList<OrderDetail> orderDetails = new ArrayList<>();
 
         //set payment
-        spinnerPayment = (Spinner) findViewById(R.id.spinnerPayment);
+        spinnerPayment = findViewById(R.id.spinnerPayment);
         List<Payment> paymentList = new ArrayList<>();
         paymentList.add(new Payment("Zalo Pay", R.drawable.zalopay));
         paymentList.add(new Payment("COD", R.drawable.cashondelivery));
@@ -156,19 +166,27 @@ public class CheckoutActivity extends AppCompatActivity {
         btn_submit_order.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                System.out.println(payment + "payaa");
+                cartItems.forEach(item -> {
+                    if (item.getCartQuantity() > item.getProduct().getQuantity()) {
+                        Intent intent = new Intent(getApplicationContext(), FailedActivity.class);
+                        String information = "The quantity of " + item.getProduct().getProductName() + " you order is greater than our stock. Please let the quantity smaller or equal " + item.getProduct().getQuantity();
+                        Bundle bundle = new Bundle();
+                        bundle.putString("Information", information);
+                        intent.putExtra("BUNDLE", bundle);
+                        startActivity(intent);
+                        finish();
+                    } else {
+                        orderDetails.add(new OrderDetail(item.getProduct().get_id(), item.getCartQuantity()));
+                    }
+                });
+
                 if (payment.equals("0")) {
                     requestZaloPay(email, orderDetails, total + 15000, "ZaloPay");
                 } else {
                     getUserByEmailOrder(email, total + 15000, orderDetails, "COD");
                 }
             }
-
         });
-
-
-
-
     }
 
     private void getAddressByUser(String user) {
@@ -186,9 +204,6 @@ public class CheckoutActivity extends AppCompatActivity {
 
                     if (addresses.length == 0) {
                         Intent intent = new Intent(getApplicationContext(), AddressShippingActivity.class);
-                        Bundle bundle = new Bundle();
-                        bundle.putString("Type", "checkout");
-                        intent.putExtra("BUNDLE", bundle);
                         startActivity(intent);
                         finish();
                         Toast.makeText(CheckoutActivity.this, "You have not added your address!", Toast.LENGTH_LONG).show();
@@ -201,7 +216,6 @@ public class CheckoutActivity extends AppCompatActivity {
                             }
                         }
                     }
-
                 }
 
                 @Override
@@ -226,7 +240,6 @@ public class CheckoutActivity extends AppCompatActivity {
                         return;
                     }
                     getAddressByUser(user.get_id());
-
                 }
 
                 @Override

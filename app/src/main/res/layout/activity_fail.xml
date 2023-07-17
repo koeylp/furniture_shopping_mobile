@@ -44,9 +44,9 @@
         app:srcCompat="@drawable/cancel" />
 
     <TextView
-        android:id="@+id/textView5"
+        android:id="@+id/tv_failed_text"
         android:layout_width="283dp"
-        android:layout_height="54dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="28dp"
         android:text="Checkout failed.\n
 Please try again!"
@@ -58,26 +58,10 @@ Please try again!"
         app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btn_track"
-        android:layout_width="315dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="32dp"
-        android:adjustViewBounds="true"
-        android:background="@color/blackTextColor"
-        android:cropToPadding="true"
-        android:fontFamily="serif"
-        android:text="Try again"
-
-        android:textColor="#ffffff"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView5" />
-
-    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_home"
         android:layout_width="315dp"
         android:layout_height="60dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="68dp"
         android:adjustViewBounds="true"
         android:background="#FFFFFF"
         android:cropToPadding="true"
@@ -86,7 +70,7 @@ Please try again!"
         android:textColor="@color/blackTextColor"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_track" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_failed_text" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
