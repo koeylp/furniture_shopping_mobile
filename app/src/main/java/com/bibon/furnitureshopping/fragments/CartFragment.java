@@ -230,6 +230,55 @@ public class CartFragment extends Fragment implements UpdateCartRecycleView {
         }
     }
 
+    public void passEmailToUpdateQuantity(int quantity, String email, String productId, double total) {
+        try {
+            Call<User> call = userService.getUserByEmail(email);
+            call.enqueue(new Callback<User>() {
+                @Override
+                public void onResponse(Call<User> call, Response<User> response) {
+                    User user = response.body();
+                    if (user == null) {
+                        return;
+                    }
+                    updateCartQuantity(quantity, user.get_id(), productId);
+                    Locale localeVN = new Locale("vi", "VN");
+                    NumberFormat currencyVN = NumberFormat.getCurrencyInstance(localeVN);
+                    String price = currencyVN.format(total);
+                    tv_total.setText(price);
+                    MainActivity mainActivity = (MainActivity) getActivity();
+                    mainActivity.setCountProductToCart(mainActivity.getCountProduct() - 1);
+                }
+
+                @Override
+                public void onFailure(Call<User> call, Throwable t) {
+                    System.out.println("error: " + t);
+                }
+            });
+
+        } catch (Exception e) {
+            Log.d("Error", e.getMessage());
+        }
+    }
+
+    private void updateCartQuantity(int quantity, String user, String product) {
+        try {
+            Call<Cart> call = cartService.updateCartQuantity(quantity, user, product);
+            call.enqueue(new Callback<Cart>() {
+                @Override
+                public void onResponse(Call<Cart> call, Response<Cart> response) {
+
+                }
+
+                @Override
+                public void onFailure(Call<Cart> call, Throwable t) {
+
+                }
+            });
+        } catch (Exception e) {
+            Log.d("Error", e.getMessage());
+        }
+    }
+
     @Override
     public void callback(int position, Cart cart, double total) {
         cartRVAdapter = new CartRVAdapter(cart, email, CartFragment.this, total);
@@ -243,12 +292,20 @@ public class CartFragment extends Fragment implements UpdateCartRecycleView {
             btn_checkout.setVisibility(View.VISIBLE);
         }
 
+        ArrayList<CartItem> cartItemsList = new ArrayList<>(cart.getItems());
+//
+//        Locale localeVN = new Locale("vi", "VN");
+//        NumberFormat currencyVN = NumberFormat.getCurrencyInstance(localeVN);
+//        String price = currencyVN.format(total);
+//        tv_total.setText(price);
+
         btn_checkout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), CheckoutActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putDouble("Total", total);
+                bundle.putSerializable("CartItems", cartItemsList);
                 intent.putExtra("BUNDLE", bundle);
                 startActivity(intent);
             }
