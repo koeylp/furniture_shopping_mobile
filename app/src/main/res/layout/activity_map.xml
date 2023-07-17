@@ -41,8 +41,6 @@
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            xmlns:tools="http://schemas.android.com/tools"
             android:layout_below="@+id/toolbar">
 
             <fragment
@@ -52,17 +50,22 @@
                 android:layout_height="match_parent" />
 
 
-                <androidx.appcompat.widget.SearchView
-                    android:id="@+id/searchBar"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginEnd="16dp"
-                    android:layout_marginBottom="16dp"
-                    android:elevation="5dp"
-                    android:outlineProvider="bounds"
-                    android:background="#FFFFFF"/>
+            <com.mancj.materialsearchbar.MaterialSearchBar
+                android:id="@+id/searchBar"
+                style="@style/MaterialSearchBarLight"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="16dp"
+                android:elevation="5dp"
+                android:outlineProvider="bounds"
+                app:mt_hint="Search a place"
+                app:mt_maxSuggestionsCount="10"
+                app:mt_navIconEnabled="true"
+                app:mt_placeholder="Search a place"
+                app:mt_speechMode="false" />
 
             <Button
                 android:id="@+id/btn_find"
