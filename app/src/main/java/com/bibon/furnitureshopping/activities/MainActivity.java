@@ -24,13 +24,17 @@ import com.bibon.furnitureshopping.R;
 import com.bibon.furnitureshopping.databinding.ActivityMainBinding;
 import com.bibon.furnitureshopping.fragments.CartFragment;
 import com.bibon.furnitureshopping.fragments.HomeFragment;
-import com.bibon.furnitureshopping.fragments.MapFragment;
 import com.bibon.furnitureshopping.fragments.NotificationFragment;
 import com.bibon.furnitureshopping.fragments.ProfileFragment;
+import com.google.android.gms.maps.MapFragment;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationBarView;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
+import com.karumi.dexter.Dexter;
+import com.karumi.dexter.PermissionToken;
+import com.karumi.dexter.listener.PermissionDeniedResponse;
+import com.karumi.dexter.listener.PermissionGrantedResponse;
+import com.karumi.dexter.listener.PermissionRequest;
+import com.karumi.dexter.listener.single.PermissionListener;
 //import com.karumi.dexter.Dexter;
 //import com.karumi.dexter.PermissionToken;
 //import com.karumi.dexter.listener.PermissionDeniedResponse;
@@ -104,50 +108,49 @@ public class MainActivity extends AppCompatActivity {
         navigateMapFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                RequestLocationPermission();
-                  replaceFragment(new MapFragment());
+                RequestLocationPermission();
             }
         });
     }
 
-//    private void RequestLocationPermission()
-//    {
-//        Dexter.withActivity(MainActivity.this)
-//                .withPermission(Manifest.permission.ACCESS_FINE_LOCATION)
-//                .withListener(new PermissionListener() {
-//                    @Override
-//                    public void onPermissionGranted(PermissionGrantedResponse response) {
-//                        replaceFragment(new MapFragment());
-//                    }
-//
-//                    @Override
-//                    public void onPermissionDenied(PermissionDeniedResponse response) {
-//                        if(response.isPermanentlyDenied()){
-//                            AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-//                            builder.setTitle("Permission Denied")
-//                                    .setMessage("Permission to access device location is permanently denied. you need to go to setting to allow the permission.")
-//                                    .setNegativeButton("Cancel", null)
-//                                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-//                                        @Override
-//                                        public void onClick(DialogInterface dialog, int which) {
-//                                            Intent intent = new Intent();
-//                                            intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
-//                                            intent.setData(Uri.fromParts("package", getPackageName(), null));
-//                                        }
-//                                    })
-//                                    .show();
-//                        } else {
-//                            Toast.makeText(MainActivity.this, "Permission Denied", Toast.LENGTH_SHORT).show();
-//                        }
-//                    }
-//
-//                    @Override
-//                    public void onPermissionRationaleShouldBeShown(PermissionRequest permission, PermissionToken token) {
-//                        token.continuePermissionRequest();
-//                    }
-//                })
-//                .check();
-//    }
+    private void RequestLocationPermission()
+    {
+        Dexter.withActivity(MainActivity.this)
+                .withPermission(Manifest.permission.ACCESS_FINE_LOCATION)
+                .withListener(new PermissionListener() {
+                    @Override
+                    public void onPermissionGranted(PermissionGrantedResponse response) {
+                        startActivity(new Intent(MainActivity.this, StoreMapActivity.class));
+                    }
+
+                    @Override
+                    public void onPermissionDenied(PermissionDeniedResponse response) {
+                        if(response.isPermanentlyDenied()){
+                            AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                            builder.setTitle("Permission Denied")
+                                    .setMessage("Permission to access device location is permanently denied. you need to go to setting to allow the permission.")
+                                    .setNegativeButton("Cancel", null)
+                                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            Intent intent = new Intent();
+                                            intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                                            intent.setData(Uri.fromParts("package", getPackageName(), null));
+                                        }
+                                    })
+                                    .show();
+                        } else {
+                            Toast.makeText(MainActivity.this, "Permission Denied", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onPermissionRationaleShouldBeShown(PermissionRequest permission, PermissionToken token) {
+                        token.continuePermissionRequest();
+                    }
+                })
+                .check();
+    }
 
 
     private void replaceFragment(Fragment fragment) {

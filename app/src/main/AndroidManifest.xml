@@ -27,6 +27,8 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_map_api" />
 
+        <activity android:name=".activities.StoreMapActivity"
+            android:exported="false"/>
         <activity
             android:name=".activities.ShowProfileActivity"
             android:exported="false" />
