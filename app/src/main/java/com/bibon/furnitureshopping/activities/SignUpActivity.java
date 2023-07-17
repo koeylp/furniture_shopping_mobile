@@ -92,6 +92,21 @@ public class SignUpActivity extends AppCompatActivity {
                                         Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
                                         startActivity(intent);
                                         finish();
+                                        User user = new User(email, name, phone);
+                                        Call<User> call = userService.signup(user);
+                                        call.enqueue(new Callback<User>() {
+                                            @Override
+                                            public void onResponse(Call<User> call, Response<User> response) {
+                                                if (response.body() != null) {
+                                                    System.out.println(user.getFullname());
+                                                }
+                                            }
+
+                                            @Override
+                                            public void onFailure(Call<User> call, Throwable t) {
+
+                                            }
+                                        });
                                     } else {
                                         // If sign in fails, display a message to the user.
                                         Toast.makeText(SignUpActivity.this, "Authentication failed.",
@@ -99,21 +114,7 @@ public class SignUpActivity extends AppCompatActivity {
                                     }
                                 }
                             });
-                    User user = new User(email, name, phone);
-                    Call<User> call = userService.signup(user);
-                    call.enqueue(new Callback<User>() {
-                        @Override
-                        public void onResponse(Call<User> call, Response<User> response) {
-                            if (response.body() != null) {
-                                System.out.println(user.getFullname());
-                            }
-                        }
 
-                        @Override
-                        public void onFailure(Call<User> call, Throwable t) {
-
-                        }
-                    });
                 }
             }
         });

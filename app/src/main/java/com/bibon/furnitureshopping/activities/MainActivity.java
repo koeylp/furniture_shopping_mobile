@@ -1,38 +1,36 @@
 package com.bibon.furnitureshopping.activities;
 
+import android.Manifest;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.bibon.furnitureshopping.R;
-import com.bibon.furnitureshopping.adapters.CartRVAdapter;
 import com.bibon.furnitureshopping.databinding.ActivityMainBinding;
 import com.bibon.furnitureshopping.fragments.CartFragment;
 import com.bibon.furnitureshopping.fragments.HomeFragment;
 import com.bibon.furnitureshopping.fragments.NotificationFragment;
 import com.bibon.furnitureshopping.fragments.ProfileFragment;
 import com.bibon.furnitureshopping.models.Cart;
-import com.bibon.furnitureshopping.models.CartItem;
 import com.bibon.furnitureshopping.models.User;
 import com.bibon.furnitureshopping.models.UserChat;
-import com.bibon.furnitureshopping.repositories.CartRepository;
-import com.bibon.furnitureshopping.repositories.UserRepository;
 import com.bibon.furnitureshopping.services.CartService;
 import com.bibon.furnitureshopping.services.UserService;
 import com.bibon.furnitureshopping.utils.AndroidUtils;
@@ -44,16 +42,15 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationBarView;
 import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.Query;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
-
-import java.text.NumberFormat;
-import java.util.Collections;
-import java.util.Locale;
+import com.karumi.dexter.Dexter;
+import com.karumi.dexter.PermissionToken;
+import com.karumi.dexter.listener.PermissionDeniedResponse;
+import com.karumi.dexter.listener.PermissionGrantedResponse;
+import com.karumi.dexter.listener.PermissionRequest;
+import com.karumi.dexter.listener.single.PermissionListener;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -135,16 +132,12 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        //
-        cartService = CartRepository.getCartService();
-        userService = UserRepository.getUserService();
-        // Get email
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        if (currentUser != null) {
-            email = currentUser.getEmail();
-        }
+        InitNavigateToMapFragmentFab();
+    }
 
-        getUserByEmail(email);
+    private void InitNavigateToMapFragmentFab() {
+        FloatingActionButton navigateMapFab = findViewById(R.id.navigate_map_fab);
+
 
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -152,6 +145,51 @@ public class MainActivity extends AppCompatActivity {
                 getAdminUserModel();
             }
         });
+
+        navigateMapFab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                RequestLocationPermission();
+            }
+        });
+    }
+
+    private void RequestLocationPermission() {
+        Dexter.withActivity(MainActivity.this)
+                .withPermission(Manifest.permission.ACCESS_FINE_LOCATION)
+                .withListener(new PermissionListener() {
+                    @Override
+                    public void onPermissionGranted(PermissionGrantedResponse response) {
+                        startActivity(new Intent(MainActivity.this, StoreMapActivity.class));
+                    }
+
+                    @Override
+                    public void onPermissionDenied(PermissionDeniedResponse response) {
+                        if (response.isPermanentlyDenied()) {
+                            AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                            builder.setTitle("Permission Denied")
+                                    .setMessage("Permission to access device location is permanently denied. you need to go to setting to allow the permission.")
+                                    .setNegativeButton("Cancel", null)
+                                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            Intent intent = new Intent();
+                                            intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                                            intent.setData(Uri.fromParts("package", getPackageName(), null));
+                                        }
+                                    })
+                                    .show();
+                        } else {
+                            Toast.makeText(MainActivity.this, "Permission Denied", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onPermissionRationaleShouldBeShown(PermissionRequest permission, PermissionToken token) {
+                        token.continuePermissionRequest();
+                    }
+                })
+                .check();
 
     }
 

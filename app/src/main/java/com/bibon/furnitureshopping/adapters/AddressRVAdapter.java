@@ -4,6 +4,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -40,7 +41,7 @@ public class AddressRVAdapter extends RecyclerView.Adapter<AddressRVAdapter.Addr
         String addressOneLine = address.getAddress() + ", " + address.getWard() + ", " + address.getDistrict() + ", " + address.getProvince();
         holder.tv_fullname.setText(address.getFullname());
         holder.tv_address_detail.setText(addressOneLine);
-        holder.tv_phone.setText("Phone number: " + address.getPhone());
+        holder.tv_phone.setText("|  " + address.getPhone());
 
         if (address.getStatus() == 1 || addressList.size() == 1) {
             holder.btn_default.setVisibility(View.VISIBLE);
@@ -52,6 +53,13 @@ public class AddressRVAdapter extends RecyclerView.Adapter<AddressRVAdapter.Addr
             @Override
             public void onClick(View v) {
                 context.setDefaultAddress(address.get_id(), address.getUser(), position);
+            }
+        });
+
+        holder.img_delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                context.deleteAddress(address.get_id());
             }
         });
     }
@@ -68,6 +76,7 @@ public class AddressRVAdapter extends RecyclerView.Adapter<AddressRVAdapter.Addr
         private TextView tv_phone;
         private ConstraintLayout ctl_address_view;
         private Button btn_default;
+        private ImageView img_delete;
 
         public AddressRvHolder(@NonNull View itemView) {
             super(itemView);
@@ -76,6 +85,7 @@ public class AddressRVAdapter extends RecyclerView.Adapter<AddressRVAdapter.Addr
             tv_phone = itemView.findViewById(R.id.tv_phone);
             ctl_address_view = itemView.findViewById(R.id.ctl_address_view);
             btn_default = itemView.findViewById(R.id.btn_default);
+            img_delete = itemView.findViewById(R.id.img_delete);
         }
     }
 

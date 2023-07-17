@@ -10,7 +10,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/ctl_address_view"
         android:layout_width="369dp"
-        android:layout_height="135dp"
+        android:layout_height="140dp"
         android:background="@drawable/custom_order_history_card"
         android:elevation="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -31,27 +31,28 @@
             android:textStyle="normal"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.473"
+            app:layout_constraintHorizontal_bias="0.421"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.877" />
+            app:layout_constraintVertical_bias="0.504" />
 
         <TextView
             android:id="@+id/tv_phone"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="145dp"
+            android:layout_height="28dp"
             android:fontFamily="@font/nunito_sans_semibold"
             android:maxWidth="350dp"
-            android:text="Phone number: 0949485844"
+            android:text="|  (+84) 949485844"
             android:textColor="#656262"
             android:textSize="16dp"
+            android:layout_marginTop="9dp"
             android:textStyle="normal"
             app:layout_constraintBottom_toTopOf="@+id/tv_address_detail"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.056"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintHorizontal_bias="0.169"
+            app:layout_constraintStart_toEndOf="@+id/tv_fullname"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.839" />
+            app:layout_constraintVertical_bias="0.23" />
 
         <TextView
             android:id="@+id/tv_fullname"
@@ -67,7 +68,7 @@
             app:layout_constraintBottom_toTopOf="@+id/view"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="1.0" />
+            app:layout_constraintVertical_bias="0.538" />
 
         <View
             android:id="@+id/view"
@@ -85,15 +86,24 @@
             android:id="@+id/btn_default"
             android:layout_width="100dp"
             android:layout_height="35dp"
-            android:layout_marginEnd="16dp"
             android:adjustViewBounds="true"
             android:background="@drawable/custom_button"
             android:cropToPadding="true"
             android:text="Default"
             android:textAllCaps="false"
             android:textColor="#ffffff"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <ImageView
+            android:id="@+id/img_delete"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/close" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
