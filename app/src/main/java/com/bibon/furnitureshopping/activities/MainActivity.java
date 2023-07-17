@@ -43,6 +43,7 @@ import com.bibon.furnitureshopping.services.CartService;
 import com.bibon.furnitureshopping.services.UserService;
 import com.google.android.material.badge.BadgeDrawable;
 import com.google.android.material.navigation.NavigationBarView;
+import com.google.firebase.auth.FirebaseAuth;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.PermissionToken;
 import com.karumi.dexter.listener.PermissionDeniedResponse;
