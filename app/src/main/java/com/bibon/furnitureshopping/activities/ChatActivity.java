@@ -6,21 +6,14 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bibon.furnitureshopping.R;
 import com.bibon.furnitureshopping.adapters.ChatRVAdapter;
-import com.bibon.furnitureshopping.fragments.CartFragment;
-import com.bibon.furnitureshopping.fragments.ChatFragment;
-import com.bibon.furnitureshopping.fragments.HelpCenterFragment;
-import com.bibon.furnitureshopping.fragments.HomeFragment;
-import com.bibon.furnitureshopping.fragments.NotificationFragment;
-import com.bibon.furnitureshopping.fragments.ProfileFragment;
 import com.bibon.furnitureshopping.models.ChatMessageModel;
 import com.bibon.furnitureshopping.models.ChatRoomModel;
 import com.bibon.furnitureshopping.models.UserChat;
@@ -30,7 +23,6 @@ import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.navigation.NavigationBarView;
 import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -62,11 +54,7 @@ public class ChatActivity extends AppCompatActivity {
         rvChat = (RecyclerView) findViewById(R.id.rvChat);
         headerName = (TextView) findViewById(R.id.headerName);
 
-//        if (adminModel.getUsername().equals("admin")) {
-//            return;
-//        } else {
-//            headerName.setText("Chat with user: "+  adminModel.getUsername());
-//        }
+
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -81,15 +69,21 @@ public class ChatActivity extends AppCompatActivity {
             }
             sendMessageToUser(message);
         }));
+        if (adminModel.getUsername().equals("admin")) {
+            Toast.makeText(ChatActivity.this, "Chào bạn đến với Home Furniture " , Toast.LENGTH_SHORT).show();
+        } else {
+            headerName.setText("Chat with user: " + adminModel.getUsername());
+        }
 
         getOrCreateChatRoomModel();
         setupChatRecyclerView();
     }
-    void setupChatRecyclerView(){
+
+    void setupChatRecyclerView() {
         Query query = FirebaseUtil.getChatRoomMessageReference(chatroomId)
-                .orderBy("timestamp",Query.Direction.DESCENDING);
+                .orderBy("timestamp", Query.Direction.DESCENDING);
         FirestoreRecyclerOptions<ChatMessageModel> options = new FirestoreRecyclerOptions.Builder<ChatMessageModel>()
-                .setQuery(query,ChatMessageModel.class).build();
+                .setQuery(query, ChatMessageModel.class).build();
 
         adapter = new ChatRVAdapter(options, getApplicationContext());
         LinearLayoutManager manager = new LinearLayoutManager(this);
