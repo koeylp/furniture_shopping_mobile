@@ -19,11 +19,10 @@ import com.bibon.furnitureshopping.fragments.HomeFragment;
 import com.bibon.furnitureshopping.models.CartAdding;
 import com.bibon.furnitureshopping.models.CartItemAdding;
 import com.bibon.furnitureshopping.models.Product;
+import com.bibon.furnitureshopping.utils.Utils;
 import com.squareup.picasso.Picasso;
 
-import java.text.NumberFormat;
 import java.util.ArrayList;
-import java.util.Locale;
 
 public class ProductRVAdapter extends RecyclerView.Adapter<ProductRVAdapter.ProductRvHolder> {
 
@@ -69,9 +68,7 @@ public class ProductRVAdapter extends RecyclerView.Adapter<ProductRVAdapter.Prod
         Product currentItem = products.get(position);
         Picasso.get().load(currentItem.getImg()).placeholder(R.drawable.armchair).error(R.drawable.armchair).fit().into(holder.img_product);
         holder.tv_product_name.setText(currentItem.getProductName());
-        Locale localeVN = new Locale("vi", "VN");
-        NumberFormat currencyVN = NumberFormat.getCurrencyInstance(localeVN);
-        String price = currencyVN.format(currentItem.getPrice());
+        String price = Utils.vietNamMoneyFormat(currentItem.getPrice());
         holder.tv_product_price.setText(price);
         holder.img_add_to_cart.setOnClickListener(new View.OnClickListener() {
             @Override

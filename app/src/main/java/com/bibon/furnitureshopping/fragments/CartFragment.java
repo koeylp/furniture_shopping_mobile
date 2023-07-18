@@ -28,13 +28,12 @@ import com.bibon.furnitureshopping.repositories.UserRepository;
 import com.bibon.furnitureshopping.services.CartService;
 import com.bibon.furnitureshopping.services.UserService;
 import com.bibon.furnitureshopping.utils.UpdateCartRecycleView;
+import com.bibon.furnitureshopping.utils.Utils;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -144,9 +143,7 @@ public class CartFragment extends Fragment implements UpdateCartRecycleView {
                     cartRVAdapter = new CartRVAdapter(cart, email, CartFragment.this, total);
                     cartRecycleView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
                     cartRecycleView.setAdapter(cartRVAdapter);
-                    Locale localeVN = new Locale("vi", "VN");
-                    NumberFormat currencyVN = NumberFormat.getCurrencyInstance(localeVN);
-                    String price = currencyVN.format(total);
+                    String price = Utils.vietNamMoneyFormat(total);
                     tv_total.setText(price);
 
                     if (total == 0) {
@@ -192,9 +189,7 @@ public class CartFragment extends Fragment implements UpdateCartRecycleView {
                         return;
                     }
                     deleteItemById(user.get_id(), productId);
-                    Locale localeVN = new Locale("vi", "VN");
-                    NumberFormat currencyVN = NumberFormat.getCurrencyInstance(localeVN);
-                    String price = currencyVN.format(total);
+                    String price = Utils.vietNamMoneyFormat(total);
                     tv_total.setText(price);
                     MainActivity mainActivity = (MainActivity) getActivity();
                     mainActivity.setCountProductToCart(mainActivity.getCountProduct() - 1);
@@ -241,9 +236,7 @@ public class CartFragment extends Fragment implements UpdateCartRecycleView {
                         return;
                     }
                     updateCartQuantity(quantity, user.get_id(), productId);
-                    Locale localeVN = new Locale("vi", "VN");
-                    NumberFormat currencyVN = NumberFormat.getCurrencyInstance(localeVN);
-                    String price = currencyVN.format(total);
+                    String price = Utils.vietNamMoneyFormat(total);
                     tv_total.setText(price);
                     MainActivity mainActivity = (MainActivity) getActivity();
                     mainActivity.setCountProductToCart(mainActivity.getCountProduct() - 1);
@@ -293,11 +286,6 @@ public class CartFragment extends Fragment implements UpdateCartRecycleView {
         }
 
         ArrayList<CartItem> cartItemsList = new ArrayList<>(cart.getItems());
-//
-//        Locale localeVN = new Locale("vi", "VN");
-//        NumberFormat currencyVN = NumberFormat.getCurrencyInstance(localeVN);
-//        String price = currencyVN.format(total);
-//        tv_total.setText(price);
 
         btn_checkout.setOnClickListener(new View.OnClickListener() {
             @Override

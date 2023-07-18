@@ -46,7 +46,7 @@
         <EditText
             android:id="@+id/editTextName"
             style="@style/modifiedEditText"
-            android:hint="Fullname"
+            android:hint="What we may call you"
             android:inputType="textEmailAddress"
             android:maxLines="1" />
     </com.google.android.material.textfield.TextInputLayout>
