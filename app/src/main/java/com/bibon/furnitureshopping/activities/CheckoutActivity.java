@@ -31,16 +31,15 @@ import com.bibon.furnitureshopping.repositories.UserRepository;
 import com.bibon.furnitureshopping.services.AddressService;
 import com.bibon.furnitureshopping.services.OrderService;
 import com.bibon.furnitureshopping.services.UserService;
+import com.bibon.furnitureshopping.utils.Utils;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import org.json.JSONObject;
 
 import java.math.BigDecimal;
-import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -62,7 +61,7 @@ public class CheckoutActivity extends AppCompatActivity {
     Order order;
     Spinner spinnerPayment;
     PaymentAdapter paymentAdapter;
-    TextView tv_order_price, tv_total;
+    TextView tv_order_price, tv_total, tv_shipping_price;
     ImageView editAddress;
     ArrayList<CartItem> cartItems;
 
@@ -101,18 +100,18 @@ public class CheckoutActivity extends AppCompatActivity {
         tv_address_detail = findViewById(R.id.tv_address_detail);
         btn_submit_order = findViewById(R.id.btn_submit_order);
         editAddress = findViewById(R.id.edit_address);
+        tv_shipping_price = findViewById(R.id.tv_shipping_price);
 
         // Intent
         Intent intent = getIntent();
         Bundle args = intent.getBundleExtra("BUNDLE");
         double total = args.getDouble("Total");
         cartItems = (ArrayList<CartItem>) args.getSerializable("CartItems");
-
-        Locale localeVN = new Locale("vi", "VN");
-        NumberFormat currencyVN = NumberFormat.getCurrencyInstance(localeVN);
-        String price = currencyVN.format(total);
+        String price = Utils.vietNamMoneyFormat(total);
         tv_order_price.setText(price);
-        tv_total.setText(currencyVN.format(total + 15000));
+        tv_shipping_price.setText(Utils.vietNamMoneyFormat(15000));
+        tv_total.setText(Utils.vietNamMoneyFormat(total + 15000));
+
 
         editAddress.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -211,7 +210,7 @@ public class CheckoutActivity extends AppCompatActivity {
                         for (Address address : addresses) {
                             if (address.getStatus() == 1 || addresses.length == 1) {
                                 tv_name.setText(address.getFullname());
-                                tv_phone.setText(address.getPhone());
+                                tv_phone.setText("|    " + address.getPhone());
                                 tv_address_detail.setText(address.getAddress() + ", " + address.getWard() + ", " + address.getDistrict() + ", " + address.getProvince());
                             }
                         }
@@ -269,7 +268,7 @@ public class CheckoutActivity extends AppCompatActivity {
 
                 @Override
                 public void onFailure(Call<User> call, Throwable t) {
-                    System.out.println("error: " + t);
+                    Log.d("Failure: ", t.getMessage());
                 }
             });
 

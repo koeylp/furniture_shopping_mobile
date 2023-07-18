@@ -6,7 +6,6 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -15,16 +14,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.bibon.furnitureshopping.R;
 import com.bibon.furnitureshopping.models.User;
-import com.bibon.furnitureshopping.models.UserChat;
 import com.bibon.furnitureshopping.repositories.UserRepository;
 import com.bibon.furnitureshopping.services.UserService;
-import com.bibon.furnitureshopping.utils.FirebaseUtil;
+import com.bibon.furnitureshopping.utils.Utils;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.Timestamp;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.DocumentSnapshot;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -34,11 +30,14 @@ public class SignUpActivity extends AppCompatActivity {
 
     EditText editTextEmail, editTextName, editTextPassword, editTextConfirmPassword, editTextPhone;
     Button btn_sign_up;
-    ProgressBar progressBar;
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
     UserService userService;
-
-
+    private static final String PASSWORD_REQUIRED = ". a digit must occur at least once\n" +
+            ". a lower case letter must occur at least once\n" +
+            ". an upper case letter must occur at least once\n" +
+            ". a special character must occur at least once\n" +
+            ". no whitespace allowed in the entire string\n" +
+            ". at least 8 characters";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,14 +54,12 @@ public class SignUpActivity extends AppCompatActivity {
         editTextPassword = findViewById(R.id.editTextPassword);
         editTextConfirmPassword = findViewById(R.id.editTextConfirmPassword);
         btn_sign_up = findViewById(R.id.btn_sign_up);
-        progressBar = findViewById(R.id.progress_bar_register);
 
 
         TextView tvLoginNow = findViewById(R.id.tv_login_now);
         btn_sign_up.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                progressBar.setVisibility(View.VISIBLE);
                 String email = String.valueOf(editTextEmail.getText());
                 String name = String.valueOf(editTextName.getText());
                 String password = String.valueOf(editTextPassword.getText());
@@ -81,6 +78,10 @@ public class SignUpActivity extends AppCompatActivity {
                     Toast.makeText(v.getContext(), "Phone required", Toast.LENGTH_SHORT).show();
                 } else if (!password.equals(confirmPassword)) {
                     Toast.makeText(v.getContext(), "Password and Confirm Password must be matched", Toast.LENGTH_SHORT).show();
+                } else if (!Utils.validate(email)) {
+                    Toast.makeText(v.getContext(), "Wrong format request Email", Toast.LENGTH_SHORT).show();
+                } else if (!Utils.passwordvalidation(password)) {
+                    editTextPassword.setError(PASSWORD_REQUIRED);
                 } else {
                     mAuth.createUserWithEmailAndPassword(email, password)
                             .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
