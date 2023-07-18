@@ -1,9 +1,16 @@
 package com.bibon.furnitureshopping.activities;
 
 import android.Manifest;
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.util.Log;
@@ -18,10 +25,14 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.bibon.furnitureshopping.NotificationActivity;
 import com.bibon.furnitureshopping.R;
 import com.bibon.furnitureshopping.databinding.ActivityMainBinding;
 import com.bibon.furnitureshopping.fragments.CartFragment;
@@ -56,6 +67,8 @@ import com.karumi.dexter.listener.PermissionDeniedResponse;
 import com.karumi.dexter.listener.PermissionGrantedResponse;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.single.PermissionListener;
+
+import java.util.Random;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -136,8 +149,52 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
-
         InitNavigateToMapFragmentFab();
+    }
+
+    public void createNotification() {
+        String id = "cart_noti_id";
+        NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel channel = manager.getNotificationChannel(id);
+            if (channel == null) {
+                channel = new NotificationChannel(id, "Cart Notification", NotificationManager.IMPORTANCE_HIGH);
+                channel.setDescription("You have "+ getCountProduct() +" products in cart");
+                channel.enableVibration(true);
+                channel.setVibrationPattern(new long[]{100, 1000, 200, 340});
+                channel.setLockscreenVisibility(Notification.VISIBILITY_PUBLIC);
+                manager.createNotificationChannel(channel);
+            }
+        }
+        Intent notiIntent = new Intent(this, MainActivity.class);
+        notiIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, notiIntent, PendingIntent.FLAG_IMMUTABLE);
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, id)
+                .setSmallIcon(R.drawable.notification)
+                .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.armchair))
+                .setStyle(new NotificationCompat.BigPictureStyle()
+                        .bigPicture(BitmapFactory.decodeResource(getResources(), R.drawable.armchair))
+                        .bigLargeIcon(null))
+                .setContentTitle("Cart Notification")
+                .setContentText("You have " + getCountProduct() + " in your cart")
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .setVibrate(new long[]{100, 1000, 200, 340})
+                .setAutoCancel(false) //true touch on notification menu dissmissed, but swipe to dismiss
+                .setTicker("Notification");
+        builder.setContentIntent(pendingIntent);
+        NotificationManagerCompat m = NotificationManagerCompat.from(getApplicationContext());
+        //id to generate new notification in list notification menu
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
+        m.notify(new Random().nextInt(), builder.build());
     }
 
     private void InitNavigateToMapFragmentFab() {
@@ -285,6 +342,7 @@ public class MainActivity extends AppCompatActivity {
                         return;
                     }
                     setCountProductToCart(cart.getItems().size());
+                    createNotification();
                 }
 
                 @Override
