@@ -163,10 +163,13 @@ public class CheckoutActivity extends AppCompatActivity {
         });
 
         btn_submit_order.setOnClickListener(new View.OnClickListener() {
+            boolean flag = true;
+
             @Override
             public void onClick(View v) {
                 cartItems.forEach(item -> {
                     if (item.getCartQuantity() > item.getProduct().getQuantity()) {
+                        flag = false;
                         Intent intent = new Intent(getApplicationContext(), FailedActivity.class);
                         String information = "The quantity of " + item.getProduct().getProductName() + " you order is greater than our stock. Please let the quantity smaller or equal " + item.getProduct().getQuantity();
                         Bundle bundle = new Bundle();
@@ -178,12 +181,14 @@ public class CheckoutActivity extends AppCompatActivity {
                         orderDetails.add(new OrderDetail(item.getProduct().get_id(), item.getCartQuantity()));
                     }
                 });
-
-                if (payment.equals("0")) {
-                    requestZaloPay(email, orderDetails, total + 15000, "ZaloPay");
-                } else {
-                    getUserByEmailOrder(email, total + 15000, orderDetails, "COD");
+                if (flag) {
+                    if (payment.equals("0")) {
+                        requestZaloPay(email, orderDetails, total + 15000, "ZaloPay");
+                    } else {
+                        getUserByEmailOrder(email, total + 15000, orderDetails, "COD");
+                    }
                 }
+
             }
         });
     }
