@@ -22,12 +22,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -152,10 +154,11 @@ public class MainActivity extends AppCompatActivity {
         InitNavigateToMapFragmentFab();
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.TIRAMISU)
     public void createNotification() {
         String id = "cart_noti_id";
         NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             NotificationChannel channel = manager.getNotificationChannel(id);
             if (channel == null) {
                 channel = new NotificationChannel(id, "Cart Notification", NotificationManager.IMPORTANCE_HIGH);
@@ -184,15 +187,9 @@ public class MainActivity extends AppCompatActivity {
         builder.setContentIntent(pendingIntent);
         NotificationManagerCompat m = NotificationManagerCompat.from(getApplicationContext());
         //id to generate new notification in list notification menu
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-            return;
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.POST_NOTIFICATIONS}, 101);
+
         }
         m.notify(new Random().nextInt(), builder.build());
     }
