@@ -1,47 +1,41 @@
 package com.bibon.furnitureshopping.models;
 
-public class Cart {
-    private String productName;
-    private double price;
-    private int cartQuantity;
-    private String img;
+import java.io.Serializable;
+import java.util.ArrayList;
 
-    public Cart(String productName, double price, int cartQuantity, String img) {
-        this.productName = productName;
-        this.price = price;
-        this.cartQuantity = cartQuantity;
-        this.img = img;
+public class Cart implements Serializable {
+
+    private String _id;
+    private String user;
+    private ArrayList<CartItem> items;
+
+    public Cart(String _id, String user, ArrayList<CartItem> items) {
+        this._id = _id;
+        this.user = user;
+        this.items = items;
     }
 
-    public String getProductName() {
-        return productName;
+    public String get_id() {
+        return _id;
     }
 
-    public void setProductName(String productName) {
-        this.productName = productName;
+    public void set_id(String _id) {
+        this._id = _id;
     }
 
-    public double getPrice() {
-        return price;
+    public String getUser() {
+        return user;
     }
 
-    public void setPrice(double price) {
-        this.price = price;
+    public void setUser(String user) {
+        this.user = user;
     }
 
-    public int getCartQuantity() {
-        return cartQuantity;
+    public ArrayList<CartItem> getItems() {
+        return items;
     }
 
-    public void setCartQuantity(int cartQuantity) {
-        this.cartQuantity = cartQuantity;
-    }
-
-    public String getImg() {
-        return img;
-    }
-
-    public void setImg(String img) {
-        this.img = img;
+    public void setItems(ArrayList<CartItem> items) {
+        this.items = items;
     }
 }

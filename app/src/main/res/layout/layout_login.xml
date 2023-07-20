@@ -20,6 +20,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:text="WELCOME BACK"
+        android:fontFamily="serif"
         android:textColor="@color/blackTextColor"
         android:textSize="@dimen/headerTextSize"
         android:textStyle="bold" />
@@ -32,10 +33,16 @@
         <EditText
             android:id="@+id/editTextEmail"
             style="@style/modifiedEditText"
-            android:hint="Username"
+            android:hint="Email"
             android:inputType="textEmailAddress"
             android:maxLines="1" />
     </com.google.android.material.textfield.TextInputLayout>
+
+    <ProgressBar
+        android:id="@+id/progress_bar_login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"/>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputPassword"
@@ -56,6 +63,7 @@
         android:layout_height="50dp"
         android:background="@color/blackTextColor"
         android:text="LOGIN"
+        android:fontFamily="serif"
         android:layout_marginTop="40dp"
         android:layout_marginLeft="34dp"
         android:layout_marginRight="60dp"
@@ -70,6 +78,7 @@
         android:layout_height="wrap_content"
         android:text="Don't Have an Account?\nSign Up Now."
         android:textAlignment="center"
+        android:fontFamily="serif"
         android:layout_marginTop="30dp"
         android:textColor="@color/blackTextColor"
         android:textSize="12sp"

@@ -7,13 +7,13 @@
     android:background="#CACCCE"
     tools:context=".activities.ConfirmationActivity">
 
-
     <TextView
         android:id="@+id/tv_success"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="64dp"
         android:text="SUCCESS!"
+        android:fontFamily="serif"
         android:textColor="#303030"
         android:textSize="36dp"
         android:textStyle="bold"
@@ -65,7 +65,9 @@ Thank you for choosing our app!"
         android:adjustViewBounds="true"
         android:background="@color/blackTextColor"
         android:cropToPadding="true"
+        android:fontFamily="serif"
         android:text="Track your orders"
+
         android:textColor="#ffffff"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -79,8 +81,8 @@ Thank you for choosing our app!"
         android:adjustViewBounds="true"
         android:background="#FFFFFF"
         android:cropToPadding="true"
+        android:fontFamily="serif"
         android:text="BACK TO HOME"
-
         android:textColor="@color/blackTextColor"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

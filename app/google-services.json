@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "253255717601",
+    "project_id": "homefurniture-44b9d",
+    "storage_bucket": "homefurniture-44b9d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:253255717601:android:de7f185ef50ac30a2c9da0",
+        "android_client_info": {
+          "package_name": "com.bibon.furnitureshopping"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "253255717601-nsr5vb5qbqb9vbl3f3cnsk179v3tq076.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC1F3DqEYv9v406mZbjCnMkIbJ754Z21FM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "253255717601-nsr5vb5qbqb9vbl3f3cnsk179v3tq076.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,59 +1,61 @@
 package com.bibon.furnitureshopping.fragments;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatButton;
+import androidx.fragment.app.Fragment;
 
 import com.bibon.furnitureshopping.R;
+import com.bibon.furnitureshopping.activities.AddressShippingActivity;
+import com.bibon.furnitureshopping.activities.LoginActivity;
+import com.bibon.furnitureshopping.activities.OrderHistoryActivity;
+import com.bibon.furnitureshopping.activities.ShowProfileActivity;
+import com.bibon.furnitureshopping.models.User;
+import com.bibon.furnitureshopping.repositories.UserRepository;
+import com.bibon.furnitureshopping.services.UserService;
+import com.bumptech.glide.Glide;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link ProfileFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+
 public class ProfileFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    FirebaseAuth mAuth;
+    ImageView img;
+    TextView tvUsername, tvEmail;
+    UserService userService;
+    LinearLayout linear_layout_my_orders;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public ProfileFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment ProfileFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static ProfileFragment newInstance(String param1, String param2) {
-        ProfileFragment fragment = new ProfileFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+    public void onStart() {
+        super.onStart();
+        // Check if user is signed in (non-null) and update UI accordingly.
+        try {
+            FirebaseUser currentUser = mAuth.getCurrentUser();
+            if (currentUser == null) {
+                Intent intent = new Intent(getActivity(), LoginActivity.class);
+                startActivity(intent);
+            } else {
+                System.out.println(currentUser);
+            }
+        } catch (NullPointerException e) {
+            System.out.println(e);
         }
     }
 
@@ -62,5 +64,100 @@ public class ProfileFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_profile, container, false);
+
+
     }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        img = view.findViewById(R.id.img_avatar);
+        tvUsername = view.findViewById(R.id.tv_username);
+        tvEmail = view.findViewById(R.id.tv_email);
+        linear_layout_my_orders = view.findViewById(R.id.linearLayout_my_orders);
+
+        userService = UserRepository.getUserService();
+
+        AppCompatButton btn_log_out = view.findViewById(R.id.btn_logout);
+        LinearLayout linearLayoutAddresses = view.findViewById(R.id.linearLayout_addresses);
+        LinearLayout linearLayoutProfile = view.findViewById(R.id.linearLayout_my_profile);
+        btn_log_out.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FirebaseAuth.getInstance().signOut();
+                Intent intent = new Intent(v.getContext(), LoginActivity.class);
+                startActivity(intent);
+            }
+        });
+        linearLayoutAddresses.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), AddressShippingActivity.class);
+                startActivity(intent);
+                getActivity().finish();
+            }
+        });
+        linearLayoutProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), ShowProfileActivity.class);
+                startActivity(intent);
+                getActivity().finish();
+            }
+        });
+
+        linear_layout_my_orders.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), OrderHistoryActivity.class);
+                startActivity(intent);
+                getActivity().finish();
+            }
+        });
+
+        showUserInfor();
+
+    }
+
+    private void showUserInfor() {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user == null) {
+            return;
+        }
+
+        String username = user.getDisplayName();
+        String email = user.getEmail();
+        Uri photoUrl = user.getPhotoUrl();
+
+        getUserByEmail(email);
+        tvUsername.setText(username);
+        tvEmail.setText(email);
+        Glide.with(this).load(photoUrl).error(R.drawable.avatar).into(img);
+    }
+
+    private void getUserByEmail(String email) {
+        try {
+            Call<User> call = userService.getUserByEmail(email);
+            call.enqueue(new Callback<User>() {
+                @Override
+                public void onResponse(Call<User> call, Response<User> response) {
+                    User user = response.body();
+                    if (user == null) {
+                        return;
+                    }
+                    tvUsername.setText(user.getFullname());
+                }
+
+                @Override
+                public void onFailure(Call<User> call, Throwable t) {
+                    System.out.println("error: " + t);
+                }
+            });
+
+        } catch (Exception e) {
+            Log.d("Error", e.getMessage());
+        }
+    }
+
+
 }
